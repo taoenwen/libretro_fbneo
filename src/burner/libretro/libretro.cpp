@@ -28,7 +28,6 @@
 #define STAT_SMALL   3
 #define STAT_LARGE   4
 
-
 #ifdef LIGHT
 #undef APP_TITLE
 #define APP_TITLE "FinalBurn Neo Light"
@@ -2081,8 +2080,6 @@ static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszR
 
 					if (0 == strncmp(pszPath, "arc", 3))	// Arcade
 					{
-						INT32 i;
-
 						for (i = 0; i <= nConsolesType; i++)
 						{
 							if (i == nConsolesType)														// It's an arcade game.
@@ -2154,8 +2151,9 @@ static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszR
 
 			// root_dir/.../ips_dir/consoles_dir || arcade_dir/romsets.zip
 			sprintf(szSet_path, "%s%c%s%c%s", szIps_path, PATH_DEFAULT_SLASH_C(), pszLine, PATH_DEFAULT_SLASH_C(), szRomset);
-		}
 
+			bRet = true;
+		}
 	}
 	else
 		bRet = false;
