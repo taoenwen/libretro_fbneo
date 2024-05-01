@@ -232,6 +232,8 @@ void evaluate_neogeo_bios_mode(const char* drvname);
 void set_environment();
 void check_variables(void);
 int HandleMessage(enum retro_log_level level, TCHAR* szFormat, ...);
+char* strqtoken(char* s, const char* delims);
+void IpsPatchExit();
 #ifdef USE_CYCLONE
 void SetSekCpuCore();
 #endif

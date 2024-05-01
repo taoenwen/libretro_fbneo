@@ -28,6 +28,7 @@
 #define STAT_SMALL   3
 #define STAT_LARGE   4
 
+
 #ifdef LIGHT
 #undef APP_TITLE
 #define APP_TITLE "FinalBurn Neo Light"
@@ -58,7 +59,6 @@ static unsigned libretro_msg_interface_version = 0;
 
 int kNetGame = 0;
 INT32 nReplayStatus = 0;
-INT32 nIpsMaxFileLen = 0;
 unsigned nGameType = 0;
 static INT32 nGameWidth = 800;
 static INT32 nGameHeight = 600;
@@ -134,13 +134,7 @@ unsigned ArcadeJoystick;
 int bDrvOkay;
 int bRunPause;
 bool bAlwaysProcessKeyboardInput;
-bool bDoIpsPatch;
-void IpsApplyPatches(UINT8* base, char* rom_name, UINT32 crc, bool readonly) {}
-INT32 GetIpsesMaxLen(char* rom_name) {return -1;}
-bool GetIpsDrvProtection() { return false; };
-void GetIpsDrvDefine() {}
 void BurnerDoGameListExLocalisation() {}
-UINT32 nIpsDrvDefine		= 0, nIpsMemExpLen[SND2_ROM + 1] = { 0 };
 UINT32 nStartFrame = 0;
 INT32 FreezeInput(UINT8** buf, INT32* size) { return 0; }
 INT32 UnfreezeInput(const UINT8* buf, INT32 size) { return 0; }
@@ -369,7 +363,7 @@ void retro_set_environment(retro_environment_t cb)
 
 	// Subsystem (needs to be called now, or it won't work on command line)
 	static const struct retro_subsystem_rom_info subsystem_rom[] = {
-		{ "Rom", "zip|7z", true, true, true, NULL, 0 },
+		{ "Rom", "zip|7z|dat", true, true, true, NULL, 0 },
 	};
 	static const struct retro_subsystem_rom_info subsystem_iso[] = {
 		{ "Iso", "ccd|cue", true, true, true, NULL, 0 },
@@ -412,7 +406,7 @@ void retro_get_system_info(struct retro_system_info *info)
 	info->library_version = strdup(library_version);
 	info->need_fullpath = true;
 	info->block_extract = true;
-	info->valid_extensions = "zip|7z|cue|ccd";
+	info->valid_extensions = "zip|7z|cue|ccd|dat";
 
 	free(library_version);
 }
@@ -1986,13 +1980,207 @@ end:
 	return true;
 }
 
+static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszRomsetPath)
+{
+/*==============================================================================================================*
+ *																												*
+ *	[1] Specify paths to romsets from path.ini																	*
+ *------------------------------------------------																*
+ *	root_dir/.../ips_dir/path.ini																				*
+ *	root_dir/path_dir/romsets.zip						# path_dir must be specified (Arcade)					*
+ *	root_dir/path_dir (inc. consoles_dir)/romsets.zip	# path_dir must include consoles_dir! (Consoles_dir)	*
+ *																												*
+ *																												*
+ *	[2] The romsets path is not specified																		*
+ *------------------------------------------------																*
+ *	root_dir/.../ips_dir/arcade_dir/romsets.zip			# Auto-oriented directory (with arcade_dir)				*
+ *	root_dir/.../ips_dir/consoles_dir/romsets.zip		# Auto-oriented directory (with consoles_dir!)			*
+ *																												*
+ *																												*
+ *	[3] Path to ips & dat																						*
+ *------------------------------------------------																*
+ *	[A]											/	[B]															*
+ *	root_dir/.../ips_dir/drvname_dir/ips.dat	/	root_dir/.../ips_dir/drvname_dir/ips.dat					*
+ *	root_dir/.../ips_dir/drvname_dir/ipses.ips	/	root_dir/.../ips_dir/drvname_dir/sub_dir/ipses.ips			*
+ *																												*
+ *																												*
+ *	[4] About consoles_dir																						*
+ *------------------------------------------------																*
+ *	Console games that are not in a directory with a console-specific name are not recognized					*
+ *	as console games and are loaded as arcade games, which will cause an error to occur							*
+ *																												*
+ *==============================================================================================================*/
+
+	const char* pszLine = strrchr(info->path, '.');
+	char szSet_path[MAX_PATH] = { 0 };
+	bool bRet = false;
+
+	if (string_is_equal_case_insensitive(pszLine, ".dat"))	// ips or romdata
+	{
+/*
+		TODO: The code to determine ips or romdata will be in the future.
+*/
+		char szIps_path[MAX_PATH] = { 0 }, szRomset[100] = { 0 }, szConfig[MAX_PATH] = { 0 };
+
+		memset(szAppIpsPath, 0, MAX_PATH);
+		strcpy(szAppIpsPath, info->path);	// root_dir/.../ips_dir/drvname_dir/ips.dat
+		strcpy(szIps_path, info->path);
+
+		char* pszTmp = NULL;
+
+		for (INT32 i = 0; i < 2; i++)
+		{
+			pszTmp = strrchr(szIps_path, PATH_DEFAULT_SLASH_C());
+			pszTmp[0] = '\0';				// ips_dir
+		}
+
+		strcpy(szRomset, ++pszTmp);			// romsets.zip
+
+		const char szTypeEnum[2][14][9] = {
+			{	"coleco",	"gamegear",	"megadriv",	"msx",	"pce",	"sg1000",	"sgx",	"sms",
+				"spectrum",	"tg16",		"nes",		"fds",	"ngp",	"channelf"			// consoles_dir
+			},
+			{	"cv_",		"gg_",		"md_",		"msx_",	"pce_",	"sg1k_",	"sgx_",	"sms_",
+				"spec_",	"tg_",		"nes_",		"fds_",	"ngp_",	"chf_"				// Signage of the console
+			}
+		};
+
+		const INT32 nConsolesType = 14;
+
+		sprintf(szConfig, "%s%c%s", szIps_path, PATH_DEFAULT_SLASH_C(), "path.ini");	// root_dir/.../ips_dir/path.ini
+
+		char* pszPath = NULL;
+
+		FILE* fp = fopen(szConfig, "rb");
+
+		if (NULL != fp)
+		{
+			memset(szConfig, 0, MAX_PATH);
+
+#define UTF8_SIGNATURE	"\xef\xbb\xbf"
+			while (!feof(fp) && !bRet)
+			{
+				if (NULL != fgets(szConfig, MAX_PATH, fp))
+				{
+					pszTmp = szConfig;
+
+					// skip UTF-8 sig
+					if (0 == strncmp(pszTmp, UTF8_SIGNATURE, strlen(UTF8_SIGNATURE)))
+						pszTmp += strlen(UTF8_SIGNATURE);
+
+#define DELIM_TOKENS " \t\r\n"
+					pszPath = strqtoken(pszTmp, DELIM_TOKENS);
+
+					if (NULL == pszPath)					// DELIM_TOKENS
+						continue;
+					if (*pszPath == '#')					// Instructions
+						continue;
+
+					INT32 i = 0;
+					char* p = NULL;
+
+					if (0 == strncmp(pszPath, "arc", 3))	// Arcade
+					{
+						INT32 i;
+
+						for (i = 0; i <= nConsolesType; i++)
+						{
+							if (i == nConsolesType)														// It's an arcade game.
+								break;
+							if (0 == strncmp(szTypeEnum[1][i], szRomset, strlen(szTypeEnum[1][i])))		// It's a console game.
+								break;
+						}
+
+						if (i == nConsolesType)
+						{
+							if (NULL == (pszPath = strqtoken(NULL, DELIM_TOKENS)))						// No path.
+								continue;
+							if (NULL == (p = strrchr(pszPath, PATH_DEFAULT_SLASH_C())))					// The path contains at least one slash.
+								continue;
+
+							if ('\0' == p[1])
+								p[0] = '\0';
+
+							sprintf(szSet_path, "%s%c%s", pszPath, PATH_DEFAULT_SLASH_C(), szRomset);	// root_dir/path_dir/romsets.zip
+							bRet = true;
+
+							break;
+						}
+					}
+					else
+					{
+						for (i = 0; i < nConsolesType; i++)	// Consoles
+						{
+							if ((0 != strncmp(pszPath, szRomset, strlen(szTypeEnum[1][i]) - 1)) || (0 != strncmp(pszPath, szTypeEnum[1][i], strlen(szTypeEnum[1][i]) - 1)))
+								continue;
+							if (NULL == (pszPath = strqtoken(NULL, DELIM_TOKENS)))
+								break;
+
+							// At least one slash and console directory.
+							if ((NULL == (p = strrchr(pszPath, PATH_DEFAULT_SLASH_C()))) || (NULL == strstr(pszPath, szTypeEnum[0][i])))
+								break;
+
+							if ('\0' == p[1])
+								p[0] = '\0';
+
+							sprintf(szSet_path, "%s%c%s", pszPath, PATH_DEFAULT_SLASH_C(), szRomset);	// root_dir/path_dir (inc. consoles_dir)/romsets.zip
+							bRet = true;
+
+							break;
+						}
+					}
+#undef DELIM_TOKENS
+				}
+			}
+#undef UTF8_SIGNATURE
+
+			fclose(fp);
+		}
+		else	// [2] The romsets path is not specified
+		{
+			for (INT32 i = 0; i < nConsolesType; i++)	// Consoles
+			{
+				if (0 == strncmp(szRomset, szTypeEnum[1][i], strlen(szTypeEnum[1][i])))
+				{
+					pszLine = szTypeEnum[0][i];			// consoles_dir
+					bRet = true;
+
+					break;
+				}
+			}
+
+			if (!bRet)
+				pszLine = "arcade";						// arcade_dir
+
+			// root_dir/.../ips_dir/consoles_dir || arcade_dir/romsets.zip
+			sprintf(szSet_path, "%s%c%s%c%s", szIps_path, PATH_DEFAULT_SLASH_C(), pszLine, PATH_DEFAULT_SLASH_C(), szRomset);
+		}
+
+	}
+	else
+		bRet = false;
+
+		strcpy(pszRomsetPath, szSet_path);
+
+	return bRet;
+}
+
 bool retro_load_game(const struct retro_game_info *info)
 {
 	if (!info)
 		return false;
+
+	char szRomsetPath[MAX_PATH] = { 0 };
+
+	bDoIpsPatch = retro_ips_romset_path(info, szRomsetPath);
+
+	const char* pszLine = (bDoIpsPatch) ? szRomsetPath : info->path;
+
+	if (bDoIpsPatch)
+		GetIpsDrvDefine();	// Entry point
 	
-	extract_basename(g_driver_name, info->path, sizeof(g_driver_name), "");
-	extract_directory(g_rom_dir, info->path, sizeof(g_rom_dir));
+	extract_basename(g_driver_name, pszLine, sizeof(g_driver_name), "");
+	extract_directory(g_rom_dir, pszLine, sizeof(g_rom_dir));
 	extract_basename(g_rom_parent_dir, g_rom_dir, sizeof(g_rom_parent_dir),"");
 	char * prefix="";
 	if(strcmp(g_rom_parent_dir, "coleco")==0 || strcmp(g_rom_parent_dir, "colecovision")==0) {
@@ -2055,10 +2243,10 @@ bool retro_load_game(const struct retro_game_info *info)
 		HandleMessage(RETRO_LOG_INFO, "[FBNeo] subsystem neocd identified from parent folder\n");
 		prefix = "";
 		nGameType = RETRO_GAME_TYPE_NEOCD;
-		strcpy(CDEmuImage, info->path);
+		strcpy(CDEmuImage, pszLine);
 		extract_basename(g_driver_name, "neocdz", sizeof(g_driver_name), prefix);
 	} else {
-		extract_basename(g_driver_name, info->path, sizeof(g_driver_name), prefix);
+		extract_basename(g_driver_name, pszLine, sizeof(g_driver_name), prefix);
 	}
 
 	return retro_load_game_common();
@@ -2165,6 +2353,7 @@ void retro_unload_game(void)
 	}
 	InputExit();
 	CheevosExit();
+	IpsPatchExit();
 }
 
 unsigned retro_get_region() { return RETRO_REGION_NTSC; }
