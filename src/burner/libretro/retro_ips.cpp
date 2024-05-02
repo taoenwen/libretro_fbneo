@@ -2,6 +2,8 @@
 #include "burner.h"
 #include "retro_common.h"
 
+#include <file/file_path.h>
+
 #define NUM_LANGUAGES		12
 #define MAX_ACTIVE_PATCHES	1024
 
@@ -23,13 +25,13 @@
 #define IPS_EXT			".ips"
 
 #define BYTE3_TO_UINT(bp) \
-     (((UINT32)(bp)[0] << 16) & 0x00FF0000) | \
-     (((UINT32)(bp)[1] <<  8) & 0x0000FF00) | \
-     (( UINT32)(bp)[2]        & 0x000000FF)
+	 (((UINT32)(bp)[0] << 16) & 0x00FF0000) | \
+	 (((UINT32)(bp)[1] <<  8) & 0x0000FF00) | \
+	 (( UINT32)(bp)[2]        & 0x000000FF)
 
 #define BYTE2_TO_UINT(bp) \
-    (((UINT32)(bp)[0] << 8) & 0xFF00) | \
-    (( UINT32)(bp)[1]       & 0x00FF)
+	(((UINT32)(bp)[0] << 8) & 0xFF00) | \
+	(( UINT32)(bp)[1]       & 0x00FF)
 
 bool bDoIpsPatch = false;
 UINT32 nIpsDrvDefine = 0, nIpsMemExpLen[SND2_ROM + 1] = { 0 };
@@ -99,13 +101,13 @@ static void PatchFile(const char* ips_path, UINT8* base, bool readonly)
 				
 				Offset++;
 
-                if (readonly)
+				if (readonly)
 				{
-                    if (!bRLE)
+					if (!bRLE)
 						fgetc(f);
-                }
+				}
 				else
-                    *mem8 = bRLE ? ch : fgetc(f);
+					*mem8 = bRLE ? ch : fgetc(f);
 			}
 		}
 	}
@@ -120,35 +122,35 @@ static void PatchFile(const char* ips_path, UINT8* base, bool readonly)
 
 static char* stristr_int(const char* str1, const char* str2)
 {
-    const char* p1 = str1;
-    const char* p2 = str2;
-    const char* r = (!*p2) ? str1 : NULL;
+	const char* p1 = str1;
+	const char* p2 = str2;
+	const char* r = (!*p2) ? str1 : NULL;
 
 	while (*p1 && *p2)
 	{
-        if (tolower((unsigned char)*p1) == tolower((unsigned char)*p2)) {
-            if (!r)
+		if (tolower((unsigned char)*p1) == tolower((unsigned char)*p2)) {
+			if (!r)
 				r = p1;
 
-            p2++;
-        }
+			p2++;
+		}
 		else
 		{
 			p2 = str2;
 
-            if (r)
+			if (r)
 				p1 = r + 1;
 
-            if (tolower((unsigned char)*p1) == tolower((unsigned char)*p2))
+			if (tolower((unsigned char)*p1) == tolower((unsigned char)*p2))
 			{
-                r = p1; p2++;
-            }
+				r = p1; p2++;
+			}
 			else
-                r = NULL;
-        }
+				r = NULL;
+		}
 
-        p1++;
-    }
+		p1++;
+	}
 
 	return (*p2) ? NULL : (char*)r;
 }
@@ -162,7 +164,7 @@ static UINT32 hexto32(const char *s)
 	{
 		UINT8 v = ((c & 0xf) + (c >> 6)) | ((c >> 3) & 0x08);
 		val = (val << 4) | (UINT32)v;
-    }
+	}
 
 	return val;
 }
@@ -208,18 +210,15 @@ char *strqtoken(char *s, const char *delims)
 
 static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UINT8* base, bool readonly)
 {
-	char s[MAX_PATH];
-	char* p = NULL, * rom_name = NULL, * ips_name = NULL, * ips_offs = NULL, * ips_crc = NULL;
+	char s[MAX_PATH] = { 0 }, * p = NULL, * rom_name = NULL, * ips_name = NULL, * ips_offs = NULL, * ips_crc = NULL;
 	UINT32 nIps_crc = 0;
 	FILE* fp = NULL;
-
-	//bprintf(0, _T("DoPatchGame [%S][%S]\n"), patch_name, game_name);
 
 	if (NULL != (fp = fopen(patch_name, "rb")))
 	{
 		bool bTarget = false;
 
-        while (!feof(fp))
+		while (!feof(fp))
 		{
 			if (NULL != fgets(s, sizeof(s), fp))
 			{
@@ -232,9 +231,9 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 				if (p[0] == '[')	// reached info-section of .dat file, time to leave.
 					break;
 
-                // Can support linetypes: (space or tab)
-                // "rom name.bin" "patch file.ips" CRC(abcd1234)
-                // romname.bin patchfile CRC(abcd1234)
+				// Can support linetypes: (space or tab)
+				// "rom name.bin" "patch file.ips" CRC(abcd1234)
+				// romname.bin patchfile CRC(abcd1234)
 				#define DELIM_TOKENS_NAME	" \t\r\n"
 				#define DELIM_TOKENS		" \t\r\n()"
 
@@ -246,9 +245,8 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 					continue;
 
 				ips_name = strqtoken(NULL, DELIM_TOKENS_NAME);
-				if (!ips_name) {
+				if (!ips_name)
 					continue;
-				}
 
 				nIps_crc = nRomOffset = 0; // Reset to 0
 
@@ -275,9 +273,9 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 					if (ips_crc)
 						nIps_crc = hexto32(ips_crc);
 
-                }
+				}
 
-                char *has_ext = stristr_int(ips_name, ".ips");
+				char *has_ext = stristr_int(ips_name, ".ips");
 
 				if (_stricmp(rom_name, game_name))	// name don't match?
 					if (nIps_crc != crc)			// crc don't match?
@@ -291,38 +289,15 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 					WERROR_A("rom crc :[%x]\n", nIps_crc);
 				}
 
-				char ips_path[MAX_PATH * 2];
-				char ips_dir[MAX_PATH];
-#if 0
-				TCHARToANSI(szAppIpsPath, ips_dir, sizeof(ips_dir));
-#else
+				char ips_path[MAX_PATH] = { 0 }, ips_dir[MAX_PATH] = { 0 }, * pszTmp = NULL;
 
-				char szIps_path[MAX_PATH] = { 0 };
-				strcpy(szIps_path, szAppIpsPath);
+				strcpy(ips_dir, szAppIpsPath);												// root_dir/.../ips_dir/drvname_dir/ips.dat
 
-				for (INT32 i = 0; i <2; i++)
-				{
-					char* pszTmp = strrchr(szIps_path, '\\');
-					if (NULL == pszTmp)
-						pszTmp = strrchr(szIps_path, '/');
-					if (NULL != pszTmp)
-						pszTmp[0] = '\0';
-				}
-				strncpy(ips_dir, szIps_path, sizeof(ips_dir));
-#endif
-#if defined(_WIN32)
-				sprintf(ips_path, "%s\\%s\\%s%s", ips_dir, ((0 != strchr(ips_name, '\\')) || (0 != strchr(ips_name, '/'))) ? BurnDrvGetTextA(DRV_NAME) : BurnDrvGetTextA(DRV_NAME), ips_name, (has_ext) ? "" : IPS_EXT);
-				FILE* f = fopen("debug.txt", "wt");
-				fwrite(ips_path, MAX_PATH, 1, f);
-				fclose(f);
-#else
-				if (strchr(ips_name, '\\')) {
-					// ips in parent's folder
-                    sprintf(ips_path, "%s/%s%s", ips_dir, ips_name, (has_ext) ? "" : IPS_EXT);
-				} else {
-					sprintf(ips_path, "%s%s/%s%s", ips_dir, BurnDrvGetTextA(DRV_NAME), ips_name, (has_ext) ? "" : IPS_EXT);
-				}
-#endif
+				if (NULL != (pszTmp = strrchr(ips_dir, PATH_DEFAULT_SLASH_C())))
+					pszTmp[1] = '\0';														// root_dir/.../ips_dir/drvname_dir/
+
+				sprintf(ips_path, "%s%s%s", ips_dir, ips_name, (has_ext) ? "" : IPS_EXT);	// root_dir/.../ips_dir/drvname_dir/(sub_dir/)ipses.ips
+
 				WERROR_A("ips_path=%s game_name=%s\n", ips_path, game_name);
 				PatchFile(ips_path, base, readonly);
 			}
@@ -497,8 +472,7 @@ void IpsApplyPatches(UINT8* base, char* rom_name, UINT32 crc, bool readonly)
 	if (!bDoIpsPatch)
 		return;
 
-	char ips_data[MAX_PATH];
-	memset(ips_data, 0, MAX_PATH);
+	char ips_data[MAX_PATH] = { 0 };
 	strcpy(ips_data, szAppIpsPath);
 
 	WERROR_A("ips_data=%s\n", ips_data);

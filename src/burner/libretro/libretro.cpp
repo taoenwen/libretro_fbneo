@@ -1987,7 +1987,7 @@ static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszR
  *------------------------------------------------																*
  *	root_dir/.../ips_dir/path.ini																				*
  *	root_dir/path_dir/romsets.zip						# path_dir must be specified (Arcade)					*
- *	root_dir/path_dir (inc. consoles_dir)/romsets.zip	# path_dir must include consoles_dir! (Consoles_dir)	*
+ *	root_dir/path_dir (inc. consoles_dir)/romsets.zip	# path_dir must include consoles_dir! (Consoles)		*
  *																												*
  *																												*
  *	[2] The romsets path is not specified																		*
