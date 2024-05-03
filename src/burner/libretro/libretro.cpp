@@ -137,9 +137,6 @@ void BurnerDoGameListExLocalisation() {}
 UINT32 nStartFrame = 0;
 INT32 FreezeInput(UINT8** buf, INT32* size) { return 0; }
 INT32 UnfreezeInput(const UINT8* buf, INT32 size) { return 0; }
-static struct RomDataInfo RDI = { 0 };
-RomDataInfo* pRDI = &RDI;
-struct BurnRomInfo* pDataRomDesc = NULL;
 bool bWithEEPROM = false;
 
 TCHAR szAppEEPROMPath[MAX_PATH];
@@ -1764,11 +1761,14 @@ static bool retro_load_game_common()
 	}
 #endif
 
-	nBurnDrvActive = BurnDrvGetIndexByName(g_driver_name);
+	nBurnDrvActive = ((NULL != pDataRomDesc) && (-1 != pRDI->nDescCount)) ? pRDI->nDriverId : BurnDrvGetIndexByName(g_driver_name);
 	if (nBurnDrvActive < nBurnDrvCount) {
 
 		// If the game is marked as not working, let's stop here
 		if (!(BurnDrvIsWorking())) {
+			if (NULL != pDataRomDesc)
+				RomDataExit();
+
 			SetUguiError("This romset is known but marked as not working\nOne of its clones might work so maybe give it a try");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] This romset is known but marked as not working\n");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] One of its clones might work so maybe give it a try\n");
@@ -1777,6 +1777,9 @@ static bool retro_load_game_common()
 
 		// If the game is a bios, let's stop here
 		if ((BurnDrvGetFlags() & BDF_BOARDROM)) {
+			if (NULL != pDataRomDesc)
+				RomDataExit();
+
 			SetUguiError("Bioses aren't meant to be launched this way");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Bioses aren't meant to be launched this way\n");
 			goto end;
@@ -1863,6 +1866,9 @@ static bool retro_load_game_common()
 			sprintf(uguiText, "%s%s%s\n\n%s%s", s1, s2, text_missing_files, s3, s4);
 			SetUguiError(uguiText);
 
+			if (NULL != pDataRomDesc)
+				RomDataExit();
+
 			goto end;
 		}
 		HandleMessage(RETRO_LOG_INFO, "[FBNeo] No missing files, proceeding\n");
@@ -1899,6 +1905,9 @@ static bool retro_load_game_common()
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] Initialized driver for %s\n", g_driver_name);
 		else
 		{
+			if (NULL != pDataRomDesc)
+				RomDataExit();
+
 			SetUguiError("Failed initializing driver\nThis is unexpected, you should probably report it.");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Failed initializing driver.\n");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] This is unexpected, you should probably report it.\n");
@@ -1947,6 +1956,9 @@ static bool retro_load_game_common()
 		VideoBufferInit();
 
 		if (pVidImage == NULL) {
+			if (NULL != pDataRomDesc)
+				RomDataExit();
+
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Failed allocating framebuffer memory\n");
 			goto end;
 		}
@@ -1967,6 +1979,10 @@ static bool retro_load_game_common()
 		static char uguiText[4096];
 		sprintf(uguiText, "%s%s%s", s1, s2, s3);
 		SetUguiError(uguiText);
+
+		if (NULL != pDataRomDesc)
+			RomDataExit();
+
 		goto end;
 	}
 	return true;
@@ -1977,6 +1993,174 @@ end:
 	nBurnDrvActive = ~0U;
 	AudioBufferInit(nBurnSoundRate, nBurnFPS);
 	return true;
+}
+
+static bool retro_romdata_romset_path(const struct retro_game_info* info, char* pszRomsetPath)
+{
+/*==============================================================================================================*
+ *																												*
+ *	[1] Specify paths to romsets from path.ini																	*
+ *------------------------------------------------																*
+ *	root_dir/.../ips_dir/path.ini																				*
+ *	root_dir/path_dir/romsets.zip						# path_dir must be specified (Arcade)					*
+ *	root_dir/path_dir (inc. consoles_dir)/romsets.zip	# path_dir must include consoles_dir! (Consoles)		*
+ *																												*
+ *																												*
+ *	[2] The romsets path is not specified																		*
+ *------------------------------------------------																*
+ *	root_dir/.../romdata_dir/arcade_dir/romsets.zip			# Auto-oriented directory (with arcade_dir)			*
+ *	root_dir/.../romdata_dir/consoles_dir/romsets.zip		# Auto-oriented directory (with consoles_dir!)		*
+ *																												*
+ *																												*
+ *	[3] About consoles_dir																						*
+ *------------------------------------------------																*
+ *	Console games that are not in a directory with a console-specific name are not recognized					*
+ *	as console games and are loaded as arcade games, which will cause an error to occur							*
+ *																												*
+ *==============================================================================================================*/
+
+	const char* pszLine = strrchr(info->path, '.');
+	char szSet_path[MAX_PATH] = { 0 };
+	bool bRet = false;
+
+	if (string_is_equal_case_insensitive(pszLine, ".dat"))	// ips or romdata
+	{
+		char szRomdata_path[MAX_PATH] = { 0 }, szRomset[100] = { 0 }, szConfig[MAX_PATH] = { 0 };
+
+		strcpy(szRomdata_path, info->path);		// root_dir/.../romdata_dir/romdata.dat
+
+		char* pszTmp = NULL;
+		pszTmp = strrchr(szRomdata_path, PATH_DEFAULT_SLASH_C());
+		pszTmp[0] = '\0';						// romdata_dir
+
+		strcpy(szRomset, RomdataGetDrvName());	// romsets.zip
+
+		const char szTypeEnum[2][14][9] = {
+			{	"coleco",	"gamegear",	"megadriv",	"msx",	"pce",	"sg1000",	"sgx",	"sms",
+				"spectrum",	"tg16",		"nes",		"fds",	"ngp",	"channelf"				// consoles_dir
+			},
+			{	"cv_",		"gg_",		"md_",		"msx_",	"pce_",	"sg1k_",	"sgx_",	"sms_",
+				"spec_",	"tg_",		"nes_",		"fds_",	"ngp_",	"chf_"					// Signage of the console
+			}
+		};
+
+		const INT32 nConsolesType = 14;
+
+		sprintf(szConfig, "%s%c%s", szRomdata_path, PATH_DEFAULT_SLASH_C(), "path.ini");	// root_dir/.../romdata_dir/path.ini
+
+		char* pszPath = NULL;
+
+		FILE* fp = fopen(szConfig, "rb");
+
+		if (NULL != fp)
+		{
+			memset(szConfig, 0, MAX_PATH);
+
+#define UTF8_SIGNATURE	"\xef\xbb\xbf"
+			while (!feof(fp) && !bRet)
+			{
+				if (NULL != fgets(szConfig, MAX_PATH, fp))
+				{
+					pszTmp = szConfig;
+
+					// skip UTF-8 sig
+					if (0 == strncmp(pszTmp, UTF8_SIGNATURE, strlen(UTF8_SIGNATURE)))
+						pszTmp += strlen(UTF8_SIGNATURE);
+
+#define DELIM_TOKENS " \t\r\n"
+					pszPath = strqtoken(pszTmp, DELIM_TOKENS);
+
+					if (NULL == pszPath)					// DELIM_TOKENS
+						continue;
+					if (*pszPath == '#')					// Instructions
+						continue;
+
+					INT32 i = 0;
+					char* p = NULL;
+
+					if (0 == strncmp(pszPath, "arc", 3))	// Arcade
+					{
+						for (i = 0; i <= nConsolesType; i++)
+						{
+							if (i == nConsolesType)														// It's an arcade game.
+								break;
+							if (0 == strncmp(szTypeEnum[1][i], szRomset, strlen(szTypeEnum[1][i])))		// It's a console game.
+								break;
+						}
+
+						if (i == nConsolesType)
+						{
+							if (NULL == (pszPath = strqtoken(NULL, DELIM_TOKENS)))						// No path.
+								continue;
+							if (NULL == (p = strrchr(pszPath, PATH_DEFAULT_SLASH_C())))					// The path contains at least one slash.
+								continue;
+
+							if ('\0' == p[1])
+								p[0] = '\0';
+
+							sprintf(szSet_path, "%s%c%s", pszPath, PATH_DEFAULT_SLASH_C(), szRomset);	// root_dir/path_dir/romsets.zip
+							bRet = true;
+
+							break;
+						}
+					}
+					else
+					{
+						for (i = 0; i < nConsolesType; i++)	// Consoles
+						{
+							if ((0 != strncmp(pszPath, szRomset, strlen(szTypeEnum[1][i]) - 1)) || (0 != strncmp(pszPath, szTypeEnum[1][i], strlen(szTypeEnum[1][i]) - 1)))
+								continue;
+							if (NULL == (pszPath = strqtoken(NULL, DELIM_TOKENS)))
+								break;
+
+							// At least one slash and console directory.
+							if ((NULL == (p = strrchr(pszPath, PATH_DEFAULT_SLASH_C()))) || (NULL == strstr(pszPath, szTypeEnum[0][i])))
+								break;
+
+							if ('\0' == p[1])
+								p[0] = '\0';
+
+							sprintf(szSet_path, "%s%c%s", pszPath, PATH_DEFAULT_SLASH_C(), szRomset);	// root_dir/path_dir (inc. consoles_dir)/romsets.zip
+							bRet = true;
+
+							break;
+						}
+					}
+#undef DELIM_TOKENS
+				}
+			}
+#undef UTF8_SIGNATURE
+
+			fclose(fp);
+		}
+		else	// [2] The romsets path is not specified
+		{
+			for (INT32 i = 0; i < nConsolesType; i++)	// Consoles
+			{
+				if (0 == strncmp(szRomset, szTypeEnum[1][i], strlen(szTypeEnum[1][i])))
+				{
+					pszLine = szTypeEnum[0][i];			// consoles_dir
+					bRet = true;
+
+					break;
+				}
+			}
+
+			if (!bRet)
+				pszLine = "arcade";						// arcade_dir
+
+			// root_dir/.../romdata_dir/consoles_dir || arcade_dir/romsets.zip
+			sprintf(szSet_path, "%s%c%s%c%s", szRomdata_path, PATH_DEFAULT_SLASH_C(), pszLine, PATH_DEFAULT_SLASH_C(), szRomset);
+
+			bRet = true;
+		}
+	}
+	else
+		bRet = false;
+
+	strcpy(pszRomsetPath, szSet_path);
+
+	return bRet;
 }
 
 static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszRomsetPath)
@@ -2016,9 +2200,6 @@ static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszR
 
 	if (string_is_equal_case_insensitive(pszLine, ".dat"))	// ips or romdata
 	{
-/*
-		TODO: The code to determine ips or romdata will be in the future.
-*/
 		char szIps_path[MAX_PATH] = { 0 }, szRomset[100] = { 0 }, szConfig[MAX_PATH] = { 0 };
 
 		memset(szAppIpsPath, 0, MAX_PATH);
@@ -2158,7 +2339,7 @@ static bool retro_ips_romset_path(const struct retro_game_info* info, char* pszR
 	else
 		bRet = false;
 
-		strcpy(pszRomsetPath, szSet_path);
+	strcpy(pszRomsetPath, szSet_path);
 
 	return bRet;
 }
@@ -2169,11 +2350,19 @@ bool retro_load_game(const struct retro_game_info *info)
 		return false;
 
 	char szRomsetPath[MAX_PATH] = { 0 };
+	bool bDoRomdata = false;
 
-	bDoIpsPatch = retro_ips_romset_path(info, szRomsetPath);
+	strcpy(szRomdataName, info->path);
 
-	const char* pszLine = (bDoIpsPatch) ? szRomsetPath : info->path;
+	if (NULL != RomdataGetDrvName())
+		bDoRomdata = retro_romdata_romset_path(info, szRomsetPath);	// romdata
+	else
+		bDoIpsPatch = retro_ips_romset_path(info, szRomsetPath);	// ips
 
+	const char* pszLine = (bDoIpsPatch || bDoRomdata) ? szRomsetPath : info->path;
+
+	if (bDoRomdata)
+		RomDataInit();
 	if (bDoIpsPatch)
 		GetIpsDrvDefine();	// Entry point
 	
@@ -2351,6 +2540,7 @@ void retro_unload_game(void)
 	}
 	InputExit();
 	CheevosExit();
+	RomDataExit();
 	IpsPatchExit();
 }
 

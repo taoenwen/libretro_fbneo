@@ -254,6 +254,10 @@ INT32 ZipGetList(struct ZipEntry** pList, INT32* pnListCount);
 INT32 ZipLoadFile(UINT8* Dest, INT32 nLen, INT32* pnWrote, INT32 nEntry);
 INT32 __cdecl ZipLoadOneFile(char* arcName, const char* fileName, void** Dest, INT32* pnWrote);
 
+// retro_romdata.cpp
+
+extern TCHAR szRomdataName[MAX_PATH];
+
 // bzip.cpp
 
 #define BZIP_STATUS_OK		(0)
