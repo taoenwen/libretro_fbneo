@@ -922,7 +922,7 @@ static bool open_archive()
 				memset(&ri, 0, sizeof(ri));
 				BurnDrvGetRomInfo(&ri, i);
 
-				if (ri.nType == 0 || ri.nLen == 0 || ri.nCrc == 0)
+				if (ri.nType == 0 || ri.nLen == 0 || ((NULL == pDataRomDesc) && (-1 == pRDI->nDescCount) && (0 == ri.nCrc)))
 				{
 					pRomFind[i].nState = STAT_OK;
 					continue;
@@ -936,19 +936,26 @@ static bool open_archive()
 
 				bool unknown_crc = false;
 
-				if (index < 0 && g_find_list_path[z].ignoreCrc && bPatchedRomsetsEnabled)
+				if (index < 0)
 				{
-					index = find_rom_by_name(rom_name, list, count, &real_rom_crc);
-					if (index >= 0)
-						unknown_crc = true;
+					if ((g_find_list_path[z].ignoreCrc && bPatchedRomsetsEnabled) ||
+						((NULL != pDataRomDesc) && (-1 != pRDI->nDescCount)))					// In romdata mode
+					{
+						index = find_rom_by_name(rom_name, list, count, &real_rom_crc);
+						if (index >= 0)
+							unknown_crc = true;
+					}
 				}
 
 				if (index >= 0)
 				{
-					if (unknown_crc)
-						HandleMessage(RETRO_LOG_WARN, "[FBNeo] Using ROM with unknown crc 0x%08x and name %s from archive %s\n", real_rom_crc, rom_name, g_find_list_path[z].path.c_str());
-					else
-						HandleMessage(RETRO_LOG_INFO, "[FBNeo] Using ROM with known crc 0x%08x and name %s from archive %s\n", ri.nCrc, real_rom_name, g_find_list_path[z].path.c_str());
+					if ((NULL == pDataRomDesc) && (-1 == pRDI->nDescCount))						// Not in romdata mode
+					{
+						if (unknown_crc)
+							HandleMessage(RETRO_LOG_WARN, "[FBNeo] Using ROM with unknown crc 0x%08x and name %s from archive %s\n", real_rom_crc, rom_name, g_find_list_path[z].path.c_str());
+						else
+							HandleMessage(RETRO_LOG_INFO, "[FBNeo] Using ROM with known crc 0x%08x and name %s from archive %s\n", ri.nCrc, real_rom_name, g_find_list_path[z].path.c_str());
+					}
 				}
 				else
 				{

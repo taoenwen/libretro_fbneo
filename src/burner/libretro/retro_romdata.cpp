@@ -121,16 +121,6 @@ static INT32 IsDatUTF8BOM()
 	return nRet;
 }
 
-static char* TCHARToANSI(const TCHAR* pszInString, char* pszOutString, int /*nOutSize*/)
-{
-	if (pszOutString) {
-		strcpy(pszOutString, pszInString);
-		return pszOutString;
-	}
-
-	return (char*)pszInString;
-}
-
 #define DELIM_TOKENS_NAME	_T(" \t\r\n,%:|{}")
 #define _strqtoken	strqtoken
 #define _tcscmp		strcmp

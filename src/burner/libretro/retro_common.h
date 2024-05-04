@@ -233,7 +233,7 @@ void set_environment();
 void check_variables(void);
 int HandleMessage(enum retro_log_level level, TCHAR* szFormat, ...);
 char* strqtoken(char* s, const char* delims);
-void IpsPatchExit();
+char* TCHARToANSI(const TCHAR* pszInString, char* pszOutString, int /*nOutSize*/);
 #ifdef USE_CYCLONE
 void SetSekCpuCore();
 #endif

@@ -12,6 +12,7 @@
 
 #include "tchar.h"
 
+
 // Macro to make quoted strings
 #define MAKE_STRING_2(s) #s
 #define MAKE_STRING(s) MAKE_STRING_2(s)
@@ -254,7 +255,7 @@ INT32 ZipGetList(struct ZipEntry** pList, INT32* pnListCount);
 INT32 ZipLoadFile(UINT8* Dest, INT32 nLen, INT32* pnWrote, INT32 nEntry);
 INT32 __cdecl ZipLoadOneFile(char* arcName, const char* fileName, void** Dest, INT32* pnWrote);
 
-// retro_romdata.cpp
+// romdata.cpp
 
 extern TCHAR szRomdataName[MAX_PATH];
 
