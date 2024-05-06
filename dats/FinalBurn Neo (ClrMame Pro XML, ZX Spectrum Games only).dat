@@ -1687,6 +1687,16 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="astroball" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<description>Astroball (128K)</description>
+		<year>1992</year>
+		<manufacturer>Revelation Software</manufacturer>
+		<rom name="Astroball 128K (1992)(Revelation Software).tap" size="48342" crc="92699532"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="astroclone" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
 		<description>Astroclone (48K)</description>
 		<year>1985</year>
@@ -2611,6 +2621,16 @@
 		<year>1989</year>
 		<manufacturer>Virgin Mastertronic</manufacturer>
 		<rom name="Billy the Kid (1989)(Virgin Mastertronic).tap" size="34510" crc="bc4e886c"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="binbattle" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Binary Battle (48K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>Haplo</manufacturer>
+		<rom name="Binary Battle 48K (2024)(Haplo).tap" size="23691" crc="b4d1bb45"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
@@ -10350,6 +10370,28 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="helltanke" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Hell Tank - Easy Mode (128K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>fransouls</manufacturer>
+		<rom name="Hell Tank 128K - Easy (2024)(fransouls).tap" size="56854" crc="33dc72ea"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="helltankh" cloneof="helltanke" romof="helltanke" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Hell Tank - Hard Mode (128K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>fransouls</manufacturer>
+		<rom name="Hell Tank 128K - Hard (2024)(fransouls).tap" size="56919" crc="31514705"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="hellyeah" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Homebrew</comment>
 		<description>HELL YEAH! (48K) (HB)</description>
@@ -11616,12 +11658,31 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="jawz" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<description>Jawz (16K)</description>
+		<year>1983</year>
+		<manufacturer>Elfin Software</manufacturer>
+		<rom name="Jawz 16K (1983)(Elfin Software).tap" size="12530" crc="3fede27f"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="jeffnotes" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Homebrew</comment>
 		<description>Jeff &amp; the Blue Notes (128K) (HB)</description>
 		<year>2023</year>
 		<manufacturer>Deanysoft</manufacturer>
 		<rom name="Jeff &amp; The Blue Notes 128K (2023)(Deanysoft).tap" size="44152" crc="2484175f"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="jesterquest" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<description>Jester Quest (128K)</description>
+		<year>1988</year>
+		<manufacturer>Zenobi Software</manufacturer>
+		<rom name="Jester Quest 128K (1988)(Zenobi).tap" size="126145" crc="67e918d2"/>
 		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
 		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
@@ -21357,6 +21418,16 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="sup48kbro" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Super 48K Bro. (48K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>Rothers</manufacturer>
+		<rom name="Super 48k Bro. (2024)(Rothers).tap" size="47966" crc="c378e0a2"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="supalienbl" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Homebrew</comment>
 		<description>Super Alien Blast (48K) (HB)</description>
@@ -23388,6 +23459,16 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="vegetadx" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew, AY Sound supported</comment>
+		<description>Vegetables Deluxe (48K) (HB)</description>
+		<year>2021</year>
+		<manufacturer>Mike Richmond</manufacturer>
+		<rom name="Vegetables Deluxe 48K + PSG (2021)(Mike Richmond).tap" size="40589" crc="4c7d2616"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="darkveils" cloneof="darkveile" romof="darkveile" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Homebrew</comment>
 		<description>Velo Oscuro, El (Spanish) (48K) (HB)</description>
@@ -24640,12 +24721,22 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
-	<game name="zxoilpgw" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+	<game name="zxoilpgw" cloneof="zxoilpgwv2" romof="zxoilpgwv2" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Homebrew</comment>
 		<description>ZX Oil Panic Game &amp; Watch (48K) (HB)</description>
 		<year>2021</year>
 		<manufacturer>Menyiques</manufacturer>
 		<rom name="ZX Oil Panic G&amp;W 48K (2021)(Menyiques).tap" size="24803" crc="5cc0012c"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="zxoilpgwv2" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>ZX Oil Panic Game &amp; Watch (48K) (HB, v2)</description>
+		<year>2024</year>
+		<manufacturer>Menyiques</manufacturer>
+		<rom name="ZX Oil Panic Game &amp; Watch v2 48K (2024)(Menyiques).tap" size="31702" crc="7aceda1b"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>

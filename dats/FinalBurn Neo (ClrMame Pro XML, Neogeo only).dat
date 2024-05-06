@@ -555,7 +555,7 @@
 		<rom name="aby-p1.p1" size="524288" crc="a8a2a8a6"/>
 		<rom name="aby-s1.s1" size="131072" crc="1ebbb83e"/>
 		<rom name="aby-c1.c1" size="2097152" crc="24dabe27"/>
-		<rom name="aby-c2.c1" size="2097152" crc="bbdacc24"/>
+		<rom name="aby-c2.c2" size="2097152" crc="bbdacc24"/>
 		<rom name="aby-m1.m1" size="131072" crc="3ddf772b"/>
 		<rom name="aby-v1.v1" size="2097152" crc="1fae3797"/>
 		<rom name="sp-s3.sp1" merge="sp-s3.sp1" size="131072" crc="91b64be3"/>
@@ -10300,7 +10300,7 @@
 		<description>Metal Slug 3 (Last Bullet Remix, Hack)</description>
 		<year>2023</year>
 		<manufacturer>hack</manufacturer>
-		<rom name="256-plw.p1" size="1048576" crc="94527837"/>
+		<rom name="256-p1lw.p1" size="1048576" crc="94527837"/>
 		<rom name="256-p2ps.sp2" size="4194304" crc="08ee1fe3"/>
 		<rom name="256-s1d.s1" size="131072" crc="8458fff9"/>
 		<rom name="256-c1d.c1" size="8388608" crc="3540398c"/>
@@ -19681,12 +19681,12 @@
 	</game>
 	<game name="samsho2pe" cloneof="samsho2" romof="samsho2" sourcefile="neogeo/d_neogeo.cpp">
 		<comment>Hack</comment>
-		<description>Samurai Shodown II / Shin Samurai Spirits - Haohmaru Jigokuhen (Perfect V. 1.9, Hack)</description>
+		<description>Samurai Shodown II / Shin Samurai Spirits - Haohmaru Jigokuhen (Perfect V. 2.0, Hack)</description>
 		<year>2024</year>
 		<manufacturer>Bear</manufacturer>
-		<rom name="063-p1pe.p1" size="1048576" crc="d4b8d39c"/>
-		<rom name="063-p2pe.sp2" size="1048576" crc="6c833c91"/>
-		<rom name="063-p3pe.p3" size="131072" crc="edffbd8a"/>
+		<rom name="063-p1pe.p1" size="1048576" crc="7af0612c"/>
+		<rom name="063-p2pe.sp2" size="1048576" crc="5fb8a564"/>
+		<rom name="063-p3pe.p3" size="131072" crc="74c7e103"/>
 		<rom name="063-s1.s1" merge="063-s1.s1" size="131072" crc="64a5cd66"/>
 		<rom name="063-c1.c1" merge="063-c1.c1" size="2097152" crc="86cd307c"/>
 		<rom name="063-c2.c2" merge="063-c2.c2" size="2097152" crc="cdfcc4ca"/>

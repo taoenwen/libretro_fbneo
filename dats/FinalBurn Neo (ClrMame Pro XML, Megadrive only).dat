@@ -7509,10 +7509,10 @@
 	</game>
 	<game name="fistnstar" cloneof="lastbtle" romof="lastbtle" sourcefile="megadrive/d_megadrive.cpp">
 		<comment>Hack</comment>
-		<description>Fist of the North Star (Hack, English)</description>
-		<year>2017</year>
+		<description>Fist of the North Star 'Revisited' (Hack, English v1.2)</description>
+		<year>2024</year>
 		<manufacturer>Ermani S. Costa</manufacturer>
-		<rom name="Fist of the North Star T-Eng (2017)(Ermani S. Costa).bin" size="537838" crc="9ec420cc"/>
+		<rom name="Fist of the North Star Revisited T-Eng v1.2 (2024)(Ermani S. Costa).bin" size="537694" crc="7d424a16"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -13871,10 +13871,10 @@
 	</game>
 	<game name="nhl2024" cloneof="nhl94" romof="nhl94" sourcefile="megadrive/d_megadrive.cpp">
 		<comment>Hack</comment>
-		<description>NHL '94: 2024 Edition (Hack, v2.5)</description>
+		<description>NHL '94: 2024 Edition (Hack, v3.0)</description>
 		<year>2024</year>
 		<manufacturer>Adam Catalyst</manufacturer>
-		<rom name="NHL '94 - 2024 Edition v2.5 (2024)(Adam Catalyst).bin" size="2097152" crc="479e7006"/>
+		<rom name="NHL '94 - 2024 Edition v3.0 (2024)(Adam Catalyst).bin" size="2097152" crc="e27ea125"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
