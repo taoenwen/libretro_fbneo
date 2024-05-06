@@ -2246,17 +2246,17 @@ bool retro_load_game(const struct retro_game_info *info)
 
 	switch (nMode)
 	{
-	case 1:
-		RomDataInit();
-		break;
+		case 1:
+			RomDataInit();
+			break;
 
-	case 2:
-		bDoIpsPatch = true;
-		GetIpsDrvDefine();
-		break;
+		case 2:
+			bDoIpsPatch = true;
+			GetIpsDrvDefine();
+			break;
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	extract_basename(g_driver_name, szRomsetPath, sizeof(g_driver_name), "");
