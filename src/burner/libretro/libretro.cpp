@@ -1002,9 +1002,6 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 			path, sizeof(path), ".%croms%cfbneo%c%s",
 			PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), romName
 		);
-		FILE* f = fopen("path_a", "wb");
-		fwrite(path, strlen(path), 1, f);
-		fclose(f);
 		if (ZipOpen(path) == 0)
 		{
 			g_find_list_path.push_back(located_archive());
