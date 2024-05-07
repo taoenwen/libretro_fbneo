@@ -996,9 +996,53 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
 	}
 
+	{
+		// Search RA's roms/fbneo dir and specific subdirs
+		snprintf_nowarn(
+			path, sizeof(path), ".%croms%cfbneo%c%s",
+			PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), romName
+		);
+		FILE* f = fopen("path_a", "wb");
+		fwrite(path, strlen(path), 1, f);
+		fclose(f);
+		if (ZipOpen(path) == 0)
+		{
+			g_find_list_path.push_back(located_archive());
+			located_archive* located = &g_find_list_path.back();
+			located->path = path;
+			located->ignoreCrc = false;
+			ZipClose();
+			HandleMessage(RETRO_LOG_INFO, "[FBNeo] Romset found at %s\n", path);
+		}
+		else
+			HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
+
+		// Search subdirs of rom dir
+		for (INT32 nType = 0; nType < TYPES_MAX; nType++)
+		{
+			memset(path, 0, sizeof(path));
+			snprintf_nowarn(
+				path, sizeof(path), ".%croms%cfbneo%c%s%c%s",
+				PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName
+			);
+			if (ZipOpen(path) == 0)
+			{
+				g_find_list_path.push_back(located_archive());
+				located_archive* located = &g_find_list_path.back();
+				located->path = path;
+				located->ignoreCrc = false;
+				ZipClose();
+				HandleMessage(RETRO_LOG_INFO, "[FBNeo] Romset found at %s\n", path);
+			}
+			else
+				HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
+		}
+	}
+
+
 	if (0 == CoreRomPathsLoad())
 	{
-		// Search custom dirs
+		// Search custom dirs:[path.opt]
 		for (INT32 nPath = 0; nPath < DIRS_MAX; nPath++)
 		{
 			char* p = find_last_slash(CoreRomPaths[nPath]);
@@ -2186,7 +2230,7 @@ end:
 
 static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRomsetPath)
 {
-	INT32 nRet = 0;	// 1: romdata; 2: ips; 
+	INT32 nRet = 0;	// 1: romdata; 2: ips;
 
 	if (0 == strcmp(strrchr(info->path, '.'), ".dat"))
 	{
@@ -2221,17 +2265,10 @@ static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRo
 				strcpy(szRomset, ++pszTmp);				// romset of ips
 		}
 
-		switch (nRet)
-		{
-			case 1:
-			case 2:
-				sprintf(pszRomsetPath, "%s%c%s", szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
-				break;
-			default:
-				strcpy(pszRomsetPath, info->path);
-				break;
-		}
+		sprintf(pszRomsetPath, "%s%c%s", szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
 	}
+	else
+		strcpy(pszRomsetPath, info->path);
 
 	return nRet;
 }
