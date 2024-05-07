@@ -1306,7 +1306,7 @@ void check_variables(void)
 			bForce60Hz = true;
 			float refresh_rate;
 			if (environ_cb(RETRO_ENVIRONMENT_GET_TARGET_REFRESH_RATE, &refresh_rate)) {
-				if (refresh_rate > 59.00 || refresh_rate < 61.00)
+				if (refresh_rate > 59.00 && refresh_rate < 61.00)
 					dForcedFrameRate = (double)refresh_rate;
 			}
 		}
