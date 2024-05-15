@@ -732,7 +732,7 @@
 		<description>Guntus (HB)</description>
 		<year>2022</year>
 		<manufacturer>Inufuto</manufacturer>
-		<rom name=" Guntus (2022)(Inufuto).sg" size="11885" crc="c23f2f57"/>
+		<rom name="Guntus (2022)(Inufuto).sg" size="11885" crc="c23f2f57"/>
 		<video type="raster" orientation="horizontal" width="272" height="228" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
