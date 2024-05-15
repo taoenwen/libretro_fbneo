@@ -148,8 +148,8 @@ TCHAR szAppCheatsPath[MAX_PATH];
 TCHAR szAppIpsesPath[MAX_PATH];
 TCHAR szAppBurnVer[16];
 
-TCHAR szAppPathDefPath[MAX_PATH]   = { 0 };
-static char szRomsetPath[MAX_PATH] = { 0 };
+static TCHAR szAppPathDefPath[MAX_PATH]   = { 0 };
+static char szRomsetPath[MAX_PATH]        = { 0 };
 
 #define TYPES_MAX	(26)	// Maximum number of machine types
 
