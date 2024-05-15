@@ -81,10 +81,10 @@ std::vector<cheat_core_option> cheat_core_options;
 
 INT32 nAudSegLen = 0;
 
-static UINT8* pVidImage = NULL;
-static bool bVidImageNeedRealloc = false;
-static bool bRotationDone = false;
-static int16_t *pAudBuffer = NULL;
+static UINT8* pVidImage              = NULL;
+static bool bVidImageNeedRealloc     = false;
+static bool bRotationDone            = false;
+static int16_t *pAudBuffer           = NULL;
 static char text_missing_files[2048] = "";
 
 // Frameskipping v2 Support
@@ -145,7 +145,11 @@ TCHAR szAppSamplesPath[MAX_PATH];
 TCHAR szAppBlendPath[MAX_PATH];
 TCHAR szAppHDDPath[MAX_PATH];
 TCHAR szAppCheatsPath[MAX_PATH];
+TCHAR szAppIpsesPath[MAX_PATH];
 TCHAR szAppBurnVer[16];
+
+TCHAR szAppPathDefPath[MAX_PATH]   = { 0 };
+static char szRomsetPath[MAX_PATH] = { 0 };
 
 #define TYPES_MAX	(26)	// Maximum number of machine types
 
@@ -197,7 +201,7 @@ static int nDIPOffset;
 const int nConfigMinVersion = 0x020921;
 
 // Read in the config file for the whole application
-int CoreRomPathsLoad()
+INT32 CoreRomPathsLoad()
 {
 	TCHAR szConfig[MAX_PATH];
 	TCHAR szLine[1024];
@@ -208,7 +212,7 @@ int CoreRomPathsLoad()
 #endif
 
 	memset(szConfig, '\0', MAX_PATH * sizeof(TCHAR));
-	_stprintf(szConfig, _T(".%cconfig%cFinalBurn Neo%cpath.opt"), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
+	_stprintf(szConfig, _T("%spath.opt"), szAppPathDefPath);
 
 	if (NULL == (h = _tfopen(szConfig, _T("rt")))) {
 		memset(szConfig, '\0', MAX_PATH * sizeof(TCHAR));
@@ -702,7 +706,6 @@ static int create_variables_from_cheats()
 	const char * drvname = BurnDrvGetTextA(DRV_NAME);
 
 	CheatInfo* pCurrentCheat = pCheatInfo;
-
 	int num = 0;
 
 	while (pCurrentCheat) {
@@ -1387,6 +1390,13 @@ void retro_reset()
 	// Cheats should be avoided while machine is initializing, reset them to default state before machine reset
 	reset_cheats_from_variables();
 
+	// Before analyzing and applying IPS Patches, it is important to reset any relevant traces that may be left behind.
+	IpsPatchExit();
+
+	// IPS Patches can be selected before retro_reset() and will be reset after retro_reset(),
+	// at which point the data is processed and returned to determine whether to subsequently Reset or Re-Init.
+	INT32 nPatches = reset_ipses_from_variables();
+
 	if (pgi_reset)
 	{
 		pgi_reset->Input.nVal = 1;
@@ -1411,6 +1421,14 @@ void retro_reset()
 		// eeproms are loading nCurrentFrame, but we probably don't want this
 		nCurrentFrame = 0;
 	}
+
+	// ips patches run!
+	if (nPatches > 0)
+	{
+		bDoIpsPatch = true;
+		GetIpsDrvDefine();
+		BurnDrvInit();
+	}
 }
 
 static void VideoBufferInit()
@@ -1426,7 +1444,7 @@ static void VideoBufferInit()
 
 void retro_run()
 {
-	bool bEnableVideo = true;
+	bool bEnableVideo  = true;
 	bool bEmulateAudio = true;
 	bool bPresentAudio = true;
 
@@ -1964,6 +1982,12 @@ static bool retro_load_game_common()
 	// Initialize Cheats path
 	snprintf_nowarn (szAppCheatsPath, sizeof(szAppCheatsPath), "%s%cfbneo%ccheats%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
 
+	// Initialize Ipses path
+	snprintf_nowarn(szAppIpsesPath, sizeof(szAppIpsesPath), "%s%cfbneo%cips%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
+
+	// Initialize Multipath definition path
+	snprintf_nowarn(szAppPathDefPath, sizeof(szAppPathDefPath), "%s%cfbneo%cpath%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
+
 	// Initialize Blend path
 	snprintf_nowarn (szAppBlendPath, sizeof(szAppBlendPath), "%s%cfbneo%cblend%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
 
@@ -2045,11 +2069,15 @@ static bool retro_load_game_common()
 		// Create cheats core options
 		create_variables_from_cheats();
 
+		// Create ipses core options
+		create_variables_from_ipses();
+
 		// Send core options to frontend
 		set_environment();
 
-		// Cheats should be avoided while machine is initializing, reset them to default state before boot
+		// Cheats & Ipses should be avoided while machine is initializing, reset them to default state before boot
 		reset_cheats_from_variables();
+		reset_ipses_from_variables();
 
 		// Apply core options
 		check_variables();
@@ -2275,7 +2303,6 @@ bool retro_load_game(const struct retro_game_info *info)
 	if (!info)
 		return false;
 
-	char szRomsetPath[MAX_PATH] = { 0 };
 	INT32 nMode = retro_dat_romset_path(info, szRomsetPath);
 
 	switch (nMode)

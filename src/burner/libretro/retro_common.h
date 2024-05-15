@@ -179,6 +179,19 @@ struct cheat_core_option
 	std::vector<cheat_core_option_value> values;
 };
 
+struct ips_core_option
+{
+	std::string dat_path;						// Path to the ipses index file
+	std::string option_name;					// key				= "fbneo-ips-<drvname>-<int>"
+	std::string friendly_name;					// desc				= "Category/Patch Name"
+												// desc_categorized	= NULL;
+	std::string friendly_name_categorized;		// info				= "Patch Description"
+												// info_categorized	= NULL;
+												// category_key		= "ips"
+												// value
+												// default_value	= "disabled"
+};
+
 enum neogeo_bios_categories
 {
 	NEOGEO_MVS = 1<<0,
@@ -202,6 +215,7 @@ extern retro_log_printf_t log_cb;
 extern retro_environment_t environ_cb;
 extern std::vector<dipswitch_core_option> dipswitch_core_options;
 extern std::vector<cheat_core_option> cheat_core_options;
+extern std::vector<ips_core_option> ips_core_options;
 extern struct GameInp *pgi_reset;
 extern struct GameInp *pgi_diag;
 extern struct GameInp *pgi_debug_dip_1;
@@ -224,6 +238,7 @@ extern INT32 g_audio_samplerate;
 extern UINT8 *diag_input;
 extern unsigned nGameType;
 extern char g_rom_dir[MAX_PATH];
+extern TCHAR szAppIpsesPath[MAX_PATH];
 
 char* str_char_replace(char* destination, char c_find, char c_replace);
 void set_neo_system_bios();
@@ -234,6 +249,8 @@ void check_variables(void);
 int HandleMessage(enum retro_log_level level, TCHAR* szFormat, ...);
 char* strqtoken(char* s, const char* delims);
 char* TCHARToANSI(const TCHAR* pszInString, char* pszOutString, int /*nOutSize*/);
+INT32 create_variables_from_ipses();
+INT32 reset_ipses_from_variables();
 #ifdef USE_CYCLONE
 void SetSekCpuCore();
 #endif
