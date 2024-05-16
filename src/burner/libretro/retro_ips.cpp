@@ -1,7 +1,7 @@
 #include "burner.h"
 #include "retro_common.h"
+#include "retro_dirent.h"
 
-#include <io.h>
 #include <file/file_path.h>
 
 #define NUM_LANGUAGES		12
@@ -158,7 +158,6 @@ static TCHAR* GetPatchDescByLangcode(FILE* fp, int nLang)
 
 INT32 create_variables_from_ipses()
 {
-	FILE* test = NULL; char sza[260] = { 0 }; FILE* f = NULL;
 	const char* pszDrvName = BurnDrvGetTextA(DRV_NAME), * pszExt = ".dat";
 
 	if (NULL == pszDrvName) return -2;
@@ -166,32 +165,35 @@ INT32 create_variables_from_ipses()
 	TCHAR szFilePathSearch[MAX_PATH] = { 0 };
 
 	_stprintf(
-		szFilePathSearch, _T("%s%s%c*%s"),
-		szAppIpsesPath, pszDrvName, PATH_DEFAULT_SLASH_C(), pszExt
+		szFilePathSearch, _T("%s%s%c"),
+		szAppIpsesPath, pszDrvName, PATH_DEFAULT_SLASH_C()
 	);
 
-	struct _finddata_t _info;
-	long Handle = _findfirst(szFilePathSearch, &_info);
+	struct RDIR* entry = retro_opendir_include_hidden(szFilePathSearch, true);
 
-	if (-1L == Handle) return -1;
+	if (!entry || retro_dirent_error(entry))
+		return -1;
 
 	INT32 nRet = 0, nLangcode = GetLanguageCode();
 	FILE* fp = NULL;
 
-	do {
-		memset(szFilePathSearch, 0, MAX_PATH * sizeof(TCHAR));
-		_stprintf(
-			szFilePathSearch, _T("%s%s%c%s"),
-			szAppIpsesPath, pszDrvName, PATH_DEFAULT_SLASH_C(), _info.name
-		);
+	while (retro_readdir(entry))
+	{
+		const char* name = retro_dirent_get_name(entry);
 
 		if (
-			(_info.attrib & _A_SUBDIR) ||
-			(0 != strcmp(pszExt, strrchr(_info.name, '.'))) ||
-			(0 == strcmp(_info.name, ".")) ||
-			(0 == strcmp(_info.name, ".."))
+			retro_dirent_is_dir(entry, NULL) ||
+			(0 != strcmp(pszExt, strrchr(name, '.'))) ||
+			(0 == strcmp(name, ".")) || (0 == strcmp(name, ".."))
 		)
 			continue;
+
+		memset(szFilePathSearch, 0, MAX_PATH * sizeof(TCHAR));
+
+		_stprintf(
+			szFilePathSearch, _T("%s%s%c%s"),
+			szAppIpsesPath, pszDrvName, PATH_DEFAULT_SLASH_C(), name
+		);
 
 		if (NULL == (fp = _tfopen(szFilePathSearch, _T("r"))))
 			continue;
@@ -206,7 +208,7 @@ INT32 create_variables_from_ipses()
 		if (NULL == pszPatchDesc)
 		{
 			memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
-			_tcscpy(szAltDesc, _info.name);
+			_tcscpy(szAltDesc, name);
 		}
 
 		for (UINT32 i = 0; i < _tcslen(szAltDesc); i++) {
@@ -230,19 +232,19 @@ INT32 create_variables_from_ipses()
 		ips_option->dat_path                  = szAltFile;
 		ips_option->option_name               = szKey;
 		ips_option->friendly_name             = szAltName;
-		std::string option_name = (0 != strcmp("", pszPatchDesc)) ? pszPatchDesc : "Specific to the running romset and your ips database";
+		std::string option_name               = (0 != strcmp("", pszPatchDesc)) ? pszPatchDesc : "Specific to the running romset and your ips database";
 		std::replace(option_name.begin(), option_name.end(), '\r', ' ');
 		ips_option->friendly_name_categorized = option_name;
 
 		memset(szAltFile, 0, MAX_PATH * sizeof(TCHAR));
 		memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
-		memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
+		memset(szAltDesc, 0,     4096 * sizeof(TCHAR));
 
 		fclose(fp);
 		nRet++;
-	} while (0 == _findnext(Handle, &_info));
+	}
 
-	_findclose(Handle);
+	retro_closedir(entry);
 
 	return nRet;
 }
