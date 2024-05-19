@@ -1431,8 +1431,7 @@ void retro_reset()
 
 		if (nPatches > 0)
 		{
-			bDoIpsPatch = true;
-			GetIpsDrvDefine();
+			IpsPatchInit();
 		}
 		if (-1 != nIndex)
 		{
@@ -2035,9 +2034,6 @@ static bool retro_load_game_common()
 
 		// If the game is marked as not working, let's stop here
 		if (!(BurnDrvIsWorking())) {
-			if (NULL != pDataRomDesc)
-				RomDataExit();
-
 			SetUguiError("This romset is known but marked as not working\nOne of its clones might work so maybe give it a try");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] This romset is known but marked as not working\n");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] One of its clones might work so maybe give it a try\n");
@@ -2046,9 +2042,6 @@ static bool retro_load_game_common()
 
 		// If the game is a bios, let's stop here
 		if ((BurnDrvGetFlags() & BDF_BOARDROM)) {
-			if (NULL != pDataRomDesc)
-				RomDataExit();
-
 			SetUguiError("Bioses aren't meant to be launched this way");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Bioses aren't meant to be launched this way\n");
 			goto end;
@@ -2078,7 +2071,7 @@ static bool retro_load_game_common()
 		create_variables_from_dipswitches();
 
 		// Initialize debug variables
-		nBurnLayer = 0xff;
+		nBurnLayer    = 0xff;
 		nSpriteEnable = 0xff;
 
 		// Create cheats core options
@@ -2093,7 +2086,7 @@ static bool retro_load_game_common()
 		// Send core options to frontend
 		set_environment();
 
-		// Cheats & Ipses & should be avoided while machine is initializing, reset them to default state before boot
+		// Cheats & Ipses & romdatas should be avoided while machine is initializing, reset them to default state before boot
 		reset_cheats_from_variables();
 		reset_ipses_from_variables();
 		reset_romdatas_from_variables();
@@ -2143,9 +2136,6 @@ static bool retro_load_game_common()
 			sprintf(uguiText, "%s%s%s\n\n%s%s", s1, s2, text_missing_files, s3, s4);
 			SetUguiError(uguiText);
 
-			if (NULL != pDataRomDesc)
-				RomDataExit();
-
 			goto end;
 		}
 		HandleMessage(RETRO_LOG_INFO, "[FBNeo] No missing files, proceeding\n");
@@ -2182,9 +2172,6 @@ static bool retro_load_game_common()
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] Initialized driver for %s\n", g_driver_name);
 		else
 		{
-			if (NULL != pDataRomDesc)
-				RomDataExit();
-
 			SetUguiError("Failed initializing driver\nThis is unexpected, you should probably report it.");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Failed initializing driver.\n");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] This is unexpected, you should probably report it.\n");
@@ -2233,9 +2220,6 @@ static bool retro_load_game_common()
 		VideoBufferInit();
 
 		if (pVidImage == NULL) {
-			if (NULL != pDataRomDesc)
-				RomDataExit();
-
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Failed allocating framebuffer memory\n");
 			goto end;
 		}
@@ -2257,9 +2241,6 @@ static bool retro_load_game_common()
 		sprintf(uguiText, "%s%s%s", s1, s2, s3);
 		SetUguiError(uguiText);
 
-		if (NULL != pDataRomDesc)
-			RomDataExit();
-
 		goto end;
 	}
 	return true;
@@ -2269,6 +2250,9 @@ end:
 	nBurnFPS = 6000;
 	nBurnDrvActive = ~0U;
 	AudioBufferInit(nBurnSoundRate, nBurnFPS);
+	RomDataExit();
+	IpsPatchExit
+
 	return true;
 }
 
@@ -2331,8 +2315,7 @@ bool retro_load_game(const struct retro_game_info *info)
 			break;
 
 		case 2:
-			bDoIpsPatch = true;
-			GetIpsDrvDefine();
+			IpsPatchInit();
 			break;
 
 		default:

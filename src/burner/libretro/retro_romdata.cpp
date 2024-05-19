@@ -99,7 +99,7 @@ static INT32 LoadRomdata()
 	TCHAR szBuf[MAX_PATH] = { 0 }, * pszBuf = NULL, * pszLabel = NULL, * pszInfo = NULL;
 
 	memset(RDI.szExtraRom, 0, sizeof(RDI.szExtraRom));
-	memset(szFullName, 0, sizeof(szFullName));
+	memset(szFullName,     0, sizeof(szFullName));
 
 	while (!feof(fp)) {
 		if (_fgetts(szBuf, MAX_PATH, fp) != NULL) {
@@ -345,7 +345,7 @@ INT32 create_variables_from_romdatas()
 			retro_dirent_is_dir(entry, NULL) ||
 			(0 != strcmp(pszExt, strrchr(name, '.'))) ||
 			(0 == strcmp(name, ".")) || (0 == strcmp(name, ".."))
-			)
+		)
 			continue;
 
 		TCHAR szFilePathSearch[MAX_PATH] = { 0 };
