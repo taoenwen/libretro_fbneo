@@ -146,6 +146,7 @@ TCHAR szAppBlendPath[MAX_PATH];
 TCHAR szAppHDDPath[MAX_PATH];
 TCHAR szAppCheatsPath[MAX_PATH];
 TCHAR szAppIpsesPath[MAX_PATH];
+TCHAR szAppRomdatasPath[MAX_PATH];
 TCHAR szAppBurnVer[16];
 
 static TCHAR szAppPathDefPath[MAX_PATH]   = { 0 };
@@ -212,11 +213,11 @@ INT32 CoreRomPathsLoad()
 #endif
 
 	memset(szConfig, '\0', MAX_PATH * sizeof(TCHAR));
-	_stprintf(szConfig, _T("%spath.opt"), szAppPathDefPath);
+	_stprintf(szConfig, _T("%srom_path.opt"), szAppPathDefPath);
 
 	if (NULL == (h = _tfopen(szConfig, _T("rt")))) {
 		memset(szConfig, '\0', MAX_PATH * sizeof(TCHAR));
-		_stprintf(szConfig, _T("%s%cpath.opt"), g_rom_dir, PATH_DEFAULT_SLASH_C());
+		_stprintf(szConfig, _T("%s%crom_path.opt"), g_rom_dir, PATH_DEFAULT_SLASH_C());
 
 		if (NULL == (h = _tfopen(szConfig, _T("rt"))))
 			return 1;
@@ -1042,7 +1043,7 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 
 	if (0 == CoreRomPathsLoad())
 	{
-		// Search custom dirs:[path.opt]
+		// Search custom dirs:[rom_path.opt]
 		for (INT32 nPath = 0; nPath < DIRS_MAX; nPath++)
 		{
 			char* p = find_last_slash(CoreRomPaths[nPath]);
@@ -1379,6 +1380,9 @@ void retro_deinit()
 	BurnLibExit();
 }
 
+static bool retro_load_game_common();
+static void retro_incomplete_exit();
+
 void retro_reset()
 {
 	// Saving minimal savestate (handle some machine settings)
@@ -1390,13 +1394,6 @@ void retro_reset()
 	// Cheats should be avoided while machine is initializing, reset them to default state before machine reset
 	reset_cheats_from_variables();
 
-	// Before analyzing and applying IPS Patches, it is important to reset any relevant traces that may be left behind.
-	IpsPatchExit();
-
-	// IPS Patches can be selected before retro_reset() and will be reset after retro_reset(),
-	// at which point the data is processed and returned to determine whether to subsequently Reset or Re-Init.
-	INT32 nPatches = reset_ipses_from_variables();
-
 	if (pgi_reset)
 	{
 		pgi_reset->Input.nVal = 1;
@@ -1406,6 +1403,11 @@ void retro_reset()
 	check_variables();
 	apply_dipswitches_from_variables();
 	apply_cheats_from_variables();
+
+	// RomData & IPS Patches can be selected before retro_reset() and will be reset after retro_reset(),
+	// at which point the data is processed and returned to determine whether to subsequently Reset or Re-Init.
+	INT32 nIndex = apply_romdatas_from_variables();
+	INT32 nPatches = apply_ipses_from_variables();
 
 	// restore the NeoSystem because it was changed during the gameplay
 	if (bIsNeogeoCartGame)
@@ -1422,13 +1424,23 @@ void retro_reset()
 		nCurrentFrame = 0;
 	}
 
-	// ips patches run!
-	if (nPatches > 0)
+	// romdata & ips patches run!
+	if ((-1 != nIndex) || (nPatches > 0))
 	{
-		bDoIpsPatch = true;
-		GetIpsDrvDefine();
-		BurnDrvInit();
-	}
+		retro_incomplete_exit();
+
+		if (nPatches > 0)
+		{
+			bDoIpsPatch = true;
+			GetIpsDrvDefine();
+		}
+		if (-1 != nIndex)
+		{
+			RomDataInit();
+		}
+
+		retro_load_game_common();
+	} 
 }
 
 static void VideoBufferInit()
@@ -1985,6 +1997,9 @@ static bool retro_load_game_common()
 	// Initialize Ipses path
 	snprintf_nowarn(szAppIpsesPath, sizeof(szAppIpsesPath), "%s%cfbneo%cips%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
 
+	// Initialize Ipses path
+	snprintf_nowarn(szAppRomdatasPath, sizeof(szAppRomdatasPath), "%s%cfbneo%cromdata%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
+
 	// Initialize Multipath definition path
 	snprintf_nowarn(szAppPathDefPath, sizeof(szAppPathDefPath), "%s%cfbneo%cpath%c", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C());
 
@@ -2072,12 +2087,16 @@ static bool retro_load_game_common()
 		// Create ipses core options
 		create_variables_from_ipses();
 
+		// Create romdata core options
+		create_variables_from_romdatas();
+
 		// Send core options to frontend
 		set_environment();
 
-		// Cheats & Ipses should be avoided while machine is initializing, reset them to default state before boot
+		// Cheats & Ipses & should be avoided while machine is initializing, reset them to default state before boot
 		reset_cheats_from_variables();
 		reset_ipses_from_variables();
+		reset_romdatas_from_variables();
 
 		// Apply core options
 		check_variables();
@@ -2496,6 +2515,40 @@ void retro_unload_game(void)
 	CheevosExit();
 	RomDataExit();
 	IpsPatchExit();
+}
+
+static void retro_incomplete_exit()
+{
+	if (nBurnDrvActive != ~0U)
+	{
+		if (bIsNeogeoCartGame && nMemcardMode != 0) {
+			// Force newer format if the file doesn't exist yet
+			if (!filestream_exists(szMemoryCardFile))
+				bMemCardFC1Format = true;
+			MemCardEject();
+		}
+		// Saving minimal savestate (handle some machine settings)
+		if (BurnNvramSave(g_autofs_path) == 0 && path_is_valid(g_autofs_path))
+			HandleMessage(RETRO_LOG_INFO, "[FBNeo] EEPROM succesfully saved to %s\n", g_autofs_path);
+		BurnDrvExit();
+		if (nGameType == RETRO_GAME_TYPE_NEOCD)
+			CDEmuExit();
+		nBurnDrvActive = ~0U;
+	}
+	if (pVidImage) {
+		free(pVidImage);
+		pVidImage = NULL;
+	}
+	if (pAudBuffer) {
+		free(pAudBuffer);
+		pAudBuffer = NULL;
+	}
+	if (pRomFind) {
+		free(pRomFind);
+		pRomFind = NULL;
+	}
+	InputExit();
+	CheevosExit();
 }
 
 unsigned retro_get_region() { return RETRO_REGION_NTSC; }

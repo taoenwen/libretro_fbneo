@@ -884,7 +884,7 @@ void set_environment()
 #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP)
 	#ifndef FORCE_USE_VFS
 	#define FORCE_USE_VFS
-    #endif
+	#endif
 #endif
 #endif
 
@@ -970,16 +970,17 @@ void set_environment()
 	vars_systems.push_back(&var_fbneo_debug_sprite_8);
 #endif
 
-	int nbr_vars   = vars_systems.size();
-	int nbr_dips   = dipswitch_core_options.size();
-	int nbr_cheats = cheat_core_options.size();
-	int nbr_ipses  = ips_core_options.size();
+	int nbr_vars     = vars_systems.size();
+	int nbr_dips     = dipswitch_core_options.size();
+	int nbr_cheats   = cheat_core_options.size();
+	int nbr_ipses    = ips_core_options.size();
+	int nbr_romdatas = romdata_core_options.size();
 
 #if 0
 	log_cb(RETRO_LOG_INFO, "set_environment: SYSTEM: %d, DIPSWITCH: %d\n", nbr_vars, nbr_dips);
 #endif
 
-	option_defs_us = (struct retro_core_option_v2_definition*)calloc(nbr_vars + nbr_dips + nbr_cheats + nbr_ipses + 1, sizeof(struct retro_core_option_v2_definition));
+	option_defs_us = (struct retro_core_option_v2_definition*)calloc(nbr_vars + nbr_dips + nbr_cheats + nbr_ipses + nbr_romdatas + 1, sizeof(struct retro_core_option_v2_definition));
 
 	int idx_var = 0;
 
@@ -1042,6 +1043,20 @@ void set_environment()
 		idx_var++;
 	}
 
+	// Add the romdatas core options
+	for (int romdata_idx = 0; romdata_idx < nbr_romdatas; romdata_idx++)
+	{
+		option_defs_us[idx_var].key             = romdata_core_options[romdata_idx].option_name.c_str();
+		option_defs_us[idx_var].desc            = romdata_core_options[romdata_idx].friendly_name.c_str();
+		option_defs_us[idx_var].info            = "RomData is a single selection, or random when multiple selections are made";
+		option_defs_us[idx_var].category_key    = "romdata";
+		option_defs_us[idx_var].values[0].value = "disabled";
+		option_defs_us[idx_var].values[1].value = "enabled";
+		option_defs_us[idx_var].values[2].value = NULL;
+		option_defs_us[idx_var].default_value   = "disabled";
+		idx_var++;
+	}
+
 	option_defs_us[idx_var] = var_empty;
 
 	static struct retro_core_option_v2_category option_cats_us[] =
@@ -1075,6 +1090,11 @@ void set_environment()
 			"ips",
 			"IPS Patch",
 			"Enable selected IPS Patches after Restart"
+		},
+		{
+			"romdata",
+			"RomData",
+			"Enable a selected RomData after Restart"
 		},
 #ifdef FBNEO_DEBUG
 		{

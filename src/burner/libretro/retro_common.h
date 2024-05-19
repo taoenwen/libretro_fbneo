@@ -26,123 +26,123 @@
 #define RETRO_GAME_TYPE_CHF		15
 
 #define PERCENT_VALUES \
-      {"25%", NULL }, \
-      {"26%", NULL }, \
-      {"27%", NULL }, \
-      {"28%", NULL }, \
-      {"29%", NULL }, \
-      {"30%", NULL }, \
-      {"31%", NULL }, \
-      {"32%", NULL }, \
-      {"33%", NULL }, \
-      {"34%", NULL }, \
-      {"35%", NULL }, \
-      {"36%", NULL }, \
-      {"37%", NULL }, \
-      {"38%", NULL }, \
-      {"39%", NULL }, \
-      {"40%", NULL }, \
-      {"41%", NULL }, \
-      {"42%", NULL }, \
-      {"43%", NULL }, \
-      {"44%", NULL }, \
-      {"45%", NULL }, \
-      {"46%", NULL }, \
-      {"47%", NULL }, \
-      {"48%", NULL }, \
-      {"49%", NULL }, \
-      {"50%", NULL }, \
-      {"51%", NULL }, \
-      {"52%", NULL }, \
-      {"53%", NULL }, \
-      {"54%", NULL }, \
-      {"55%", NULL }, \
-      {"56%", NULL }, \
-      {"57%", NULL }, \
-      {"58%", NULL }, \
-      {"59%", NULL }, \
-      {"60%", NULL }, \
-      {"61%", NULL }, \
-      {"62%", NULL }, \
-      {"63%", NULL }, \
-      {"64%", NULL }, \
-      {"65%", NULL }, \
-      {"66%", NULL }, \
-      {"67%", NULL }, \
-      {"68%", NULL }, \
-      {"69%", NULL }, \
-      {"70%", NULL }, \
-      {"71%", NULL }, \
-      {"72%", NULL }, \
-      {"73%", NULL }, \
-      {"74%", NULL }, \
-      {"75%", NULL }, \
-      {"76%", NULL }, \
-      {"77%", NULL }, \
-      {"78%", NULL }, \
-      {"79%", NULL }, \
-      {"80%", NULL }, \
-      {"81%", NULL }, \
-      {"82%", NULL }, \
-      {"83%", NULL }, \
-      {"84%", NULL }, \
-      {"85%", NULL }, \
-      {"86%", NULL }, \
-      {"87%", NULL }, \
-      {"88%", NULL }, \
-      {"89%", NULL }, \
-      {"90%", NULL }, \
-      {"91%", NULL }, \
-      {"92%", NULL }, \
-      {"93%", NULL }, \
-      {"94%", NULL }, \
-      {"95%", NULL }, \
-      {"96%", NULL }, \
-      {"97%", NULL }, \
-      {"98%", NULL }, \
-      {"99%", NULL }, \
-      {"100%", NULL }, \
-      {"105%", NULL }, \
-      {"110%", NULL }, \
-      {"115%", NULL }, \
-      {"120%", NULL }, \
-      {"125%", NULL }, \
-      {"130%", NULL }, \
-      {"135%", NULL }, \
-      {"140%", NULL }, \
-      {"145%", NULL }, \
-      {"150%", NULL }, \
-      {"155%", NULL }, \
-      {"160%", NULL }, \
-      {"165%", NULL }, \
-      {"170%", NULL }, \
-      {"175%", NULL }, \
-      {"180%", NULL }, \
-      {"185%", NULL }, \
-      {"190%", NULL }, \
-      {"195%", NULL }, \
-      {"200%", NULL }, \
-      {"210%", NULL }, \
-      {"220%", NULL }, \
-      {"230%", NULL }, \
-      {"240%", NULL }, \
-      {"250%", NULL }, \
-      {"260%", NULL }, \
-      {"270%", NULL }, \
-      {"280%", NULL }, \
-      {"290%", NULL }, \
-      {"300%", NULL }, \
-      {"310%", NULL }, \
-      {"320%", NULL }, \
-      {"330%", NULL }, \
-      {"340%", NULL }, \
-      {"350%", NULL }, \
-      {"360%", NULL }, \
-      {"370%", NULL }, \
-      {"380%", NULL }, \
-      {"390%", NULL }, \
-      {"400%", NULL }, \
-      { NULL, NULL },
+	  {"25%",	NULL }, \
+	  {"26%",	NULL }, \
+	  {"27%",	NULL }, \
+	  {"28%",	NULL }, \
+	  {"29%",	NULL }, \
+	  {"30%",	NULL }, \
+	  {"31%",	NULL }, \
+	  {"32%",	NULL }, \
+	  {"33%",	NULL }, \
+	  {"34%",	NULL }, \
+	  {"35%",	NULL }, \
+	  {"36%",	NULL }, \
+	  {"37%",	NULL }, \
+	  {"38%",	NULL }, \
+	  {"39%",	NULL }, \
+	  {"40%",	NULL }, \
+	  {"41%",	NULL }, \
+	  {"42%",	NULL }, \
+	  {"43%",	NULL }, \
+	  {"44%",	NULL }, \
+	  {"45%",	NULL }, \
+	  {"46%",	NULL }, \
+	  {"47%",	NULL }, \
+	  {"48%",	NULL }, \
+	  {"49%",	NULL }, \
+	  {"50%",	NULL }, \
+	  {"51%",	NULL }, \
+	  {"52%",	NULL }, \
+	  {"53%",	NULL }, \
+	  {"54%",	NULL }, \
+	  {"55%",	NULL }, \
+	  {"56%",	NULL }, \
+	  {"57%",	NULL }, \
+	  {"58%",	NULL }, \
+	  {"59%",	NULL }, \
+	  {"60%",	NULL }, \
+	  {"61%",	NULL }, \
+	  {"62%",	NULL }, \
+	  {"63%",	NULL }, \
+	  {"64%",	NULL }, \
+	  {"65%",	NULL }, \
+	  {"66%",	NULL }, \
+	  {"67%",	NULL }, \
+	  {"68%",	NULL }, \
+	  {"69%",	NULL }, \
+	  {"70%",	NULL }, \
+	  {"71%",	NULL }, \
+	  {"72%",	NULL }, \
+	  {"73%",	NULL }, \
+	  {"74%",	NULL }, \
+	  {"75%",	NULL }, \
+	  {"76%",	NULL }, \
+	  {"77%",	NULL }, \
+	  {"78%",	NULL }, \
+	  {"79%",	NULL }, \
+	  {"80%",	NULL }, \
+	  {"81%",	NULL }, \
+	  {"82%",	NULL }, \
+	  {"83%",	NULL }, \
+	  {"84%",	NULL }, \
+	  {"85%",	NULL }, \
+	  {"86%",	NULL }, \
+	  {"87%",	NULL }, \
+	  {"88%",	NULL }, \
+	  {"89%",	NULL }, \
+	  {"90%",	NULL }, \
+	  {"91%",	NULL }, \
+	  {"92%",	NULL }, \
+	  {"93%",	NULL }, \
+	  {"94%",	NULL }, \
+	  {"95%",	NULL }, \
+	  {"96%",	NULL }, \
+	  {"97%",	NULL }, \
+	  {"98%",	NULL }, \
+	  {"99%",	NULL }, \
+	  {"100%",	NULL }, \
+	  {"105%",	NULL }, \
+	  {"110%",	NULL }, \
+	  {"115%",	NULL }, \
+	  {"120%",	NULL }, \
+	  {"125%",	NULL }, \
+	  {"130%",	NULL }, \
+	  {"135%",	NULL }, \
+	  {"140%",	NULL }, \
+	  {"145%",	NULL }, \
+	  {"150%",	NULL }, \
+	  {"155%",	NULL }, \
+	  {"160%",	NULL }, \
+	  {"165%",	NULL }, \
+	  {"170%",	NULL }, \
+	  {"175%",	NULL }, \
+	  {"180%",	NULL }, \
+	  {"185%",	NULL }, \
+	  {"190%",	NULL }, \
+	  {"195%",	NULL }, \
+	  {"200%",	NULL }, \
+	  {"210%",	NULL }, \
+	  {"220%",	NULL }, \
+	  {"230%",	NULL }, \
+	  {"240%",	NULL }, \
+	  {"250%",	NULL }, \
+	  {"260%",	NULL }, \
+	  {"270%",	NULL }, \
+	  {"280%",	NULL }, \
+	  {"290%",	NULL }, \
+	  {"300%",	NULL }, \
+	  {"310%",	NULL }, \
+	  {"320%",	NULL }, \
+	  {"330%",	NULL }, \
+	  {"340%",	NULL }, \
+	  {"350%",	NULL }, \
+	  {"360%",	NULL }, \
+	  {"370%",	NULL }, \
+	  {"380%",	NULL }, \
+	  {"390%",	NULL }, \
+	  {"400%",	NULL }, \
+	  { NULL,	NULL },
 
 struct dipswitch_core_option_value
 {
@@ -192,6 +192,19 @@ struct ips_core_option
 												// default_value	= "disabled"
 };
 
+struct romdata_core_option
+{
+	std::string dat_path;						// Path to the romdatas index file
+	std::string option_name;					// key				= "fbneo-romdata-<drvname>-<int>"
+	std::string friendly_name;					// desc				= "Full name of the game"
+												// desc_categorized	= NULL;
+												// info				= "Specific to the running romset and your romdata database"
+												// info_categorized	= NULL;
+												// category_key		= "romdata"
+												// value
+												// default_value	= "disabled"
+};
+
 enum neogeo_bios_categories
 {
 	NEOGEO_MVS = 1<<0,
@@ -216,6 +229,7 @@ extern retro_environment_t environ_cb;
 extern std::vector<dipswitch_core_option> dipswitch_core_options;
 extern std::vector<cheat_core_option> cheat_core_options;
 extern std::vector<ips_core_option> ips_core_options;
+extern std::vector<romdata_core_option> romdata_core_options;
 extern struct GameInp *pgi_reset;
 extern struct GameInp *pgi_diag;
 extern struct GameInp *pgi_debug_dip_1;
@@ -239,6 +253,7 @@ extern UINT8 *diag_input;
 extern unsigned nGameType;
 extern char g_rom_dir[MAX_PATH];
 extern TCHAR szAppIpsesPath[MAX_PATH];
+extern TCHAR szAppRomdatasPath[MAX_PATH];
 
 char* str_char_replace(char* destination, char c_find, char c_replace);
 void set_neo_system_bios();
@@ -251,6 +266,10 @@ char* strqtoken(char* s, const char* delims);
 char* TCHARToANSI(const TCHAR* pszInString, char* pszOutString, int /*nOutSize*/);
 INT32 create_variables_from_ipses();
 INT32 reset_ipses_from_variables();
+INT32 apply_ipses_from_variables();
+INT32 create_variables_from_romdatas();
+INT32 reset_romdatas_from_variables();
+INT32 apply_romdatas_from_variables();
 #ifdef USE_CYCLONE
 void SetSekCpuCore();
 #endif

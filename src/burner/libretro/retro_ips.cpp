@@ -158,6 +158,7 @@ static TCHAR* GetPatchDescByLangcode(FILE* fp, int nLang)
 
 INT32 create_variables_from_ipses()
 {
+	ips_core_options.clear();
 	const char* pszDrvName = BurnDrvGetTextA(DRV_NAME), * pszExt = ".dat";
 
 	if (NULL == pszDrvName) return -2;
@@ -251,7 +252,27 @@ INT32 create_variables_from_ipses()
 
 INT32 reset_ipses_from_variables()
 {
+	struct retro_variable var = { 0 };
 
+	for (INT32 ips_idx = 0; ips_idx < ips_core_options.size(); ips_idx++)
+	{
+		ips_core_option* ips_option = &ips_core_options[ips_idx];
+		var.key = ips_option->option_name.c_str();
+
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) == false || !var.value)
+			continue;
+
+		var.value = "disabled";
+
+		if (environ_cb(RETRO_ENVIRONMENT_SET_VARIABLE, &var) == false)
+			return -1;
+	}
+
+	return 0;
+}
+
+INT32 apply_ipses_from_variables()
+{
 	INT32 nActive = 0;
 	struct retro_variable var = { 0 };
 
@@ -266,7 +287,10 @@ INT32 reset_ipses_from_variables()
 		if (0 == strcmp(var.value, "enabled")) nActive++;
 	}
 
-	if (nActive > 0) pszIpsActivePatches = (TCHAR**)malloc(nActive * sizeof(TCHAR*));
+	if (nActive > 0) {
+		IpsPatchExit();
+		pszIpsActivePatches = (TCHAR**)malloc(nActive * sizeof(TCHAR*));
+	}
 
 	INT32 nRet = nActive; nActive = 0;
 
