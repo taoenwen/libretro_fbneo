@@ -2251,7 +2251,7 @@ end:
 	nBurnDrvActive = ~0U;
 	AudioBufferInit(nBurnSoundRate, nBurnFPS);
 	RomDataExit();
-	IpsPatchExit
+	IpsPatchExit();
 
 	return true;
 }
