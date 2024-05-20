@@ -33,7 +33,7 @@ TCHAR szAppIpsPath[MAX_PATH] = { 0 };
 
 std::vector<ips_core_option> ips_core_options;
 
-static INT32 nRomOffset = 0;
+static INT32 nRomOffset = 0, nActiveArray = 0, nStandalone, nDefineNum = 0;
 static TCHAR szAltFile[MAX_PATH] = { 0 }, szAltName[MAX_PATH] = { 0 }, szAltDesc[4096] = { 0 }, ** pszIpsActivePatches = NULL;
 
 static const TCHAR szLanguageCodes[NUM_LANGUAGES][6] = {
@@ -273,7 +273,8 @@ INT32 reset_ipses_from_variables()
 
 INT32 apply_ipses_from_variables()
 {
-	INT32 nActive = 0;
+	IpsPatchExit();
+
 	struct retro_variable var = { 0 };
 
 	for (INT32 ips_idx = 0; ips_idx < ips_core_options.size(); ips_idx++)
@@ -284,15 +285,12 @@ INT32 apply_ipses_from_variables()
 		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) == false || !var.value)
 			continue;
 
-		if (0 == strcmp(var.value, "enabled")) nActive++;
+		if (0 == strcmp(var.value, "enabled")) nActiveArray++;
 	}
 
-	if (nActive > 0) {
-		IpsPatchExit();
-		pszIpsActivePatches = (TCHAR**)malloc(nActive * sizeof(TCHAR*));
-	}
+	const INT32 nActive = nActiveArray; nActiveArray = 0;
 
-	INT32 nRet = nActive; nActive = 0;
+	if (nActive > 0) pszIpsActivePatches = (TCHAR**)malloc(nActive * sizeof(TCHAR*));
 
 	for (INT32 ips_idx = 0; ips_idx < ips_core_options.size(); ips_idx++)
 	{
@@ -306,10 +304,10 @@ INT32 apply_ipses_from_variables()
 		{
 			if (NULL != pszIpsActivePatches)
 			{
-				pszIpsActivePatches[nActive] = (TCHAR*)malloc(MAX_PATH * sizeof(TCHAR));
-				memset(pszIpsActivePatches[nActive], 0, MAX_PATH * sizeof(TCHAR));
-				_tcscpy(pszIpsActivePatches[nActive], ips_option->dat_path.c_str());
-				nActive++;
+				pszIpsActivePatches[nActiveArray] = (TCHAR*)malloc(MAX_PATH * sizeof(TCHAR));
+				memset(pszIpsActivePatches[nActiveArray], 0, MAX_PATH * sizeof(TCHAR));
+				_tcscpy(pszIpsActivePatches[nActiveArray], ips_option->dat_path.c_str());
+				nActiveArray++;
 			}
 
 			var.value = "disabled";
@@ -319,7 +317,7 @@ INT32 apply_ipses_from_variables()
 		}
 	}
 
-	return nRet;
+	return nActiveArray;
 }
 
 static INT32 GetIpsNumActivePatches()
@@ -327,7 +325,7 @@ static INT32 GetIpsNumActivePatches()
 	if (NULL == pszIpsActivePatches)
 		return 0;
 
-	return sizeof(pszIpsActivePatches) / sizeof(TCHAR*);
+	return nActiveArray;
 }
 
 static void PatchFile(const char* ips_path, UINT8* base, bool readonly)
@@ -520,8 +518,13 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 
 				if (!rom_name)
 					continue;
-				if (*rom_name == '#')
+				if (*rom_name == '#') {
+					if (0 == strcmp(rom_name, "#define")) {
+						if (nDefineNum > 0) break;
+						nStandalone++;
+					}
 					continue;
+				}
 
 				ips_name = strqtoken(NULL, DELIM_TOKENS_NAME);
 				if (!ips_name)
@@ -562,7 +565,6 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 
 				bTarget = true;
 				char ips_path[MAX_PATH * 2] = { 0 }, ips_dir[MAX_PATH] = { 0 }, * pszTmp = NULL;
-				INT32 nCount = GetIpsNumActivePatches();
 
 				if (0 == GetIpsNumActivePatches())
 				{
@@ -581,12 +583,9 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 						ips_name, (has_ext) ? "" : IPS_EXT										// (sub_dir/)ipses.ips
 					);
 				}
-
-
 				PatchFile(ips_path, base, readonly);
 			}
 		}
-
 		fclose(fp);
 
 		if (!bTarget && (0 == nIpsMemExpLen[EXP_FLAG]))
@@ -596,7 +595,7 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 
 static UINT32 GetIpsDefineExpValue(char* szTmp)
 {
-	if (NULL == (szTmp = strtok(NULL, " \t\r\n")))
+	if (NULL == (szTmp = strqtoken(NULL, " \t\r\n")))
 		return 0U;
 
 	INT32 nRet = 0;
@@ -638,7 +637,7 @@ void GetIpsDrvDefine()
 	if (!bDoIpsPatch)
 		return;
 
-	nIpsDrvDefine = 0;
+	nStandalone = nDefineNum = nIpsDrvDefine = 0;
 	memset(nIpsMemExpLen, 0, sizeof(nIpsMemExpLen));
 
 	INT32 nCount         = GetIpsNumActivePatches();
@@ -662,11 +661,11 @@ void GetIpsDrvDefine()
 					if (0 == strncmp(ptr, UTF8_SIGNATURE, strlen(UTF8_SIGNATURE)))
 						ptr += strlen(UTF8_SIGNATURE);
 
-					if (NULL == (tmp = strtok(ptr, " \t\r\n")))
+					if (NULL == (tmp = strqtoken(ptr, " \t\r\n")))
 						continue;
 					if (0 != strcmp(tmp, "#define"))
 						break;
-					if (NULL == (tmp = strtok(NULL, " \t\r\n")))
+					if (NULL == (tmp = strqtoken(NULL, " \t\r\n")))
 						break;
 
 					UINT32 nNewValue = 0;
@@ -754,7 +753,7 @@ void GetIpsDrvDefine()
 			fclose(fp);
 		}
 	}
-	
+	nStandalone = nDefineNum = 0;
 }
 
 void IpsApplyPatches(UINT8* base, char* rom_name, UINT32 crc, bool readonly)
@@ -765,12 +764,20 @@ void IpsApplyPatches(UINT8* base, char* rom_name, UINT32 crc, bool readonly)
 	INT32 nCount         = GetIpsNumActivePatches();
 	INT32 nActivePatches = (0 == nCount) ? 1 : nCount;
 
+	// Two concurrent #define DAT files are not allowed.
+	nStandalone = nDefineNum = 0;
 	for (INT32 i = 0; i < nActivePatches; i++)
 	{
 		char ips_data[MAX_PATH] = { 0 };
 		strcpy(ips_data, (0 == nCount) ? szAppIpsPath : pszIpsActivePatches[i]);
+		if (nStandalone > 0)
+		{
+			nDefineNum  = 1;
+			nStandalone = 0;
+		}
 		DoPatchGame(ips_data, rom_name, crc, base, readonly);
 	}
+	nStandalone = nDefineNum = 0;
 }
 
 void IpsPatchInit()
@@ -797,5 +804,6 @@ void IpsPatchExit()
 	memset(nIpsMemExpLen, 0, sizeof(nIpsMemExpLen));
 
 	nIpsDrvDefine = 0;
+	nActiveArray  = 0;
 	bDoIpsPatch   = false;
 }
