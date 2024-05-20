@@ -1265,8 +1265,8 @@
 		<comment>Homebrew</comment>
 		<description>Androide (48K) (HB)</description>
 		<year>2014</year>
-		<manufacturer>PixelSoftware</manufacturer>
-		<rom name="Androide (2014)(PixelSoftware).tap" size="42884" crc="a0cce6d2"/>
+		<manufacturer>PixelSoft</manufacturer>
+		<rom name="Androide (2014)(PixelSoft).tap" size="42884" crc="a0cce6d2"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
@@ -1351,6 +1351,16 @@
 		<rom name="AntEater (2021)(Defb).tap" size="44819" crc="31e117c5"/>
 		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
 		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="antiair" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew, AY Sound supported</comment>
+		<description>AntiAir (48K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>Inufuto</manufacturer>
+		<rom name="AntiAir 48K-AY (2024)(Inufuto).tap" size="7569" crc="548e4b80"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -8061,6 +8071,16 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="exodron" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Exodron (48K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>PixelSoft</manufacturer>
+		<rom name="Exodron 48K (2024)(PixelSoft).tap" size="43090" crc="6859f910"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="exolon128" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
 		<description>Exolon (128K)</description>
 		<year>1987</year>
@@ -8094,6 +8114,26 @@
 		<year>1989</year>
 		<manufacturer>Byte Back</manufacturer>
 		<rom name="Exploding Wall 48K (1989)(Byte Back).tap" size="37401" crc="fe708ad6"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="explorer" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Explorer (48K) (HB)</description>
+		<year>2015</year>
+		<manufacturer>Luca Bordoni</manufacturer>
+		<rom name="Explorer 48K (2015)(Luca Bordoni).tap" size="31320" crc="1b3a7a81"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="explorer2" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Explorer 2 (48K) (HB)</description>
+		<year>2018</year>
+		<manufacturer>Luca Bordoni</manufacturer>
+		<rom name="Explorer 2 48K (2018)(Luca Bordoni).tap" size="47170" crc="59c05e82"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
@@ -11129,6 +11169,26 @@
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="innsmouthen" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Innsmouth (English) (48K) (HB, v1.1)</description>
+		<year>2024</year>
+		<manufacturer>Bitfans</manufacturer>
+		<rom name="Innsmouth EN v1.1 48K (2024)(Bitfans).tap" size="84868" crc="c775e949"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="innsmouthes" cloneof="innsmouthen" romof="innsmouthen" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Innsmouth (Spanish) (48K) (HB, v1.1)</description>
+		<year>2024</year>
+		<manufacturer>Bitfans</manufacturer>
+		<rom name="Innsmouth ES v1.1 48K (2024)(Bitfans).tap" size="85751" crc="8c77ef4e"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="inspgadget" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
 		<description>Inspector Gadget and the Circus of Fear (48K)</description>
 		<year>1987</year>
@@ -11778,6 +11838,17 @@
 		<manufacturer>The Mojon Twins</manufacturer>
 		<rom name="Jet Paco (2013)(The Mojon Twins).tap" size="39655" crc="566a9c20"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="jetsetsw" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew</comment>
+		<description>Jet Set Steamboat Willie (128K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>Sloanysoft</manufacturer>
+		<rom name="Jet Set Steamboat Willie 128K (2024)(Sloanysoft).tap" size="47655" crc="0e27d045"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -17655,6 +17726,16 @@
 		<year>1985</year>
 		<manufacturer>U.S. Gold</manufacturer>
 		<rom name="Raid over Moscow 48K (1985)(U.S. Gold).tap" size="49145" crc="e7b7fe42"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="raidlostark" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew, The original Atari 2600 game conversion/adaptation</comment>
+		<description>Raiders of the Lost Ark (48K) (HB)</description>
+		<year>2024</year>
+		<manufacturer>Luca Bordoni</manufacturer>
+		<rom name="Raiders of the Lost Ark 48K (2024)(Luca Bordoni).tap" size="42158" crc="0e391d68"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>

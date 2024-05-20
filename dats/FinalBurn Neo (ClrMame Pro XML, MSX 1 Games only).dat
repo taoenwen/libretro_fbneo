@@ -556,6 +556,18 @@
 		<video type="raster" orientation="horizontal" width="272" height="228" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
+	<game name="alienmsx" romof="msx" sourcefile="msx/d_msx.cpp">
+		<comment>Homebrew</comment>
+		<description>Alien MSX (HB, v1.3)</description>
+		<year>2024</year>
+		<manufacturer>Rodrigo Siqueira</manufacturer>
+		<rom name="Alien MSX v1.3 (2024)(Rodrigo Siqueira).rom" size="32768" crc="75990cb4"/>
+		<rom name="msx.rom" merge="msx.rom" size="32768" crc="a317e6b4"/>
+		<rom name="msxj.rom" merge="msxj.rom" size="32768" crc="071135e0"/>
+		<rom name="kanji.rom" merge="kanji.rom" size="262144" crc="1f6406fb"/>
+		<video type="raster" orientation="horizontal" width="272" height="228" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
 	<game name="aliensynd" romof="msx" sourcefile="msx/d_msx.cpp">
 		<description>Alien Syndrome (Euro)</description>
 		<year>1989</year>
@@ -900,6 +912,18 @@
 		<year>1984</year>
 		<manufacturer>Prosoft</manufacturer>
 		<rom name="Antarctic Adventure (Korea)(Unl)(1984)(Prosoft).rom" size="16385" crc="8ced0683"/>
+		<rom name="msx.rom" merge="msx.rom" size="32768" crc="a317e6b4"/>
+		<rom name="msxj.rom" merge="msxj.rom" size="32768" crc="071135e0"/>
+		<rom name="kanji.rom" merge="kanji.rom" size="262144" crc="1f6406fb"/>
+		<video type="raster" orientation="horizontal" width="272" height="228" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="antiair" romof="msx" sourcefile="msx/d_msx.cpp">
+		<comment>Homebrew</comment>
+		<description>AntiAir (HB)</description>
+		<year>2024</year>
+		<manufacturer>Inufuto</manufacturer>
+		<rom name="AntiAir (2024)(Inufuto).cas" size="7948" crc="f7092fb6"/>
 		<rom name="msx.rom" merge="msx.rom" size="32768" crc="a317e6b4"/>
 		<rom name="msxj.rom" merge="msxj.rom" size="32768" crc="071135e0"/>
 		<rom name="kanji.rom" merge="kanji.rom" size="262144" crc="1f6406fb"/>
@@ -1543,6 +1567,18 @@
 		<year>2022</year>
 		<manufacturer>Hakogame</manufacturer>
 		<rom name="Balloon Buster (2022)(Hakogame).rom" size="131072" crc="d8975d68"/>
+		<rom name="msx.rom" merge="msx.rom" size="32768" crc="a317e6b4"/>
+		<rom name="msxj.rom" merge="msxj.rom" size="32768" crc="071135e0"/>
+		<rom name="kanji.rom" merge="kanji.rom" size="262144" crc="1f6406fb"/>
+		<video type="raster" orientation="horizontal" width="272" height="228" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="ballpopex" romof="msx" sourcefile="msx/d_msx.cpp">
+		<comment>Homebrew</comment>
+		<description>Balloon Pop EX (HB)</description>
+		<year>2022</year>
+		<manufacturer>Chien Loco</manufacturer>
+		<rom name="Balloon Pop EX (2022)(Chien Loco).rom" size="753664" crc="1c49611c"/>
 		<rom name="msx.rom" merge="msx.rom" size="32768" crc="a317e6b4"/>
 		<rom name="msxj.rom" merge="msxj.rom" size="32768" crc="071135e0"/>
 		<rom name="kanji.rom" merge="kanji.rom" size="262144" crc="1f6406fb"/>
