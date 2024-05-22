@@ -252,6 +252,7 @@ extern INT32 g_audio_samplerate;
 extern UINT8 *diag_input;
 extern unsigned nGameType;
 extern char g_rom_dir[MAX_PATH];
+extern TCHAR szAppPathDefPath[MAX_PATH];
 extern TCHAR szAppIpsesPath[MAX_PATH];
 extern TCHAR szAppRomdatasPath[MAX_PATH];
 

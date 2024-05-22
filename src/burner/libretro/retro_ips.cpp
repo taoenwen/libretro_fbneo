@@ -35,11 +35,84 @@ std::vector<ips_core_option> ips_core_options;
 
 static INT32 nRomOffset = 0, nActiveArray = 0, nStandalone, nDefineNum = 0;
 static TCHAR szAltFile[MAX_PATH] = { 0 }, szAltName[MAX_PATH] = { 0 }, szAltDesc[4096] = { 0 }, ** pszIpsActivePatches = NULL;
+static TCHAR CoreIpsPaths[DIRS_MAX][MAX_PATH];
 
 static const TCHAR szLanguageCodes[NUM_LANGUAGES][6] = {
 	_T("en_US"),	_T("zh_CN"),	_T("zh_TW"),	_T("ja_JP"),	_T("ko_KR"),	_T("fr_FR"),
 	_T("es_ES"),	_T("it_IT"),	_T("de_DE"),	_T("pt_BR"),	_T("pl_PL"),	_T("hu_HU")
 };
+
+// Read in the config file for the whole application
+INT32 CoreIpsPathsLoad()
+{
+	TCHAR szConfig[MAX_PATH] = { 0 }, szLine[1024] = { 0 };
+	FILE* h = NULL;
+
+#ifdef _UNICODE
+	setlocale(LC_ALL, "");
+#endif
+
+	for (INT32 i = 0; i < DIRS_MAX; i++)
+		memset(CoreIpsPaths[i], 0, MAX_PATH * sizeof(TCHAR));
+
+	char* p = find_last_slash(szAppIpsesPath);						// g_system_dir/fbneo/ips/
+	if ((NULL != p) && ('\0' == p[1])) p[0] = '\0';					// g_system_dir/fbneo/ips
+
+	_tcscpy(CoreIpsPaths[0], szAppIpsesPath);						// CoreIpsPaths[0] = g_system_dir/fbneo/ips
+
+	_stprintf(szConfig, _T("%sips_path.opt"), szAppPathDefPath);	// g_system_dir/fbneo/path/ips_path.opt
+
+	if (NULL == (h = _tfopen(szConfig, _T("rt"))))
+	{
+		memset(szConfig, 0, MAX_PATH * sizeof(TCHAR));
+		_stprintf(
+			szConfig, _T("%s%cips_path.opt"),
+			g_rom_dir, PATH_DEFAULT_SLASH_C()
+		);															// g_rom_dir/ips_path.opt
+
+		if (NULL == (h = _tfopen(szConfig, _T("rt"))))
+			return 1;												// Only CoreIpsPaths[0]
+	}
+
+	// Go through each line of the config file
+	while (_fgetts(szLine, 1024, h)) {
+		int nLen = _tcslen(szLine);
+
+		// Get rid of the linefeed at the end
+		if (nLen > 0 && szLine[nLen - 1] == 10) {
+			szLine[nLen - 1] = 0;
+			nLen--;
+		}
+
+#define STR(x) { TCHAR* szValue = LabelCheck(szLine,_T(#x) _T(" "));	\
+  if (szValue) _tcscpy(x,szValue); }
+
+//		STR(CoreIpsPaths[0]);										// g_system_dir/fbneo/ips
+		STR(CoreIpsPaths[1]);
+		STR(CoreIpsPaths[2]);
+		STR(CoreIpsPaths[3]);
+		STR(CoreIpsPaths[4]);
+		STR(CoreIpsPaths[5]);
+		STR(CoreIpsPaths[6]);
+		STR(CoreIpsPaths[7]);
+		STR(CoreIpsPaths[8]);
+		STR(CoreIpsPaths[9]);
+		STR(CoreIpsPaths[10]);
+		STR(CoreIpsPaths[11]);
+		STR(CoreIpsPaths[12]);
+		STR(CoreIpsPaths[13]);
+		STR(CoreIpsPaths[14]);
+		STR(CoreIpsPaths[15]);
+		STR(CoreIpsPaths[16]);
+		STR(CoreIpsPaths[17]);
+		STR(CoreIpsPaths[18]);
+		STR(CoreIpsPaths[19]);
+#undef STR
+	}
+
+	fclose(h);
+	return 0;														// There may be more
+}
 
 static INT32 GetLanguageCode()
 {
@@ -158,95 +231,102 @@ static TCHAR* GetPatchDescByLangcode(FILE* fp, int nLang)
 
 INT32 create_variables_from_ipses()
 {
-	ips_core_options.clear();
+	INT32 nRet = 0;
 	const char* pszDrvName = BurnDrvGetTextA(DRV_NAME), * pszExt = ".dat";
-
 	if (NULL == pszDrvName) return -2;
 
-	TCHAR szFilePathSearch[MAX_PATH] = { 0 };
+	ips_core_options.clear();
+	CoreIpsPathsLoad();
 
-	_stprintf(
-		szFilePathSearch, _T("%s%s%c"),
-		szAppIpsesPath, pszDrvName, PATH_DEFAULT_SLASH_C()
-	);
-
-	struct RDIR* entry = retro_opendir_include_hidden(szFilePathSearch, true);
-
-	if (!entry || retro_dirent_error(entry))
-		return -1;
-
-	INT32 nRet = 0, nLangcode = GetLanguageCode();
-	FILE* fp = NULL;
-
-	while (retro_readdir(entry))
+	for (INT32 i = 0; i < DIRS_MAX; i++)
 	{
-		const char* name = retro_dirent_get_name(entry);
+		if (NULL == CoreIpsPaths[i]) continue;
 
-		if (
-			retro_dirent_is_dir(entry, NULL) ||
-			(0 != strcmp(pszExt, strrchr(name, '.'))) ||
-			(0 == strcmp(name, ".")) || (0 == strcmp(name, ".."))
-		)
-			continue;
+		char* p = find_last_slash(CoreIpsPaths[i]);
+		if ((NULL != p) && ('\0' == p[1])) p[0] = '\0';
 
-		memset(szFilePathSearch, 0, MAX_PATH * sizeof(TCHAR));
-
+		TCHAR szFilePathSearch[MAX_PATH] = { 0 }, szPatchPaths[MAX_PATH] = { 0 };
 		_stprintf(
-			szFilePathSearch, _T("%s%s%c%s"),
-			szAppIpsesPath, pszDrvName, PATH_DEFAULT_SLASH_C(), name
+			szFilePathSearch, _T("%s%c%s%c"),
+			CoreIpsPaths[i], PATH_DEFAULT_SLASH_C(), pszDrvName, PATH_DEFAULT_SLASH_C()
 		);
 
-		if (NULL == (fp = _tfopen(szFilePathSearch, _T("r"))))
-			continue;
+		// ips_dirs/drvname_dir/
+		_tcscpy(szPatchPaths, szFilePathSearch);
 
-		_tcscpy(szAltFile, szFilePathSearch);
+		struct RDIR* entry = retro_opendir_include_hidden(szFilePathSearch, true);
 
-		TCHAR* pszPatchDesc = GetPatchDescByLangcode(fp, nLangcode);
-		// If not available - try English first
-		if (NULL == pszPatchDesc) pszPatchDesc = GetPatchDescByLangcode(fp, 0);
-		// Simplified Chinese is the reference language (should always be available!!)
-		if (NULL == pszPatchDesc) pszPatchDesc = GetPatchDescByLangcode(fp, 1);
-		if (NULL == pszPatchDesc)
+		if (!entry || retro_dirent_error(entry)) continue;
+
+		INT32 nLangcode = GetLanguageCode();
+		FILE* fp = NULL;
+
+		while (retro_readdir(entry))
 		{
+			const char* name = retro_dirent_get_name(entry);
+
+			if (
+				retro_dirent_is_dir(entry, NULL) ||
+				(0 != strcmp(pszExt, strrchr(name, '.'))) ||
+				(0 == strcmp(name, ".")) || (0 == strcmp(name, ".."))
+				)
+				continue;
+
+			memset(szFilePathSearch, 0, MAX_PATH * sizeof(TCHAR));
+
+			// ips_dirs/drvname_dir/xx.dat
+			_stprintf(
+				szFilePathSearch, _T("%s%s"),
+				szPatchPaths, name
+			);
+
+			if (NULL == (fp = _tfopen(szFilePathSearch, _T("r")))) continue;
+			_tcscpy(szAltFile, szFilePathSearch);
+
+			TCHAR* pszPatchDesc = GetPatchDescByLangcode(fp, nLangcode);
+			// If not available - try English first
+			if (NULL == pszPatchDesc) pszPatchDesc = GetPatchDescByLangcode(fp, 0);
+			// Simplified Chinese is the reference language (should always be available!!)
+			if (NULL == pszPatchDesc) pszPatchDesc = GetPatchDescByLangcode(fp, 1);
+			if (NULL == pszPatchDesc)
+			{
+				memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
+				_tcscpy(szAltDesc, name);
+			}
+
+			for (UINT32 x = 0; x < _tcslen(szAltDesc); x++) {
+				if ((szAltDesc[x] == '\r') || (szAltDesc[x] == '\n')) break;
+
+				szAltName[x] = szAltDesc[x];
+				pszPatchDesc = szAltDesc + x;
+			}
+
+			while (NULL != pszPatchDesc)
+			{
+				pszPatchDesc++;
+				if ((pszPatchDesc[0] != '\r') && (pszPatchDesc[0] != '\n')) break;
+			}
+
+			char szKey[100] = { 0 };
+			sprintf(szKey, "fbneo-ips-%s-%d", pszDrvName, nRet);
+
+			ips_core_options.push_back(ips_core_option());
+			ips_core_option* ips_option = &ips_core_options.back();
+			ips_option->dat_path        = szAltFile;
+			ips_option->option_name     = szKey;
+			ips_option->friendly_name   = szAltName;
+			std::string option_name     = (0 != strcmp("", pszPatchDesc)) ? pszPatchDesc : "Specific to the running romset and your ips database";
+			std::replace(option_name.begin(), option_name.end(), '\r', ' ');
+			ips_option->friendly_name_categorized = option_name;
+
+			memset(szAltFile, 0, MAX_PATH * sizeof(TCHAR));
+			memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
 			memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
-			_tcscpy(szAltDesc, name);
+
+			fclose(fp);
+			nRet++;
 		}
-
-		for (UINT32 i = 0; i < _tcslen(szAltDesc); i++) {
-			if ((szAltDesc[i] == '\r') || (szAltDesc[i] == '\n')) break;
-
-			szAltName[i] = szAltDesc[i];
-			pszPatchDesc = szAltDesc + i;
-		}
-
-		while (NULL != pszPatchDesc)
-		{
-			pszPatchDesc++;
-			if ((pszPatchDesc[0] != '\r') && (pszPatchDesc[0] != '\n')) break;
-		}
-
-		char szKey[100] = { 0 };
-		sprintf(szKey, "fbneo-ips-%s-%d", pszDrvName, nRet);
-
-		ips_core_options.push_back(ips_core_option());
-		ips_core_option* ips_option           = &ips_core_options.back();
-		ips_option->dat_path                  = szAltFile;
-		ips_option->option_name               = szKey;
-		ips_option->friendly_name             = szAltName;
-		std::string option_name               = (0 != strcmp("", pszPatchDesc)) ? pszPatchDesc : "Specific to the running romset and your ips database";
-		std::replace(option_name.begin(), option_name.end(), '\r', ' ');
-		ips_option->friendly_name_categorized = option_name;
-
-		memset(szAltFile, 0, MAX_PATH * sizeof(TCHAR));
-		memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
-		memset(szAltDesc, 0,     4096 * sizeof(TCHAR));
-
-		fclose(fp);
-		nRet++;
 	}
-
-	retro_closedir(entry);
-
 	return nRet;
 }
 
@@ -566,23 +646,11 @@ static void DoPatchGame(const char* patch_name, char* game_name, UINT32 crc, UIN
 				bTarget = true;
 				char ips_path[MAX_PATH * 2] = { 0 }, ips_dir[MAX_PATH] = { 0 }, * pszTmp = NULL;
 
-				if (0 == GetIpsNumActivePatches())
-				{
-					strcpy(ips_dir, szAppIpsPath);												// root_dir/.../ips_dir/drvname_dir/ips.dat
-					if (NULL != (pszTmp = strrchr(ips_dir, PATH_DEFAULT_SLASH_C())))
-						pszTmp[1] = '\0';														// root_dir/.../ips_dir/drvname_dir/
-					sprintf(ips_path, "%s%s%s", ips_dir, ips_name, (has_ext) ? "" : IPS_EXT);	// root_dir/.../ips_dir/drvname_dir/(sub_dir/)ipses.ips
-				}
-				else
-				{
-					sprintf(
-						ips_path,																// ./system/fbneo/ips/drvname_dir/(sub_dir/)ipses.ips
-						"%s%s%c%s%s",
-						szAppIpsesPath,															// ./system/fbneo/ips/
-						BurnDrvGetTextA(DRV_NAME), PATH_DEFAULT_SLASH_C(),						// drvname_dir/
-						ips_name, (has_ext) ? "" : IPS_EXT										// (sub_dir/)ipses.ips
-					);
-				}
+				strcpy(ips_dir, patch_name);												// ips_dir/drvname_dir/ips.dat
+				if (NULL != (pszTmp = strrchr(ips_dir, PATH_DEFAULT_SLASH_C())))
+					pszTmp[1] = '\0';														// ips_dir/drvname_dir/
+				sprintf(ips_path, "%s%s%s", ips_dir, ips_name, (has_ext) ? "" : IPS_EXT);	// ips_dir/drvname_dir/(sub_dir/)ipses.ips
+
 				PatchFile(ips_path, base, readonly);
 			}
 		}

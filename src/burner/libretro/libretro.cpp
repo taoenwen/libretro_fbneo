@@ -147,9 +147,9 @@ TCHAR szAppHDDPath[MAX_PATH];
 TCHAR szAppCheatsPath[MAX_PATH];
 TCHAR szAppIpsesPath[MAX_PATH];
 TCHAR szAppRomdatasPath[MAX_PATH];
+TCHAR szAppPathDefPath[MAX_PATH];
 TCHAR szAppBurnVer[16];
 
-static TCHAR szAppPathDefPath[MAX_PATH]   = { 0 };
 static char szRomsetPath[MAX_PATH]        = { 0 };
 
 #define TYPES_MAX	(26)	// Maximum number of machine types
@@ -196,6 +196,8 @@ static const TCHAR szTypeEnum[2][TYPES_MAX][13] = {
 static TCHAR CoreRomPaths[DIRS_MAX][MAX_PATH];
 
 static void extract_directory(char* buf, const char* path, size_t size);
+static bool retro_load_game_common();
+static void retro_incomplete_exit();
 
 static int nDIPOffset;
 
@@ -204,19 +206,20 @@ const int nConfigMinVersion = 0x020921;
 // Read in the config file for the whole application
 INT32 CoreRomPathsLoad()
 {
-	TCHAR szConfig[MAX_PATH];
-	TCHAR szLine[1024];
-	FILE* h;
+	TCHAR szConfig[MAX_PATH] = { 0 }, szLine[1024] = { 0 };
+	FILE* h = NULL;
 
 #ifdef _UNICODE
 	setlocale(LC_ALL, "");
 #endif
 
-	memset(szConfig, '\0', MAX_PATH * sizeof(TCHAR));
+	for (INT32 i = 0; i < DIRS_MAX; i++)
+		memset(CoreRomPaths[i], 0, MAX_PATH * sizeof(TCHAR));
+
 	_stprintf(szConfig, _T("%srom_path.opt"), szAppPathDefPath);
 
 	if (NULL == (h = _tfopen(szConfig, _T("rt")))) {
-		memset(szConfig, '\0', MAX_PATH * sizeof(TCHAR));
+		memset(szConfig, 0, MAX_PATH * sizeof(TCHAR));
 		_stprintf(szConfig, _T("%s%crom_path.opt"), g_rom_dir, PATH_DEFAULT_SLASH_C());
 
 		if (NULL == (h = _tfopen(szConfig, _T("rt"))))
@@ -946,7 +949,9 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 		else
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
 
-		// Search subdirs of rom dir
+		// Continue to search in subdirectories
+		// g_rom_dir/arcade/romName
+		// g_rom_dir/consoles/romName
 		for (INT32 nType = 0; nType < TYPES_MAX; nType++)
 		{
 			memset(path, 0, sizeof(path));
@@ -982,6 +987,29 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 		}
 		else
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
+
+		// Continue to search in subdirectories
+		// g_system_dir/fbneo/arcade/romName
+		// g_system_dir/fbneo/consoles/romName
+		for (INT32 nType = 0; nType < TYPES_MAX; nType++)
+		{
+			memset(path, 0, sizeof(path));
+			snprintf_nowarn(
+				path, sizeof(path), "%s%cfbneo%c%s%c%s",
+				g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName
+			);
+			if (ZipOpen(path) == 0)
+			{
+				g_find_list_path.push_back(located_archive());
+				located_archive* located = &g_find_list_path.back();
+				located->path = path;
+				located->ignoreCrc = false;
+				ZipClose();
+				HandleMessage(RETRO_LOG_INFO, "[FBNeo] Romset found at %s\n", path);
+			}
+			else
+				HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
+		}
 	}
 
 	{
@@ -1000,56 +1028,13 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
 	}
 
-	{
-		// Search RA's roms/fbneo dir and specific subdirs
-		snprintf_nowarn(
-			path, sizeof(path), ".%croms%cfbneo%c%s",
-			PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), romName
-		);
-		if (ZipOpen(path) == 0)
-		{
-			g_find_list_path.push_back(located_archive());
-			located_archive* located = &g_find_list_path.back();
-			located->path = path;
-			located->ignoreCrc = false;
-			ZipClose();
-			HandleMessage(RETRO_LOG_INFO, "[FBNeo] Romset found at %s\n", path);
-		}
-		else
-			HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
-
-		// Search subdirs of rom dir
-		for (INT32 nType = 0; nType < TYPES_MAX; nType++)
-		{
-			memset(path, 0, sizeof(path));
-			snprintf_nowarn(
-				path, sizeof(path), ".%croms%cfbneo%c%s%c%s",
-				PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName
-			);
-			if (ZipOpen(path) == 0)
-			{
-				g_find_list_path.push_back(located_archive());
-				located_archive* located = &g_find_list_path.back();
-				located->path = path;
-				located->ignoreCrc = false;
-				ZipClose();
-				HandleMessage(RETRO_LOG_INFO, "[FBNeo] Romset found at %s\n", path);
-			}
-			else
-				HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
-		}
-	}
-
-
 	if (0 == CoreRomPathsLoad())
 	{
-		// Search custom dirs:[rom_path.opt]
-		for (INT32 nPath = 0; nPath < DIRS_MAX; nPath++)
+		// Search custom directories
+		for (INT32 i = 0; i < DIRS_MAX; i++)
 		{
-			char* p = find_last_slash(CoreRomPaths[nPath]);
-
-			memset(path, 0, sizeof(path));
-			snprintf_nowarn(path, sizeof(path), "%s%c%s", CoreRomPaths[nPath], PATH_DEFAULT_SLASH_C(), romName);
+			char* p = find_last_slash(CoreRomPaths[i]);
+			if ((NULL != p) && ('\0' == p[1])) p[0] = '\0';
 
 			if (ZipOpen(path) == 0)
 			{
@@ -1063,13 +1048,15 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 			else
 				HandleMessage(RETRO_LOG_INFO, "[FBNeo] No romset found at %s\n", path);
 
-			// Search subdirs of custom dir
+			// Continue to search in subdirectories
+			// custom_dir/arcade/romName
+			// custom_dir/consoles/romName
 			for (INT32 nType = 0; nType < TYPES_MAX; nType++)
 			{
 				memset(path, 0, sizeof(path));
 				snprintf_nowarn(
 					path, sizeof(path), "%s%c%s%c%s",
-					CoreRomPaths[nPath], PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName
+					CoreRomPaths[i], PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName
 				);
 				if (ZipOpen(path) == 0)
 				{
@@ -1379,9 +1366,6 @@ void retro_deinit()
 	DspExit();
 	BurnLibExit();
 }
-
-static bool retro_load_game_common();
-static void retro_incomplete_exit();
 
 void retro_reset()
 {
@@ -2279,7 +2263,7 @@ static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRo
 			nRet = 2;
 			memset(szRomdataName, 0, sizeof(szRomdataName));
 			memset(szAppIpsPath,  0, sizeof(szAppIpsPath));
-			strcpy(szAppIpsPath, info->path);			// ips_dir/drvname_dir/ips.dat
+			strcpy(szAppIpsPath,  info->path);			// ips_dir/drvname_dir/ips.dat
 		}
 
 		for (INT32 i = 0; i < nRet; i++)
