@@ -3,6 +3,7 @@
 #include "retro_dirent.h"
 
 #include <time.h>
+#include <file/file_path.h>
 
 #ifndef UINT32_MAX
 #define UINT32_MAX	(UINT32)4294967295U
@@ -18,6 +19,80 @@ TCHAR szRomdataName[MAX_PATH] = _T("");
 static TCHAR szFullName[MAX_PATH] = { 0 }, szAltName[MAX_PATH] = { 0 }, szAltDesc[MAX_PATH] = { 0 };
 
 std::vector<romdata_core_option> romdata_core_options;
+
+static TCHAR CoreRomDataPaths[DIRS_MAX][MAX_PATH];
+
+// Read in the config file for the whole application
+INT32 CoreRomDataPathsLoad()
+{
+	TCHAR szConfig[MAX_PATH] = { 0 }, szLine[1024] = { 0 };
+	FILE* h = NULL;
+
+#ifdef _UNICODE
+	setlocale(LC_ALL, "");
+#endif
+
+	for (INT32 i = 0; i < DIRS_MAX; i++)
+		memset(CoreRomDataPaths[i], 0, MAX_PATH * sizeof(TCHAR));
+
+	char* p = find_last_slash(szAppRomdatasPath);						// g_system_dir/fbneo/romdata/
+	if ((NULL != p) && ('\0' == p[1])) p[0] = '\0';						// g_system_dir/fbneo/romdata
+
+	_tcscpy(CoreRomDataPaths[0], szAppRomdatasPath);					// CoreRomDataPaths[0] = g_system_dir/fbneo/romdata
+
+	_stprintf(szConfig, _T("%sromdata_path.opt"), szAppPathDefPath);	// g_system_dir/fbneo/path/romdata_path.opt
+
+	if (NULL == (h = _tfopen(szConfig, _T("rt"))))
+	{
+		memset(szConfig, 0, MAX_PATH * sizeof(TCHAR));
+		_stprintf(
+			szConfig, _T("%s%cromdata_path.opt"),
+			g_rom_dir, PATH_DEFAULT_SLASH_C()
+		);																// g_rom_dir/romdata_path.opt
+
+		if (NULL == (h = _tfopen(szConfig, _T("rt"))))
+			return 1;													// Only CoreRomDataPaths[0]
+	}
+
+	// Go through each line of the config file
+	while (_fgetts(szLine, 1024, h)) {
+		int nLen = _tcslen(szLine);
+
+		// Get rid of the linefeed at the end
+		if (nLen > 0 && szLine[nLen - 1] == 10) {
+			szLine[nLen - 1] = 0;
+			nLen--;
+		}
+
+#define STR(x) { TCHAR* szValue = LabelCheck(szLine,_T(#x) _T(" "));	\
+  if (szValue) _tcscpy(x,szValue); }
+
+//		STR(CoreRomDataPaths[0]);										// g_system_dir/fbneo/romdata
+		STR(CoreRomDataPaths[1]);
+		STR(CoreRomDataPaths[2]);
+		STR(CoreRomDataPaths[3]);
+		STR(CoreRomDataPaths[4]);
+		STR(CoreRomDataPaths[5]);
+		STR(CoreRomDataPaths[6]);
+		STR(CoreRomDataPaths[7]);
+		STR(CoreRomDataPaths[8]);
+		STR(CoreRomDataPaths[9]);
+		STR(CoreRomDataPaths[10]);
+		STR(CoreRomDataPaths[11]);
+		STR(CoreRomDataPaths[12]);
+		STR(CoreRomDataPaths[13]);
+		STR(CoreRomDataPaths[14]);
+		STR(CoreRomDataPaths[15]);
+		STR(CoreRomDataPaths[16]);
+		STR(CoreRomDataPaths[17]);
+		STR(CoreRomDataPaths[18]);
+		STR(CoreRomDataPaths[19]);
+#undef STR
+	}
+
+	fclose(h);
+	return 0;															// There may be more
+}
 
 static INT32 IsUTF8Text(const void* pBuffer, long size)
 {
@@ -63,7 +138,6 @@ static INT32 IsDatUTF8BOM()
 	fseek(fp, 0, SEEK_SET);
 
 	INT32 nRet = 0;
-
 	char* pszTest = (char*)malloc(nDatSize + 1);
 
 	if (NULL != pszTest) {
@@ -73,7 +147,6 @@ static INT32 IsDatUTF8BOM()
 		free(pszTest);
 		pszTest = NULL;
 	}
-
 	fclose(fp);
 
 	return nRet;
@@ -86,13 +159,12 @@ static INT32 IsDatUTF8BOM()
 
 static INT32 LoadRomdata()
 {
-	INT32 nType = IsDatUTF8BOM();
-	if (-1 == nType) return -1;
-
 	RDI.nDescCount = -1;	// Failed
 
-	const TCHAR* szReadMode = (3 == nType) ? _T("rt, ccs=UTF-8") : _T("rt");
+	INT32 nType = IsDatUTF8BOM();
+	if (-1 == nType) return RDI.nDescCount;
 
+	const TCHAR* szReadMode = (3 == nType) ? _T("rt, ccs=UTF-8") : _T("rt");
 	FILE* fp = _tfopen(szRomdataName, szReadMode);
 	if (NULL == fp) return RDI.nDescCount;
 
@@ -103,7 +175,7 @@ static INT32 LoadRomdata()
 
 	while (!feof(fp)) {
 		if (_fgetts(szBuf, MAX_PATH, fp) != NULL) {
-			pszBuf = szBuf;
+			pszBuf   = szBuf;
 			pszLabel = _strqtoken(pszBuf, DELIM_TOKENS_NAME);
 
 			if (NULL == pszLabel) continue;
@@ -134,8 +206,8 @@ static INT32 LoadRomdata()
 			{
 				// romname, len, crc, type
 				struct BurnRomInfo ri = { 0 };
-				ri.nLen = UINT32_MAX;
-				ri.nCrc = UINT32_MAX;
+				ri.nLen  = UINT32_MAX;
+				ri.nCrc  = UINT32_MAX;
 				ri.nType = 0;
 
 				pszInfo = _strqtoken(NULL, DELIM_TOKENS_NAME);
@@ -276,7 +348,6 @@ static INT32 LoadRomdata()
 			}
 		}
 	}
-
 	fclose(fp);
 
 	return RDI.nDescCount;
@@ -309,14 +380,12 @@ char* RomdataGetDrvName()
 				if (NULL == pszInfo) break;	// No driver specified
 
 				fclose(fp);
-
 				_tcscpy(szRomset, TCHARToANSI(pszInfo, NULL, 0));
 
 				return szRomset;
 			}
 		}
 	}
-
 	fclose(fp);
 
 	return NULL;
@@ -324,97 +393,116 @@ char* RomdataGetDrvName()
 
 INT32 create_variables_from_romdatas()
 {
-	romdata_core_options.clear();
+	INT32 nRet = 0;
+
 	bool bRomdataMode = (NULL != pDataRomDesc);
 	const char* pszDrvName = bRomdataMode ? RDI.szDrvName : BurnDrvGetTextA(DRV_NAME), * pszExt = ".dat";
-
 	if (NULL == pszDrvName) return -2;
 
-	struct RDIR* entry = retro_opendir_include_hidden(szAppRomdatasPath, true);
+	romdata_core_options.clear();
+	CoreRomDataPathsLoad();
 
-	if (!entry || retro_dirent_error(entry))
-		return -1;
-
-	INT32 nRet = 0; FILE* fp = NULL;
-
-	while (retro_readdir(entry))
+	for (INT32 i = 0; i < DIRS_MAX; i++)
 	{
-		const char* name = retro_dirent_get_name(entry);
+		if (0 == _tcscmp("", CoreRomDataPaths[i])) continue;
 
-		if (
-			retro_dirent_is_dir(entry, NULL) ||
-			(0 != strcmp(pszExt, strrchr(name, '.'))) ||
-			(0 == strcmp(name, ".")) || (0 == strcmp(name, ".."))
-		)
-			continue;
+		char* p = find_last_slash(CoreRomDataPaths[i]);
+		if ((NULL != p) && ('\0' == p[1])) p[0] = '\0';
 
-		TCHAR szFilePathSearch[MAX_PATH] = { 0 };
-		_stprintf(szFilePathSearch, _T("%s%s"), szAppRomdatasPath, name);
+		TCHAR szFilePathSearch[MAX_PATH] = { 0 }, szDatPaths[MAX_PATH] = { 0 };
+		_stprintf(szFilePathSearch, "%s%c", CoreRomDataPaths[i], PATH_DEFAULT_SLASH_C());
 
-		FILE* fp = _tfopen(szFilePathSearch, _T("rb"));
-		if (NULL == fp) continue;
+		// romdata_dirs/
+		_tcscpy(szDatPaths, szFilePathSearch);
 
-		// get dat size
-		fseek(fp, 0, SEEK_END);
-		INT32 nDatSize = ftell(fp);
-		fseek(fp, 0, SEEK_SET);
+		struct RDIR* entry = retro_opendir_include_hidden(szFilePathSearch, true);
+		if (!entry || retro_dirent_error(entry)) continue;
 
-		char* pszTest = (char*)malloc(nDatSize + 1);
-		if (NULL == pszTest) continue;
+		FILE* fp = NULL;
 
-		memset(pszTest, 0, nDatSize + 1);
-		fread(pszTest, nDatSize, 1, fp);
-		INT32 nType = IsUTF8Text(pszTest, nDatSize);
-		free(pszTest);
-		pszTest = NULL;
-		fclose(fp);
-
-		const TCHAR* szReadMode = (3 == nType) ? _T("rt, ccs=UTF-8") : _T("rt");
-		if (NULL == (fp = _tfopen(szFilePathSearch, szReadMode))) continue;
-
-		TCHAR szBuf[MAX_PATH] = { 0 }, * pszBuf = NULL, * pszLabel = NULL, * pszInfo = NULL;
-		bool bDrvOK = false, bDescOK = false;
-
-		memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
-		memset(szAltDesc, 0, MAX_PATH * sizeof(TCHAR));
-
-		while (!feof(fp))
+		while (retro_readdir(entry))
 		{
-			if (NULL != _fgetts(szBuf, MAX_PATH, fp));
+			const char* name = retro_dirent_get_name(entry);
+
+			if (
+				retro_dirent_is_dir(entry, NULL) ||
+				(0 != strcmp(pszExt, strrchr(name, '.'))) ||
+				(0 == strcmp(name, ".")) || (0 == strcmp(name, ".."))
+				)
+				continue;
+
+			memset(szFilePathSearch, 0, MAX_PATH * sizeof(TCHAR));
+			_stprintf(szFilePathSearch, "%s%s", szDatPaths, name);
+
+			FILE* fp = _tfopen(szFilePathSearch, _T("rb"));
+			if (NULL == fp) continue;
+
+			// get dat size
+			fseek(fp, 0, SEEK_END);
+			INT32 nDatSize = ftell(fp);
+			fseek(fp, 0, SEEK_SET);
+
+			char* pszTest = (char*)malloc(nDatSize + 1);
+			if (NULL == pszTest)
 			{
-				pszBuf   = szBuf;
-				pszLabel = _strqtoken(pszBuf, DELIM_TOKENS_NAME);
-				if ((NULL == pszLabel) || (_T('#') == pszLabel[0]) || ((_T('/') == pszLabel[0]) && (_T('/') == pszLabel[1]))) continue;
+				fclose(fp);
+				continue;
+			}
 
-				if (0 == _tcsicmp(_T("DrvName"), pszLabel))
-				{
-					pszInfo = _strqtoken(NULL, DELIM_TOKENS_NAME);
-					if ((NULL == pszInfo) || (0 != _tcsicmp(pszDrvName, pszInfo))) break;	// The driver specified by romdata does not match the current driver.
-					_tcscpy(szAltName, pszInfo); bDrvOK = true;
-				}
-				if (0 == _tcsicmp(_T("FullName"), pszLabel))
-				{
-					const TCHAR* pDesc = (NULL == (pszInfo = _strqtoken(NULL, DELIM_TOKENS_NAME))) ? szFilePathSearch : pszInfo;
-					_tcscpy(szAltDesc, pDesc); bDescOK = true;
-				}
-				if (bDrvOK && bDescOK)
-				{
-					char szKey[100] = { 0 };
-					sprintf(szKey, "fbneo-romdata-%s-%d", pszDrvName, nRet);
+			memset(pszTest, 0, nDatSize + 1);
+			fread(pszTest, nDatSize, 1, fp);
+			INT32 nType = IsUTF8Text(pszTest, nDatSize);
+			free(pszTest);
+			pszTest = NULL;
+			fclose(fp);
 
-					romdata_core_options.push_back(romdata_core_option());
-					romdata_core_option* romdata_option = &romdata_core_options.back();
-					romdata_option->dat_path            = szFilePathSearch;
-					romdata_option->option_name         = szKey;
-					romdata_option->friendly_name       = szAltDesc;
+			const TCHAR* szReadMode = (3 == nType) ? _T("rt, ccs=UTF-8") : _T("rt");
+			if (NULL == (fp = _tfopen(szFilePathSearch, szReadMode))) continue;
 
-					nRet++; break;
+			TCHAR szBuf[MAX_PATH] = { 0 }, * pszBuf = NULL, * pszLabel = NULL, * pszInfo = NULL;
+			bool bDrvOK = false, bDescOK = false;
+
+			memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
+			memset(szAltDesc, 0, MAX_PATH * sizeof(TCHAR));
+
+			while (!feof(fp))
+			{
+				if (NULL != _fgetts(szBuf, MAX_PATH, fp));
+				{
+					pszBuf = szBuf;
+					pszLabel = _strqtoken(pszBuf, DELIM_TOKENS_NAME);
+					if ((NULL == pszLabel) || (_T('#') == pszLabel[0]) || ((_T('/') == pszLabel[0]) && (_T('/') == pszLabel[1]))) continue;
+
+					if (0 == _tcsicmp(_T("DrvName"), pszLabel))
+					{
+						pszInfo = _strqtoken(NULL, DELIM_TOKENS_NAME);
+						if ((NULL == pszInfo) || (0 != _tcsicmp(pszDrvName, pszInfo))) break;	// The driver specified by romdata does not match the current driver.
+						_tcscpy(szAltName, pszInfo); bDrvOK = true;
+					}
+					if (0 == _tcsicmp(_T("FullName"), pszLabel))
+					{
+						const TCHAR* pDesc = (NULL == (pszInfo = _strqtoken(NULL, DELIM_TOKENS_NAME))) ? szFilePathSearch : pszInfo;
+						_tcscpy(szAltDesc, pDesc); bDescOK = true;
+					}
+					if (bDrvOK && bDescOK)
+					{
+						char szKey[100] = { 0 };
+						sprintf(szKey, "fbneo-romdata-%s-%d", pszDrvName, nRet);
+
+						romdata_core_options.push_back(romdata_core_option());
+						romdata_core_option* romdata_option = &romdata_core_options.back();
+						romdata_option->dat_path            = szFilePathSearch;
+						romdata_option->option_name         = szKey;
+						romdata_option->friendly_name       = szAltDesc;
+
+						nRet++; break;
+					}
 				}
 			}
+			fclose(fp);
 		}
-		fclose(fp);
+		retro_closedir(entry);
 	}
-	retro_closedir(entry);
 
 	return nRet;
 }
@@ -447,68 +535,59 @@ INT32 reset_romdatas_from_variables()
 
 INT32 apply_romdatas_from_variables()
 {
-	INT32 nIndex = -1, nCount = 0, nList[100], nRandNum = -1;
+	INT32 nIndex = 0, nCount = 0;
 	struct retro_variable var = { 0 };
 
-	memset(nList, -1, 100);
-
+	// Calculate the number of selections.
 	for (INT32 romdata_idx = 0; romdata_idx < romdata_core_options.size(); romdata_idx++)
 	{
 		romdata_core_option* romdata_option = &romdata_core_options[romdata_idx];
-
 		var.key = romdata_option->option_name.c_str();
+
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) == false || !var.value)
+			continue;
+
+		if (0 == strcmp(var.value, "enabled")) nCount++;
+	}
+
+	// Generates a random value when multiple selections are made.
+	if (nCount > 1)
+		nIndex = rand() % nCount;
+
+	nCount = 0;
+
+	// Selects a romdata by default/random value.
+	for (INT32 romdata_idx = 0; romdata_idx < romdata_core_options.size(); romdata_idx++)
+	{
+		romdata_core_option* romdata_option = &romdata_core_options[romdata_idx];
+		var.key = romdata_option->option_name.c_str();
+
 		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) == false || !var.value)
 			continue;
 
 		if (0 == strcmp(var.value, "enabled"))
 		{
-			nList[nCount] = romdata_idx;
-			nCount++;
-		}
-	}
+			if (nIndex != nCount++) continue;
 
-	if (nCount > 1)			// multiple selections.
-	{
-		bool bLoop = true;
-		srand((UINT32)time(NULL));
-
-		do
-		{
-			nRandNum = rand() % romdata_core_options.size();
-
-			for (INT32 i = 0; i < nCount; i++)
-			{
-				if (nRandNum == nList[i])
-				{
-					nRandNum = nList[i];
-					bLoop = false;
-					break;
-				}
-			}
-		} while (bLoop);
-	}
-
-	for (INT32 romdata_idx = 0; romdata_idx < romdata_core_options.size(); romdata_idx++)
-	{
-		if ((nCount > 1) && (romdata_idx < nRandNum)) continue;
-
-		romdata_core_option* romdata_option = &romdata_core_options[romdata_idx];
-
-		var.key = romdata_option->option_name.c_str();
-		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) == false || !var.value)
-			continue;
-
-		if (0 == strcmp(var.value, "enabled"))
-		{
-			nIndex = romdata_idx;
 			RomDataExit();	// Reset the parasitized drvname.
 			_tcscpy(szRomdataName, romdata_option->dat_path.c_str());
-			break;
+			char sza[260] = { 0 };
+			sprintf(sza, "%s", romdata_option->friendly_name.c_str());
+			FILE* f = fopen("cps1_gfx", "wb");
+			fwrite(sza, strlen(sza), 1, f);
+			fclose(f);
 		}
 	}
 
+	// Reset
 	for (INT32 romdata_idx = 0; romdata_idx < romdata_core_options.size(); romdata_idx++)
 	{
+		romdata_core_option* romdata_option = &romdata_core_options[romdata_idx];
+		var.key = romdata_option->option_name.c_str();
+
+		if (environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var) == false || !var.value)
+			continue;
+
 		if (0 == strcmp(var.value, "enabled"))
 		{
 			var.value = "disabled";

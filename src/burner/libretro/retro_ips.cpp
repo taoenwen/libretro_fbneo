@@ -321,7 +321,7 @@ INT32 create_variables_from_ipses()
 
 			memset(szAltFile, 0, MAX_PATH * sizeof(TCHAR));
 			memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
-			memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
+			memset(szAltDesc, 0, 4096     * sizeof(TCHAR));
 
 			fclose(fp);
 			nRet++;

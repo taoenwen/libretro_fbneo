@@ -216,11 +216,11 @@ INT32 CoreRomPathsLoad()
 	for (INT32 i = 0; i < DIRS_MAX; i++)
 		memset(CoreRomPaths[i], 0, MAX_PATH * sizeof(TCHAR));
 
-	_stprintf(szConfig, _T("%srom_path.opt"), szAppPathDefPath);
+	snprintf_nowarn(szConfig, sizeof(szConfig), "%srom_path.opt", szAppPathDefPath);
 
 	if (NULL == (h = _tfopen(szConfig, _T("rt")))) {
 		memset(szConfig, 0, MAX_PATH * sizeof(TCHAR));
-		_stprintf(szConfig, _T("%s%crom_path.opt"), g_rom_dir, PATH_DEFAULT_SLASH_C());
+		snprintf_nowarn(szConfig, sizeof(szConfig), "%s%crom_path.opt", g_rom_dir, PATH_DEFAULT_SLASH_C());
 
 		if (NULL == (h = _tfopen(szConfig, _T("rt"))))
 			return 1;
@@ -2277,7 +2277,7 @@ static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRo
 				strcpy(szRomset, ++pszTmp);				// romset of ips
 		}
 
-		sprintf(pszRomsetPath, "%s%c%s", szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
+		_stprintf(pszRomsetPath, _T("%s%c%s"), szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
 	}
 	else
 		strcpy(pszRomsetPath, info->path);
