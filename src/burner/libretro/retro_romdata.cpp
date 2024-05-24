@@ -571,11 +571,6 @@ INT32 apply_romdatas_from_variables()
 
 			RomDataExit();	// Reset the parasitized drvname.
 			_tcscpy(szRomdataName, romdata_option->dat_path.c_str());
-			char sza[260] = { 0 };
-			sprintf(sza, "%s", romdata_option->friendly_name.c_str());
-			FILE* f = fopen("cps1_gfx", "wb");
-			fwrite(sza, strlen(sza), 1, f);
-			fclose(f);
 		}
 	}
 
