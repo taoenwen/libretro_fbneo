@@ -34,7 +34,7 @@ TCHAR szAppIpsPath[MAX_PATH] = { 0 };
 std::vector<ips_core_option> ips_core_options;
 
 static INT32 nRomOffset = 0, nActiveArray = 0, nStandalone, nDefineNum = 0;
-static TCHAR szAltFile[MAX_PATH] = { 0 }, szAltName[MAX_PATH] = { 0 }, szAltDesc[4096] = { 0 }, ** pszIpsActivePatches = NULL;
+static TCHAR szAltFile[MAX_PATH] = { 0 }, szAltName[MAX_PATH] = { 0 }, * pszAltDesc = NULL, ** pszIpsActivePatches = NULL;
 static TCHAR CoreIpsPaths[DIRS_MAX][MAX_PATH];
 
 static const TCHAR szLanguageCodes[NUM_LANGUAGES][6] = {
@@ -157,7 +157,6 @@ static TCHAR* GetPatchDescByLangcode(FILE* fp, int nLang)
 	char* desc = NULL, langtag[10] = { 0 };
 
 	sprintf(langtag, "[%s]", TCHARToANSI(szLanguageCodes[nLang], NULL, 0));
-	memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
 
 	fseek(fp, 0, SEEK_SET);
 
@@ -178,7 +177,8 @@ static TCHAR* GetPatchDescByLangcode(FILE* fp, int nLang)
 				{
 					if (desc)
 					{
-						result = _tcscpy(szAltDesc, desc);
+						pszAltDesc = (char*)malloc(strlen(desc) + 1);
+						result = (NULL != pszAltDesc) ? strcpy(pszAltDesc, desc) : NULL;
 						free(desc);
 						desc = NULL;
 						return result;
@@ -220,7 +220,8 @@ static TCHAR* GetPatchDescByLangcode(FILE* fp, int nLang)
 
 	if (desc)
 	{
-		result = _tcscpy(szAltDesc, desc);
+		pszAltDesc = (char*)malloc(strlen(desc) + 1);
+		result = (NULL != pszAltDesc) ? strcpy(pszAltDesc, desc) : NULL;
 		free(desc);
 		desc = NULL;
 		return result;
@@ -290,21 +291,24 @@ INT32 create_variables_from_ipses()
 			if (NULL == pszPatchDesc) pszPatchDesc = GetPatchDescByLangcode(fp, 1);
 			if (NULL == pszPatchDesc)
 			{
-				memset(szAltDesc, 0, 4096 * sizeof(TCHAR));
-				_tcscpy(szAltDesc, name);
+				pszPatchDesc = (TCHAR*)malloc(1024);
+				memset(pszPatchDesc, 0, 1024 * sizeof(TCHAR));
+				_tcscpy(pszPatchDesc, name);
 			}
 
-			for (UINT32 x = 0; x < _tcslen(szAltDesc); x++) {
-				if ((szAltDesc[x] == '\r') || (szAltDesc[x] == '\n')) break;
+			char* p = NULL;
 
-				szAltName[x] = szAltDesc[x];
-				pszPatchDesc = szAltDesc + x;
+			for (UINT32 x = 0; x < _tcslen(pszPatchDesc); x++) {
+				if ((pszPatchDesc[x] == '\r') || (pszPatchDesc[x] == '\n')) break;
+
+				szAltName[x] = pszPatchDesc[x];
+				p = pszPatchDesc + x;
 			}
 
 			while (NULL != pszPatchDesc)
 			{
-				pszPatchDesc++;
-				if ((pszPatchDesc[0] != '\r') && (pszPatchDesc[0] != '\n')) break;
+				p++;
+				if ((p[0] != '\r') && (p[0] != '\n')) break;
 			}
 
 			char szKey[100] = { 0 };
@@ -315,13 +319,14 @@ INT32 create_variables_from_ipses()
 			ips_option->dat_path        = szAltFile;
 			ips_option->option_name     = szKey;
 			ips_option->friendly_name   = szAltName;
-			std::string option_name     = (0 != strcmp("", pszPatchDesc)) ? pszPatchDesc : "Specific to the running romset and your ips database";
+			std::string option_name     = (0 != strcmp("", p)) ? p : "Specific to the running romset and your ips database";
 			std::replace(option_name.begin(), option_name.end(), '\r', ' ');
 			ips_option->friendly_name_categorized = option_name;
 
+			if (NULL != pszPatchDesc) free(pszPatchDesc);
+
 			memset(szAltFile, 0, MAX_PATH * sizeof(TCHAR));
 			memset(szAltName, 0, MAX_PATH * sizeof(TCHAR));
-			memset(szAltDesc, 0, 4096     * sizeof(TCHAR));
 
 			fclose(fp);
 			nRet++;
