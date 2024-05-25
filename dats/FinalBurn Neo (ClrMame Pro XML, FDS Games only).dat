@@ -839,8 +839,8 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
-	<game name="kaettmarbro" romof="fdsbios" sourcefile="nes/d_nes.cpp">
-		<description>Kaettekita Mario Brothers (Japan)</description>
+	<game name="kaettmarbro" cloneof="returnmarbro" romof="returnmarbro" sourcefile="nes/d_nes.cpp">
+		<description>Kaettekita Mario Bros. (Japan)</description>
 		<year>1988</year>
 		<manufacturer>Nintendo</manufacturer>
 		<rom name="Kaettekita Mario Brothers (Japan).fds" size="131016" crc="12358ded"/>
@@ -1294,6 +1294,16 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
+	<game name="returnmarbro" romof="fdsbios" sourcefile="nes/d_nes.cpp">
+		<comment>Hack</comment>
+		<description>Return of Mario Bros. (Hack, English)</description>
+		<year>2021</year>
+		<manufacturer>FCandChill</manufacturer>
+		<rom name="Return of Mario Bros. T-Eng (2021)(FCandChill).fds" size="131000" crc="c3c31d57"/>
+		<rom name="fdsbios.nes" merge="fdsbios.nes" size="8192" crc="5e607dcf"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
 	<game name="rogerrabbit" romof="fdsbios" sourcefile="nes/d_nes.cpp">
 		<description>Roger Rabbit (Japan)</description>
 		<year>1989</year>
@@ -1624,21 +1634,21 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
-	<game name="youkaiyashiki" romof="fdsbios" sourcefile="nes/d_nes.cpp">
-		<comment>Hack</comment>
-		<description>Youkai Yashiki (Hack, English)</description>
-		<year>2008</year>
-		<manufacturer>KingMike's Translations</manufacturer>
-		<rom name="Youkai Yashiki (T-Eng).fds" size="131000" crc="546589ab"/>
-		<rom name="fdsbios.nes" merge="fdsbios.nes" size="8192" crc="5e607dcf"/>
-		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
-		<driver status="good"/>
-	</game>
 	<game name="youkaiyashikij" cloneof="youkaiyashiki" romof="youkaiyashiki" sourcefile="nes/d_nes.cpp">
 		<description>Youkai Yashiki (Japan)</description>
 		<year>1987</year>
 		<manufacturer>Irem</manufacturer>
 		<rom name="Youkai Yashiki (Japan).fds" size="131016" crc="a888c6df"/>
+		<rom name="fdsbios.nes" merge="fdsbios.nes" size="8192" crc="5e607dcf"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
+	<game name="youkaiyashiki" romof="fdsbios" sourcefile="nes/d_nes.cpp">
+		<comment>Hack</comment>
+		<description>Youkai Yashiki ~ Ghost Manor (Hack, English)</description>
+		<year>2008</year>
+		<manufacturer>KingMike's Translations</manufacturer>
+		<rom name="Youkai Yashiki (T-Eng).fds" size="131000" crc="546589ab"/>
 		<rom name="fdsbios.nes" merge="fdsbios.nes" size="8192" crc="5e607dcf"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
@@ -1663,7 +1673,7 @@
 	</game>
 	<game name="zeldanoden" romof="fdsbios" sourcefile="nes/d_nes.cpp">
 		<comment>Hack</comment>
-		<description>Zelda no Densetsu - The Hyrule Fantasy (Hack, English)</description>
+		<description>Zelda no Densetsu - The Hyrule Fantasy (Hack, English v1.1)</description>
 		<year>2016</year>
 		<manufacturer>Jordiway73</manufacturer>
 		<rom name="Zelda no Densetsu - The Hyrule Fantasy (T-Eng).fds" size="131016" crc="ee11aa63"/>

@@ -3630,6 +3630,7 @@ DRV		BurnDrvCountrunb;
 DRV		BurnDrvCountrun;
 DRV		BurnDrvmd_cstrike;
 DRV		BurnDrvCountryc;
+DRV		BurnDrvnes_courier;
 DRV		BurnSpecChorace1;
 DRV		BurnSpecChorace2;
 DRV		BurnSpecChorace3;
@@ -3663,6 +3664,7 @@ DRV		BurnDrvmd_crash;
 #if defined FBNEO_DEBUG
 DRV		BurnDrvCrater;			// Graphics Issues [NOT WORKING]
 #endif
+DRV		BurnDrvnes_cratersong;
 DRV		BurnDrvtg_cratermz;
 DRV		BurnDrvMSX_crawlers;
 DRV		BurnSpecCray5;
@@ -10137,6 +10139,7 @@ DRV		BurnSpecmaribros;
 DRV		BurnSpecMbgw;
 DRV		BurnDrvMariobl;
 DRV		BurnDrvMariobla;
+DRV		BurnDrvnes_mariobrosmc0;
 DRV		BurnDrvMarioj;
 DRV		BurnDrvMarioe;
 DRV		BurnDrvMariof;
@@ -14156,6 +14159,7 @@ DRV		BurnSpecRestlessandre;
 DRV		BurnDrvMSX_retaliot;
 DRV		BurnSpecRetroforce;
 DRV		BurnSpecRetroinv128;
+DRV		BurnDrvfds_returnmarbro;
 DRV		BurnDrvRetofinvb1;
 DRV		BurnDrvRetofinvb2;
 DRV		BurnDrvRetofinvb3;
@@ -16249,6 +16253,7 @@ DRV		BurnDrvSquaitsa;
 DRV		BurnDrvSquash;
 DRV		BurnDrvnes_squashed;
 DRV		BurnDrvnes_squirchaser;
+DRV		BurnDrvnes_squirdomino;
 DRV		BurnDrvmd_squirrel;
 DRV		BurnDrvcv_squishem;
 DRV		BurnDrvMSX_squishem;
@@ -20500,10 +20505,10 @@ DRV		BurnDrvYoukaidk2;
 DRV		BurnDrvYoukaidk1;
 DRV		BurnDrvnes_youkaikurabu;
 DRV		BurnDrvMSX_chima;
-DRV		BurnDrvfds_youkaiyashiki;
 DRV		BurnDrvfds_youkaiyashikij;
 DRV		BurnDrvMSX_youkaiya;
 DRV		BurnDrvMSX_youkaiyarmd;
+DRV		BurnDrvfds_youkaiyashiki;
 #if defined FBNEO_DEBUG
 DRV		BurnDrvYoumab;			// no comment [NOT WORKING]
 DRV		BurnDrvYoumab2;			// no comment [NOT WORKING]
@@ -23985,7 +23990,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvChukatau,			// Chuka Taisen (US) (P0-028-A PCB)
 	&BurnDrvChukatai,			// Chuka Taisen (World) (P0-028-A PCB)
 	&BurnDrvDdaydoo,			// Chulgyeok D-Day (Korea)
-	&BurnDrvnes_chumleeadv,		// Chumlee's Adventure - the quest for Pinky (HB)
+	&BurnDrvnes_chumleeadv,		// Chumlee's Adventure - The Quest for Pinky (HB)
 	&BurnDrvMSX_chuheib1,		// Chuugaku Hisshuu Eibunpou 1 (Japan)
 	&BurnDrvDw2001,				// Chuugokuryuu 2001 [Dragon World 2001] (V100 02/21/01 16:05:16, Japan)
 	&BurnDrvDrgw3100,			// Chuugokuryuu 3 Special (Japan, ver. 100)
@@ -24406,6 +24411,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvCountrun,			// Counter Run (NS6201-A 1988.3) [Please use countrunb instead!, NOT WORKING]
 	&BurnDrvmd_cstrike,			// Counter Strike (Russia) (Unl)
 	&BurnDrvCountryc,			// Country Club [bad inputs, use fitegolf instead!, NOT WORKING]
+	&BurnDrvnes_courier,		// Courier (HB)
 	&BurnSpecChorace1,			// Cousin Horace - Chapter 1 (48K) (HB)
 	&BurnSpecChorace2,			// Cousin Horace - Chapter 2 (48K) (HB)
 	&BurnSpecChorace3,			// Cousin Horace - Chapter 3 (48K) (HB)
@@ -24439,6 +24445,7 @@ static struct BurnDriver* pDriver[] = {
 #if defined FBNEO_DEBUG
 	&BurnDrvCrater,				// Crater Raider [Graphics Issues, NOT WORKING]
 #endif
+	&BurnDrvnes_cratersong,		// Crater Song (HB, v1.03)
 	&BurnDrvtg_cratermz,		// Cratermaze (USA)
 	&BurnDrvMSX_crawlers,		// Crawlers (HB, v1.1)
 	&BurnSpecCray5,				// Cray-5 (128K) (HB)
@@ -29500,7 +29507,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvKabukizj,			// Kabuki-Z (Japan)
 	&BurnDrvKabukiz,			// Kabuki-Z (World)
 	&BurnDrvMSX_kaerushoot,		// Kaeru Shooter (Japan)
-	&BurnDrvfds_kaettmarbro,	// Kaettekita Mario Brothers (Japan)
+	&BurnDrvfds_kaettmarbro,	// Kaettekita Mario Bros. (Japan)
 	&BurnDrvnes_kagec,			// Kage (Hack, Chinese)
 	&BurnDrvnes_kage,			// Kage (Japan)
 	&BurnDrvnes_kagenodensetsuc,// Kage no Densetsu (Hack, Chinese)
@@ -30913,6 +30920,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnSpecMbgw,				// Mario Bros Game & Watch (48K) (HB)
 	&BurnDrvMariobl,			// Mario Bros. (bootleg on Ambush Hardware, set 1)
 	&BurnDrvMariobla,			// Mario Bros. (bootleg on Ambush Hardware, set 2)
+	&BurnDrvnes_mariobrosmc0,	// Mario Bros. (Euro, MC-0 Classic Series)
 	&BurnDrvMarioj,				// Mario Bros. (Japan, Revision C)
 	&BurnDrvMarioe,				// Mario Bros. (US, Revision E)
 	&BurnDrvMariof,				// Mario Bros. (US, Revision F)
@@ -34932,6 +34940,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvMSX_retaliot,		// Retaliot (HB)
 	&BurnSpecRetroforce,		// Retroforce (128K) (HB)
 	&BurnSpecRetroinv128,		// Retroinvaders (128K) (HB)
+	&BurnDrvfds_returnmarbro,	// Return of Mario Bros. (Hack, English)
 	&BurnDrvRetofinvb1,			// Return of the Invaders (bootleg no MCU set 1)
 	&BurnDrvRetofinvb2,			// Return of the Invaders (bootleg no MCU set 2)
 	&BurnDrvRetofinvb3,			// Return of the Invaders (bootleg no MCU set 3)
@@ -37025,6 +37034,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvSquash,				// Squash (ver. 1.0, checksum 015aef61)
 	&BurnDrvnes_squashed,		// Squashed (USA) (Prototype)
 	&BurnDrvnes_squirchaser,	// Squirrel Chaser (HB)
+	&BurnDrvnes_squirdomino,	// Squirrel Domino (HB)
 	&BurnDrvmd_squirrel,		// Squirrel King (Taiwan) (Unl)
 	&BurnDrvcv_squishem,		// Squish 'em Sam!
 	&BurnDrvMSX_squishem,		// Squish'em (Japan)
@@ -41276,10 +41286,10 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvYoukaidk1,			// Youkai Douchuuki (Japan, old version (YD1))
 	&BurnDrvnes_youkaikurabu,	// Youkai Kurabu (Japan)
 	&BurnDrvMSX_chima,			// Youkai Tantei Chima Chima (Japan)
-	&BurnDrvfds_youkaiyashiki,	// Youkai Yashiki (Hack, English)
 	&BurnDrvfds_youkaiyashikij,	// Youkai Yashiki (Japan)
 	&BurnDrvMSX_youkaiya,		// Youkai Yashiki - Ghost House (Japan)
 	&BurnDrvMSX_youkaiyarmd,	// Youkai Yashiki - Ghost House Remastered (HB)
+	&BurnDrvfds_youkaiyashiki,	// Youkai Yashiki ~ Ghost Manor (Hack, English)
 #if defined FBNEO_DEBUG
 	&BurnDrvYoumab,				// Youma Ninpou Chou (Game Electronics bootleg, set 1) [no comment, NOT WORKING]
 	&BurnDrvYoumab2,			// Youma Ninpou Chou (Game Electronics bootleg, set 2) [no comment, NOT WORKING]
@@ -41372,7 +41382,7 @@ static struct BurnDriver* pDriver[] = {
 	&BurnDrvnes_zeldaiird,		// Zelda II Redux - The Adventure of Link (Hack, v3.0)
 	&BurnDrvnes_zeldakong,		// Zelda Kong (GlobalHack)
 	&BurnDrvnes_zeldanodenc,	// Zelda no Densetsu - The Hyrule Fantasy (Hack, Chinese)
-	&BurnDrvfds_zeldanoden,		// Zelda no Densetsu - The Hyrule Fantasy (Hack, English)
+	&BurnDrvfds_zeldanoden,		// Zelda no Densetsu - The Hyrule Fantasy (Hack, English v1.1)
 	&BurnDrvfds_zeldanodenj,	// Zelda no Densetsu - The Hyrule Fantasy (Japan)
 	&BurnSpecZen,				// ZEN (48K) (HB)
 	&BurnDrvnes_zenc,			// Zen - Intergalactic Ninja (Hack, Chinese)
@@ -45154,6 +45164,7 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "countrun", "pre90s/d_freekick.cpp"},
 	{ "md_cstrike", "megadrive/d_megadrive.cpp"},
 	{ "countryc", "pre90s/d_snk.cpp"},
+	{ "nes_courier", "nes/d_nes.cpp"},
 	{ "spec_chorace1", "spectrum/d_spectrum.cpp"},
 	{ "spec_chorace2", "spectrum/d_spectrum.cpp"},
 	{ "spec_chorace3", "spectrum/d_spectrum.cpp"},
@@ -45185,6 +45196,7 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "crashh", "pre90s/d_pacman.cpp"},
 	{ "md_crash", "megadrive/d_megadrive.cpp"},
 	{ "crater", "pre90s/d_mcr3.cpp"},
+	{ "nes_cratersong", "nes/d_nes.cpp"},
 	{ "tg_cratermz", "pce/d_pce.cpp"},
 	{ "msx_crawlers", "msx/d_msx.cpp"},
 	{ "spec_cray5", "spectrum/d_spectrum.cpp"},
@@ -51597,6 +51609,7 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "spec_mbgw", "spectrum/d_spectrum.cpp"},
 	{ "mariobl", "pre90s/d_ambush.cpp"},
 	{ "mariobla", "pre90s/d_ambush.cpp"},
+	{ "nes_mariobrosmc0", "nes/d_nes.cpp"},
 	{ "marioj", "pre90s/d_mario.cpp"},
 	{ "marioe", "pre90s/d_mario.cpp"},
 	{ "mariof", "pre90s/d_mario.cpp"},
@@ -55584,6 +55597,7 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "msx_retaliot", "msx/d_msx.cpp"},
 	{ "spec_retroforce", "spectrum/d_spectrum.cpp"},
 	{ "spec_retroinv128", "spectrum/d_spectrum.cpp"},
+	{ "fds_returnmarbro", "nes/d_nes.cpp"},
 	{ "retofinvb1", "taito/d_retofinv.cpp"},
 	{ "retofinvb2", "taito/d_retofinv.cpp"},
 	{ "retofinvb3", "taito/d_retofinv.cpp"},
@@ -57653,6 +57667,7 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "squash", "pst90s/d_gaelco.cpp"},
 	{ "nes_squashed", "nes/d_nes.cpp"},
 	{ "nes_squirchaser", "nes/d_nes.cpp"},
+	{ "nes_squirdomino", "nes/d_nes.cpp"},
 	{ "md_squirrel", "megadrive/d_megadrive.cpp"},
 	{ "cv_squishem", "coleco/d_coleco.cpp"},
 	{ "msx_squishem", "msx/d_msx.cpp"},
@@ -61846,10 +61861,10 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "youkaidk1", "pre90s/d_namcos1.cpp"},
 	{ "nes_youkaikurabu", "nes/d_nes.cpp"},
 	{ "msx_chima", "msx/d_msx.cpp"},
-	{ "fds_youkaiyashiki", "nes/d_nes.cpp"},
 	{ "fds_youkaiyashikij", "nes/d_nes.cpp"},
 	{ "msx_youkaiya", "msx/d_msx.cpp"},
 	{ "msx_youkaiyarmd", "msx/d_msx.cpp"},
+	{ "fds_youkaiyashiki", "nes/d_nes.cpp"},
 	{ "youmab", "pre90s/d_galivan.cpp"},
 	{ "youmab2", "pre90s/d_galivan.cpp"},
 	{ "youma", "pre90s/d_galivan.cpp"},

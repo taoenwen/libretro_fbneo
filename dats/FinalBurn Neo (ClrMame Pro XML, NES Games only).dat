@@ -124,7 +124,7 @@
 		<comment>Homebrew</comment>
 		<description>8-bit Music Power (HB)</description>
 		<year>2017</year>
-		<manufacturer>RiKi</manufacturer>
+		<manufacturer>RiKi - Columbus Circle</manufacturer>
 		<rom name="8bit Music Power (2017)(RIKI).nes" size="786448" crc="351426ab"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
@@ -143,7 +143,7 @@
 		<description>8-Bit Rhythm Land (HB)</description>
 		<year>2018</year>
 		<manufacturer>Columbus Circle</manufacturer>
-		<rom name="8-Bit Rhythm Land (HB).nes" size="786448" crc="48859a73"/>
+		<rom name="8-Bit Rhythm Land (2018)(Columbus Circle).nes" size="786448" crc="48859a73"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -767,7 +767,7 @@
 		<description>Alfonzo's Arctic Adventure (HB)</description>
 		<year>2018</year>
 		<manufacturer>Spoony Bard Productions</manufacturer>
-		<rom name="Alfonzo's Arctic Adventure (HB).nes" size="262160" crc="cd2ada76"/>
+		<rom name="Alfonzo's Arctic Adventure (2018)(Spoony Bard Productions).nes" size="262160" crc="cd2ada76"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -3262,7 +3262,7 @@
 	</game>
 	<game name="chumleeadv" sourcefile="nes/d_nes.cpp">
 		<comment>Homebrew</comment>
-		<description>Chumlee's Adventure - the quest for Pinky (HB)</description>
+		<description>Chumlee's Adventure - The Quest for Pinky (HB)</description>
 		<year>2020</year>
 		<manufacturer>Khan Games</manufacturer>
 		<rom name="Chumlee Adventure (2020)(Khan Games).nes" size="131088" crc="0f81f876"/>
@@ -3663,6 +3663,15 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
+	<game name="courier" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>Courier (HB)</description>
+		<year>2024</year>
+		<manufacturer>Khan Games</manufacturer>
+		<rom name="Courier (2024)(Khan Games).nes" size="262160" crc="6e4284ac"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
 	<game name="cowboykid" sourcefile="nes/d_nes.cpp">
 		<description>Cowboy Kid (USA)</description>
 		<year>1992</year>
@@ -3676,7 +3685,7 @@
 		<description>Cowlitz Gamers 2nd Adventure (HB)</description>
 		<year>2017</year>
 		<manufacturer>Cowlitz</manufacturer>
-		<rom name="Cowlitz Gamers 2nd Adventure (HB).nes" size="131088" crc="0db2dd59"/>
+		<rom name="Cowlitz Gamers 2nd Adventure (2017)(Cowlitz).nes" size="131088" crc="0db2dd59"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -3685,7 +3694,7 @@
 		<description>Cowlitz Gamers Adventure (HB)</description>
 		<year>2016</year>
 		<manufacturer>Cowlitz</manufacturer>
-		<rom name="Cowlitz Gamers Adventure (HB).nes" size="32784" crc="0ae2354b"/>
+		<rom name="Cowlitz Gamers Adventure (2016)(Cowlitz).nes" size="32784" crc="0ae2354b"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -3724,6 +3733,15 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
+	<game name="cratersong" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>Crater Song (HB, v1.03)</description>
+		<year>2024</year>
+		<manufacturer>John Vanderhoef</manufacturer>
+		<rom name="Crater Song v1.03 (2024)(John Vanderhoef).nes" size="524304" crc="48df7653"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
 	<game name="crayoshicha" sourcefile="nes/d_nes.cpp">
 		<description>Crayon Shin-chan - Ora to Poi Poi (Japan)</description>
 		<year>1993</year>
@@ -3753,7 +3771,7 @@
 		<description>Creepy Brawlers (HB)</description>
 		<year>2017</year>
 		<manufacturer>Mega Cat Studios</manufacturer>
-		<rom name="Creepy Brawlers (HB).nes" size="524304" crc="c8f05be4"/>
+		<rom name="Creepy Brawlers (2017)(Mega Cat Studios).nes" size="524304" crc="c8f05be4"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -8685,9 +8703,9 @@
 	<game name="indivisible" sourcefile="nes/d_nes.cpp">
 		<comment>Homebrew</comment>
 		<description>Indivisible (HB)</description>
-		<year>201x</year>
+		<year>2017</year>
 		<manufacturer>Lab Zero Games</manufacturer>
-		<rom name="Indivisible (HB).nes" size="262160" crc="9f304e88"/>
+		<rom name="Indivisible (2017)(Lab Zero Games).nes" size="262160" crc="9f304e88"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -11162,6 +11180,14 @@
 		<manufacturer>DahrkDaiz</manufacturer>
 		<rom name="Mario Adventure (Hack).nes" size="426000" crc="2e6d3fdc"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
+	<game name="mariobrosmc0" cloneof="mariobros" romof="mariobros" sourcefile="nes/d_nes.cpp">
+		<description>Mario Bros. (Euro, MC-0 Classic Series)</description>
+		<year>1993</year>
+		<manufacturer>Nintendo</manufacturer>
+		<rom name="Mario Bros. (Euro)(MC-0, Classic Series)(1993)(Nintendo).nes" size="40976" crc="643702d9"/>
+		<video type="raster" orientation="horizontal" width="256" height="232" aspectx="256" aspecty="232"/>
 		<driver status="good"/>
 	</game>
 	<game name="mariobros" sourcefile="nes/d_nes.cpp">
@@ -16355,6 +16381,15 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
+	<game name="squirdomino" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>Squirrel Domino (HB)</description>
+		<year>2024</year>
+		<manufacturer>NovaSquirrel</manufacturer>
+		<rom name="Squirrel Domino (2024)(NovaSquirrel).nes" size="24592" crc="08d49a13"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
 	<game name="stanley" sourcefile="nes/d_nes.cpp">
 		<description>Stanley - The Search for Dr. Livingston (USA)</description>
 		<year>1992</year>
@@ -16614,8 +16649,8 @@
 		<comment>Homebrew</comment>
 		<description>Steins Gate (HB)</description>
 		<year>2018</year>
-		<manufacturer>Chiyomaru</manufacturer>
-		<rom name="Steins Gate (HB).nes" size="786448" crc="547c4f1d"/>
+		<manufacturer>Chiyomaru Studio</manufacturer>
+		<rom name="Steins Gate (2018)(Chiyomaru Studio).nes" size="786448" crc="547c4f1d"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -19773,7 +19808,7 @@
 		<description>Yeah Yeah Beebiss II (HB)</description>
 		<year>2022</year>
 		<manufacturer>Rigg'd Games</manufacturer>
-		<rom name="Yeah Yeah Beebiss II (2022).nes" size="65552" crc="4a8eed90"/>
+		<rom name="Yeah Yeah Beebiss II (2022)(Rigg'd Games).nes" size="65552" crc="4a8eed90"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -19968,7 +20003,7 @@
 		<description>Yun R5 (HB)</description>
 		<year>2018</year>
 		<manufacturer>The Mojon Twins</manufacturer>
-		<rom name="yun r5 (2018)(mojon twins).nes" size="65552" crc="04940713"/>
+		<rom name="Yun R5 (2018)(The Mojon Twins).nes" size="65552" crc="04940713"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
