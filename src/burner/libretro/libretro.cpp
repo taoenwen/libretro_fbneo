@@ -477,24 +477,24 @@ void retro_set_environment(retro_environment_t cb)
 		{ "Rom", "zip|7z|dat", true, true, true, NULL, 0 },
 	};
 	static const struct retro_subsystem_rom_info subsystem_iso[] = {
-		{ "Iso", "ccd|cue", true, true, true, NULL, 0 },
+		{ "Iso", "ccd|cue",    true, true, true, NULL, 0 },
 	};
 	static const struct retro_subsystem_info subsystems[] = {
-		{ "CBS ColecoVision", "cv", subsystem_rom, 1, RETRO_GAME_TYPE_CV },
-		{ "Fairchild ChannelF", "chf", subsystem_rom, 1, RETRO_GAME_TYPE_CHF },
-		{ "MSX 1", "msx", subsystem_rom, 1, RETRO_GAME_TYPE_MSX },
-		{ "Nec PC-Engine", "pce", subsystem_rom, 1, RETRO_GAME_TYPE_PCE },
-		{ "Nec SuperGrafX", "sgx", subsystem_rom, 1, RETRO_GAME_TYPE_SGX },
-		{ "Nec TurboGrafx-16", "tg16", subsystem_rom, 1, RETRO_GAME_TYPE_TG },
-		{ "Nintendo Entertainment System", "nes", subsystem_rom, 1, RETRO_GAME_TYPE_NES },
-		{ "Nintendo Family Disk System", "fds", subsystem_rom, 1, RETRO_GAME_TYPE_FDS },
-		{ "Sega GameGear", "gg", subsystem_rom, 1, RETRO_GAME_TYPE_GG },
-		{ "Sega Master System", "sms", subsystem_rom, 1, RETRO_GAME_TYPE_SMS },
-		{ "Sega Megadrive", "md", subsystem_rom, 1, RETRO_GAME_TYPE_MD },
-		{ "Sega SG-1000", "sg1k", subsystem_rom, 1, RETRO_GAME_TYPE_SG1K },
-		{ "SNK Neo Geo Pocket", "ngp", subsystem_rom, 1, RETRO_GAME_TYPE_NGP },
-		{ "ZX Spectrum", "spec", subsystem_rom, 1, RETRO_GAME_TYPE_SPEC },
-		{ "Neogeo CD", "neocd", subsystem_iso, 1, RETRO_GAME_TYPE_NEOCD },
+		{ "CBS ColecoVision",              "cv",    subsystem_rom, 1, RETRO_GAME_TYPE_CV    },
+		{ "Fairchild ChannelF",            "chf",   subsystem_rom, 1, RETRO_GAME_TYPE_CHF   },
+		{ "MSX 1",                         "msx",   subsystem_rom, 1, RETRO_GAME_TYPE_MSX   },
+		{ "Nec PC-Engine",                 "pce",   subsystem_rom, 1, RETRO_GAME_TYPE_PCE   },
+		{ "Nec SuperGrafX",                "sgx",   subsystem_rom, 1, RETRO_GAME_TYPE_SGX   },
+		{ "Nec TurboGrafx-16",             "tg16",  subsystem_rom, 1, RETRO_GAME_TYPE_TG    },
+		{ "Nintendo Entertainment System", "nes",   subsystem_rom, 1, RETRO_GAME_TYPE_NES   },
+		{ "Nintendo Family Disk System",   "fds",   subsystem_rom, 1, RETRO_GAME_TYPE_FDS   },
+		{ "Sega GameGear",                 "gg",    subsystem_rom, 1, RETRO_GAME_TYPE_GG    },
+		{ "Sega Master System",            "sms",   subsystem_rom, 1, RETRO_GAME_TYPE_SMS   },
+		{ "Sega Megadrive",                "md",    subsystem_rom, 1, RETRO_GAME_TYPE_MD    },
+		{ "Sega SG-1000",                  "sg1k",  subsystem_rom, 1, RETRO_GAME_TYPE_SG1K  },
+		{ "SNK Neo Geo Pocket",            "ngp",   subsystem_rom, 1, RETRO_GAME_TYPE_NGP   },
+		{ "ZX Spectrum",                   "spec",  subsystem_rom, 1, RETRO_GAME_TYPE_SPEC  },
+		{ "Neogeo CD",                     "neocd", subsystem_iso, 1, RETRO_GAME_TYPE_NEOCD },
 		{ NULL },
 	};
 
@@ -1323,6 +1323,8 @@ void retro_init()
 	else
 		log_cb = log_dummy;
 
+	set_multi_language_strings();	// Determine the user's language and initialize all strings.
+
 	libretro_msg_interface_version = 0;
 	environ_cb(RETRO_ENVIRONMENT_GET_MESSAGE_INTERFACE_VERSION, &libretro_msg_interface_version);
 
@@ -1384,7 +1386,7 @@ void retro_reset()
 
 	// RomData & IPS Patches can be selected before retro_reset() and will be reset after retro_reset(),
 	// at which point the data is processed and returned to determine whether to subsequently Reset or Re-Init.
-	INT32 nIndex = apply_romdatas_from_variables();
+	INT32 nIndex   = apply_romdatas_from_variables();
 	INT32 nPatches = apply_ipses_from_variables();
 
 	// restore the NeoSystem because it was changed during the gameplay
@@ -1407,14 +1409,8 @@ void retro_reset()
 	{
 		retro_incomplete_exit();
 
-		if (nPatches > 0)
-		{
-			IpsPatchInit();
-		}
-		if (-1 != nIndex)
-		{
-			RomDataInit();
-		}
+		if (nPatches > 0) IpsPatchInit();
+		if (-1 != nIndex) RomDataInit();
 
 		retro_load_game_common();
 	} 

@@ -319,7 +319,7 @@ INT32 create_variables_from_ipses()
 			ips_option->dat_path        = szAltFile;
 			ips_option->option_name     = szKey;
 			ips_option->friendly_name   = szAltName;
-			std::string option_name     = (0 != strcmp("", p)) ? p : "Specific to the running romset and your ips database";
+			std::string option_name     = (0 != strcmp("", p)) ? p : RETRO_IPS_DEF_INFO;
 			std::replace(option_name.begin(), option_name.end(), '\r', ' ');
 			ips_option->friendly_name_categorized = option_name;
 

@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include "burner.h"
+#include "retro_string.h"
 
 #define SSTR( x ) static_cast< const std::ostringstream & >(( std::ostringstream() << std::dec << x ) ).str()
 
