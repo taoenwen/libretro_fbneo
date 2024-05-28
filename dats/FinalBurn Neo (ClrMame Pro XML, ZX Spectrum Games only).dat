@@ -6717,8 +6717,30 @@
 		<comment>Hack</comment>
 		<description>Dizzy II - Treasure Island Dizzy (Russian) (128K) (Hack)</description>
 		<year>199?</year>
-		<manufacturer>Codemasters</manufacturer>
+		<manufacturer>unknown</manufacturer>
 		<rom name="Dizzy 2 - Treasure Island Dizzy 128K (1988)(Codemasters)[ru].z80" size="57508" crc="ccc7f01b"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="dizzy2ce23en" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Hack</comment>
+		<description>Dizzy II: Treasure Island - Classic Edition 2023 (English) (128K) (Hack, v1.4)</description>
+		<year>2023</year>
+		<manufacturer>Dr.Titus</manufacturer>
+		<rom name="Dizzy II - Treasure Island - Classic Edition 2023 EN v1.4 128K (2023)(Dr.Titus).tap" size="43272" crc="31d0a7e0"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="dizzy2ce23ru" cloneof="dizzy2ce23en" romof="dizzy2ce23en" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Hack</comment>
+		<description>Dizzy II: Treasure Island - Classic Edition 2023 (Russian) (128K) (Hack, v1.4)</description>
+		<year>2023</year>
+		<manufacturer>Dr.Titus</manufacturer>
+		<rom name="Dizzy II - Treasure Island - Classic Edition 2023 RU v1.4 128K (2023)(Dr.Titus).tap" size="43317" crc="f3edd6b4"/>
 		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
 		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
@@ -6726,7 +6748,7 @@
 	</game>
 	<game name="dizzy2ex23e" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Hack</comment>
-		<description>Dizzy II - Treasure Island Extended Edition 2023 (English) (128K) (Hack, v1.0d)</description>
+		<description>Dizzy II: Treasure Island - Extended Edition 2023 (English) (128K) (Hack, v1.0d)</description>
 		<year>2023</year>
 		<manufacturer>Dr.Titus</manufacturer>
 		<rom name="Dizzy 2 - Treasure Island Ext2023 128K ENG v1.0d (2023)(Dr.Titus).tap" size="44702" crc="d9f6f36f"/>
@@ -6737,7 +6759,7 @@
 	</game>
 	<game name="dizzy2ex23r" cloneof="dizzy2ex23e" romof="dizzy2ex23e" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Hack</comment>
-		<description>Dizzy II - Treasure Island Extended Edition 2023 (Russian) (128K) (Hack, v1.0d)</description>
+		<description>Dizzy II: Treasure Island - Extended Edition 2023 (Russian) (128K) (Hack, v1.0d)</description>
 		<year>2023</year>
 		<manufacturer>Dr.Titus</manufacturer>
 		<rom name="Dizzy 2 - Treasure Island Ext2023 128K RUS v1.0d (2023)(Dr.Titus).tap" size="44695" crc="dccca5a7"/>
@@ -6778,7 +6800,7 @@
 	</game>
 	<game name="dizzy3ce23" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Hack</comment>
-		<description>Dizzy III - Fantasy World Dizzy 2023 Classic Edition (English) (128K) (Hack)</description>
+		<description>Dizzy III: Fantasy World Dizzy - Classic Edition 2023 (English) (128K) (Hack)</description>
 		<year>2023</year>
 		<manufacturer>Dr. Titus</manufacturer>
 		<rom name="Fantasy World Dizzy - 2023 Classic Edition ENG (2023)(Dr. Titus).tap" size="50676" crc="9c46058f"/>
@@ -6789,10 +6811,32 @@
 	</game>
 	<game name="dizzy3ce23ru" cloneof="dizzy3ce23" romof="dizzy3ce23" sourcefile="spectrum/d_spectrum.cpp">
 		<comment>Hack</comment>
-		<description>Dizzy III - Fantasy World Dizzy 2023 Classic Edition (Russian) (128K) (Hack)</description>
+		<description>Dizzy III: Fantasy World Dizzy - Classic Edition 2023 (Russian) (128K) (Hack)</description>
 		<year>2023</year>
 		<manufacturer>Dr. Titus</manufacturer>
 		<rom name="Fantasy World Dizzy - 2023 Classic Edition RUS (2023)(Dr. Titus).tap" size="50986" crc="5fc99016"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="dizzy3ee23en" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Hack</comment>
+		<description>Dizzy III: Fantasy World Dizzy - Extended Edition 2023 (English) (128K) (Hack)</description>
+		<year>2023</year>
+		<manufacturer>Dr. Titus</manufacturer>
+		<rom name="Dizzy III - Fantasy World Dizzy - Extended Edition 2023 EN 128K (2023)(Dr. Titus).tap" size="51677" crc="be462222"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="dizzy3ee23ru" cloneof="dizzy3ee23en" romof="dizzy3ee23en" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Hack</comment>
+		<description>Dizzy III: Fantasy World Dizzy - Extended Edition 2023 (Russian) (128K) (Hack)</description>
+		<year>2023</year>
+		<manufacturer>Dr. Titus</manufacturer>
+		<rom name="Dizzy III - Fantasy World Dizzy - Extended Edition 2023 RU 128K (2023)(Dr. Titus).tap" size="52008" crc="71804a6c"/>
 		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
 		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
@@ -6823,6 +6867,28 @@
 		<year>199?</year>
 		<manufacturer>Codemasters</manufacturer>
 		<rom name="Dizzy 4 - Magicland Dizzy 128K (1990)(Codemasters)[ru].tap" size="58305" crc="328a1777"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="dizzy4ce24en" romof="spec128" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Hack</comment>
+		<description>Dizzy IV: Magicland Dizzy - Classic Edition 2024 (English) (128K) (Hack, v1.1)</description>
+		<year>2024</year>
+		<manufacturer>Dr. Titus</manufacturer>
+		<rom name="Dizzy IV - Magicland Dizzy - Classic Edition 2024 EN v1.1 128K (2024)(Dr. Titus).tap" size="48340" crc="949a2f47"/>
+		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
+		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="dizzy4ce24ru" cloneof="dizzy4ce24en" romof="dizzy4ce24en" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Hack</comment>
+		<description>Dizzy IV: Magicland Dizzy - Classic Edition 2024 (Russian) (128K) (Hack, v1.1)</description>
+		<year>2024</year>
+		<manufacturer>Dr. Titus</manufacturer>
+		<rom name="Dizzy IV - Magicland Dizzy - Classic Edition 2024 RU v1.1 128K (2024)(Dr. Titus).tap" size="48417" crc="7b4167da"/>
 		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
 		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
@@ -8800,6 +8866,26 @@
 		<rom name="Frantic Pengo 2 128K (2022)(Gabriele Amore).tap" size="55197" crc="91f7e148"/>
 		<rom name="zx128_0.rom" merge="zx128_0.rom" size="16384" crc="e76799d2"/>
 		<rom name="zx128_1.rom" merge="zx128_1.rom" size="16384" crc="b96a36be"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="fraysimone" romof="spectrum" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew, Z: change obj - Z+Up: take obj - Z+Down: leave obj - 1: enter caves/gates</comment>
+		<description>Fray Simon (English) (48K) (HB)</description>
+		<year>2022</year>
+		<manufacturer>OI-3</manufacturer>
+		<rom name="Fray Simon EN 48K (2022)(OI-3).tap" size="49623" crc="8bf8e15b"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
+		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="fraysimons" cloneof="fraysimone" romof="fraysimone" sourcefile="spectrum/d_spectrum.cpp">
+		<comment>Homebrew, Z: change obj - Z+Up: take obj - Z+Down: leave obj - 1: enter caves/gates</comment>
+		<description>Fray Simon (Spanish) (48K) (HB)</description>
+		<year>2022</year>
+		<manufacturer>OI-3</manufacturer>
+		<rom name="Fray Simon ES 48K (2022)(OI-3).tap" size="49602" crc="c7841247"/>
+		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -21965,7 +22051,7 @@
 		<description>Tales of Grupp, The (Spanish) (48K) (HB)</description>
 		<year>2015</year>
 		<manufacturer>Retrobytes Productions</manufacturer>
-		<rom name="The Tales of Grupp (2015)(Retrobytes Productions).tap" size="47718" crc="efbe14c3"/>
+		<rom name="Tales of Grupp, The (2015)(Retrobytes Productions).tap" size="47718" crc="efbe14c3"/>
 		<rom name="spectrum.rom" merge="spectrum.rom" size="16384" crc="ddee531f"/>
 		<video type="raster" orientation="horizontal" width="288" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>

@@ -4515,6 +4515,8 @@ DRV		BurnDrvMSX_Dizzyballoon;
 DRV		BurnSpecdizzy2ay;
 DRV		BurnSpecdizzy2;
 DRV		BurnSpecdizzy2ru;
+DRV		BurnSpecDizzy2ce23en;
+DRV		BurnSpecDizzy2ce23ru;
 DRV		BurnSpecDizzy2ex23e;
 DRV		BurnSpecDizzy2es23r;
 DRV		BurnSpecDizzy3andahalf;
@@ -4522,9 +4524,13 @@ DRV		BurnSpecdizzy3;
 DRV		BurnSpecdizzy3ru;
 DRV		BurnSpecDizzy3ce23;
 DRV		BurnSpecDizzy3ce23ru;
+DRV		BurnSpecDizzy3ee23en;
+DRV		BurnSpecDizzy3ee23ru;
 DRV		BurnSpecdizzy4;
 DRV		BurnSpecdizzy4_48;
 DRV		BurnSpecdizzy4ru;
+DRV		BurnSpecDizzy4ce24en;
+DRV		BurnSpecDizzy4ce24ru;
 DRV		BurnDrvnes_dizzyadv;
 DRV		BurnSpecdizzy5;
 DRV		BurnSpecdizzy6;
@@ -6270,6 +6276,8 @@ DRV		BurnDrvcv_ffreddy;
 DRV		BurnSpecfp128k;
 DRV		BurnSpecFpengo2;
 DRV		BurnDrvgg_fray;
+DRV		BurnSpecFraysimone;
+DRV		BurnSpecFraysimons;
 DRV		BurnSpecfred;
 DRV		BurnDrvgg_fredcoupj;
 DRV		BurnDrvgg_fredcoup;
@@ -25296,16 +25304,22 @@ static struct BurnDriver* pDriver[] = {
 	&BurnSpecdizzy2ay,			// Dizzy II - Treasure Island Dizzy (128K)
 	&BurnSpecdizzy2,			// Dizzy II - Treasure Island Dizzy (48K)
 	&BurnSpecdizzy2ru,			// Dizzy II - Treasure Island Dizzy (Russian) (128K) (Hack)
-	&BurnSpecDizzy2ex23e,		// Dizzy II - Treasure Island Extended Edition 2023 (English) (128K) (Hack, v1.0d)
-	&BurnSpecDizzy2es23r,		// Dizzy II - Treasure Island Extended Edition 2023 (Russian) (128K) (Hack, v1.0d)
+	&BurnSpecDizzy2ce23en,		// Dizzy II: Treasure Island - Classic Edition 2023 (English) (128K) (Hack, v1.4)
+	&BurnSpecDizzy2ce23ru,		// Dizzy II: Treasure Island - Classic Edition 2023 (Russian) (128K) (Hack, v1.4)
+	&BurnSpecDizzy2ex23e,		// Dizzy II: Treasure Island - Extended Edition 2023 (English) (128K) (Hack, v1.0d)
+	&BurnSpecDizzy2es23r,		// Dizzy II: Treasure Island - Extended Edition 2023 (Russian) (128K) (Hack, v1.0d)
 	&BurnSpecDizzy3andahalf,	// Dizzy III (Three).. and a Half (48K)
 	&BurnSpecdizzy3,			// Dizzy III - Fantasy World Dizzy (128K)
 	&BurnSpecdizzy3ru,			// Dizzy III - Fantasy World Dizzy (Russian) (128K) (Hack)
-	&BurnSpecDizzy3ce23,		// Dizzy III - Fantasy World Dizzy 2023 Classic Edition (English) (128K) (Hack)
-	&BurnSpecDizzy3ce23ru,		// Dizzy III - Fantasy World Dizzy 2023 Classic Edition (Russian) (128K) (Hack)
+	&BurnSpecDizzy3ce23,		// Dizzy III: Fantasy World Dizzy - Classic Edition 2023 (English) (128K) (Hack)
+	&BurnSpecDizzy3ce23ru,		// Dizzy III: Fantasy World Dizzy - Classic Edition 2023 (Russian) (128K) (Hack)
+	&BurnSpecDizzy3ee23en,		// Dizzy III: Fantasy World Dizzy - Extended Edition 2023 (English) (128K) (Hack)
+	&BurnSpecDizzy3ee23ru,		// Dizzy III: Fantasy World Dizzy - Extended Edition 2023 (Russian) (128K) (Hack)
 	&BurnSpecdizzy4,			// Dizzy IV - Magicland Dizzy (128K)
 	&BurnSpecdizzy4_48,			// Dizzy IV - Magicland Dizzy (48K)
 	&BurnSpecdizzy4ru,			// Dizzy IV - Magicland Dizzy (Russian) (128K) (Hack)
+	&BurnSpecDizzy4ce24en,		// Dizzy IV: Magicland Dizzy - Classic Edition 2024 (English) (128K) (Hack, v1.1)
+	&BurnSpecDizzy4ce24ru,		// Dizzy IV: Magicland Dizzy - Classic Edition 2024 (Russian) (128K) (Hack, v1.1)
 	&BurnDrvnes_dizzyadv,		// Dizzy The Adventurer (USA)
 	&BurnSpecdizzy5,			// Dizzy V - Spellbound Dizzy (128K)
 	&BurnSpecdizzy6,			// Dizzy VI - Prince of the Yolkfolk (128K)
@@ -27051,6 +27065,8 @@ static struct BurnDriver* pDriver[] = {
 	&BurnSpecfp128k,			// Frantic Pengo (128K) (HB)
 	&BurnSpecFpengo2,			// Frantic Pengo 2 (128K) (HB)
 	&BurnDrvgg_fray,			// Fray - Shugyou Hen (Japan)
+	&BurnSpecFraysimone,		// Fray Simon (English) (48K) (HB)
+	&BurnSpecFraysimons,		// Fray Simon (Spanish) (48K) (HB)
 	&BurnSpecfred,				// Fred (48K)
 	&BurnDrvgg_fredcoupj,		// Fred Couples' Golf (Japan)
 	&BurnDrvgg_fredcoup,		// Fred Couples' Golf (USA)
@@ -46039,6 +46055,8 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "spec_dizzy2ay", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy2", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy2ru", "spectrum/d_spectrum.cpp"},
+	{ "spec_dizzy2ce23en", "spectrum/d_spectrum.cpp"},
+	{ "spec_dizzy2ce23ru", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy2ex23e", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy2ex23r", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy3andahalf", "spectrum/d_spectrum.cpp"},
@@ -46046,9 +46064,13 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "spec_dizzy3ru", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy3ce23", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy3ce23ru", "spectrum/d_spectrum.cpp"},
+	{ "spec_dizzy3ee23en", "spectrum/d_spectrum.cpp"},
+	{ "spec_dizzy3ee23ru", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy4", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy4_48", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy4ru", "spectrum/d_spectrum.cpp"},
+	{ "spec_dizzy4ce24en", "spectrum/d_spectrum.cpp"},
+	{ "spec_dizzy4ce24ru", "spectrum/d_spectrum.cpp"},
 	{ "nes_dizzyadv", "nes/d_nes.cpp"},
 	{ "spec_dizzy5", "spectrum/d_spectrum.cpp"},
 	{ "spec_dizzy6", "spectrum/d_spectrum.cpp"},
@@ -47782,6 +47804,8 @@ static game_sourcefile_entry sourcefile_table[] = {
 	{ "spec_fp128k", "spectrum/d_spectrum.cpp"},
 	{ "spec_fpengo2", "spectrum/d_spectrum.cpp"},
 	{ "gg_fray", "sms/d_sms.cpp"},
+	{ "spec_fraysimone", "spectrum/d_spectrum.cpp"},
+	{ "spec_fraysimons", "spectrum/d_spectrum.cpp"},
 	{ "spec_fred", "spectrum/d_spectrum.cpp"},
 	{ "gg_fredcoupj", "sms/d_sms.cpp"},
 	{ "gg_fredcoup", "sms/d_sms.cpp"},
