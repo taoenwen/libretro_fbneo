@@ -1,7 +1,7 @@
 #ifndef __RETRO_STRING__
 #define __RETRO_STRING__
 
-#define NUM_STRING	140
+#define NUM_STRING	141
 
 extern const char* pSelLangStr[NUM_STRING];
 
@@ -138,7 +138,7 @@ void set_multi_language_strings();
 #define RETRO_DEBUG_SPRITE_7_DEF_DESC		pSelLangStr[108]
 #define RETRO_DEBUG_SPRITE_8_DEF_DESC		pSelLangStr[109]
 
-#if 0
+
 #define RETRO_ERROR_MESSAGES_00				pSelLangStr[ 59]	// FBNeo Error
 #define RETRO_ERROR_MESSAGES_01				pSelLangStr[130]
 #define RETRO_ERROR_MESSAGES_02				pSelLangStr[131]
@@ -150,6 +150,7 @@ void set_multi_language_strings();
 #define RETRO_ERROR_MESSAGES_08				pSelLangStr[137]
 #define RETRO_ERROR_MESSAGES_09				pSelLangStr[138]
 #define RETRO_ERROR_MESSAGES_10				pSelLangStr[139]
-#endif // 0
+#define RETRO_ERROR_MESSAGES_11				pSelLangStr[140]
+
 
 #endif

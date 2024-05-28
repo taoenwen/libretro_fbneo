@@ -1205,7 +1205,7 @@ static bool open_archive()
 					static char prev[2048];
 					strcpy(prev, text_missing_files);
 					BurnDrvGetRomName(&rom_name, i, 0);
-					sprintf(text_missing_files, "%s\nROM with name %s and CRC 0x%08x is missing", prev, rom_name, ri.nCrc);
+					sprintf(text_missing_files, RETRO_ERROR_MESSAGES_11, prev, rom_name, ri.nCrc);
 					log_cb(RETRO_LOG_ERROR, "[FBNeo] ROM at index %d with name %s and CRC 0x%08x is required\n", i, rom_name, ri.nCrc);
 					ret = false;
 				}
@@ -2008,7 +2008,7 @@ static bool retro_load_game_common()
 
 		// If the game is marked as not working, let's stop here
 		if (!(BurnDrvIsWorking())) {
-			SetUguiError("This romset is known but marked as not working\nOne of its clones might work so maybe give it a try");
+			SetUguiError(RETRO_ERROR_MESSAGES_01);
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] This romset is known but marked as not working\n");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] One of its clones might work so maybe give it a try\n");
 			goto end;
@@ -2016,13 +2016,13 @@ static bool retro_load_game_common()
 
 		// If the game is a bios, let's stop here
 		if ((BurnDrvGetFlags() & BDF_BOARDROM)) {
-			SetUguiError("Bioses aren't meant to be launched this way");
+			SetUguiError(RETRO_ERROR_MESSAGES_02);
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Bioses aren't meant to be launched this way\n");
 			goto end;
 		}
 
 		if ((BurnDrvGetHardwareCode() & HARDWARE_PUBLIC_MASK) == HARDWARE_SNK_NEOCD && CDEmuImage[0] == '\0') {
-			SetUguiError("You need a disc image to launch neogeo CD\n");
+			SetUguiError(RETRO_ERROR_MESSAGES_03);
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] You need a disc image to launch neogeo CD\n");
 			goto end;
 		}
@@ -2077,7 +2077,7 @@ static bool retro_load_game_common()
 
 		if (!open_archive()) {
 
-			const char* s1 = "This game is known but one of your romsets is missing files for THIS VERSION of FBNeo.\n";
+			const char* s1 = RETRO_ERROR_MESSAGES_04;
 			static char s2[256];
 			const char* rom_name = "";
 			const char* sp1 = "";
@@ -2098,13 +2098,13 @@ static bool retro_load_game_common()
 				sp2 = " ";
 				bios_name = BurnDrvGetTextA(DRV_BOARDROM);
 			}
-			sprintf(s2, "Verify the following romsets : %s%s%s%s%s\n", rom_name, sp1, parent_name, sp2, bios_name);
+			sprintf(s2, RETRO_ERROR_MESSAGES_05, rom_name, sp1, parent_name, sp2, bios_name);
 #ifdef INCLUDE_7Z_SUPPORT
 			const char* s3 = "\n";
 #else
-			const char* s3 = "Note that 7z archive support is disabled for your platform.\n\n";
+			const char* s3 = RETRO_ERROR_MESSAGES_06;
 #endif
-			const char* s4 = "THIS IS NOT A BUG ! If you don't understand what this message means,\nthen you need to read the arcade and FBNeo documentations at https://docs.libretro.com/.\n";
+			const char* s4 = RETRO_ERROR_MESSAGES_07;
 
 			static char uguiText[4096];
 			sprintf(uguiText, "%s%s%s\n\n%s%s", s1, s2, text_missing_files, s3, s4);
@@ -2146,7 +2146,7 @@ static bool retro_load_game_common()
 			HandleMessage(RETRO_LOG_INFO, "[FBNeo] Initialized driver for %s\n", g_driver_name);
 		else
 		{
-			SetUguiError("Failed initializing driver\nThis is unexpected, you should probably report it.");
+			SetUguiError(RETRO_ERROR_MESSAGES_08);
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] Failed initializing driver.\n");
 			HandleMessage(RETRO_LOG_ERROR, "[FBNeo] This is unexpected, you should probably report it.\n");
 			goto end;
@@ -2203,13 +2203,13 @@ static bool retro_load_game_common()
 	}
 	else
 	{
-		const char* s1 = "Romset is unknown.\n";
+		const char* s1 = RETRO_ERROR_MESSAGES_09;
 #ifndef LIGHT
 		const char* s2 = "\n";
 #else
-		const char* s2 = "Note that your device's limitations prevent you from running a full FBNeo build.\nSo the support for this romset might have been removed.\n\n";
+		const char* s2 = RETRO_ERROR_MESSAGES_10;
 #endif
-		const char* s3 = "THIS IS NOT A BUG ! If you don't understand what this message means,\nthen you need to read the arcade and FBNeo documentations at https://docs.libretro.com/.\n";
+		const char* s3 = RETRO_ERROR_MESSAGES_07;
 
 		static char uguiText[4096];
 		sprintf(uguiText, "%s%s%s", s1, s2, s3);
