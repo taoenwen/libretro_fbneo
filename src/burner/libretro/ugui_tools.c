@@ -92,4 +92,4 @@ void gui_draw(void)
    if (!string_is_empty(gui_message))
 	  UG_TextboxSetText(&gui_window, TXB_ID_0, gui_message);
    UG_Update();
-}  
+}
