@@ -48,7 +48,7 @@ void gui_init(int w, int h, int bpp)
 
    /* init uGUI */
    UG_Init(&gui, &Fbneodevice);
-   UG_FontSelect(&FONT_SourceHanSansCN_Medium_13X16);
+   UG_FontSelect(&FONT_SourceHanSansCN_Medium_13X17);
 
    /* create a single window with no buttons */
    UG_WindowCreate(&gui_window, gui_objbuf_wnd, UGUI_MAX_OBJECTS, gui_window_callback);

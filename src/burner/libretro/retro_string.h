@@ -138,8 +138,8 @@ void set_multi_language_strings();
 #define RETRO_DEBUG_SPRITE_7_DEF_DESC		pSelLangStr[108]
 #define RETRO_DEBUG_SPRITE_8_DEF_DESC		pSelLangStr[109]
 
-
-#define RETRO_ERROR_MESSAGES_00				pSelLangStr[ 59]	// FBNeo Error
+/* UGUI */
+#define RETRO_ERROR_MESSAGES_00				pSelLangStr[ 59]
 #define RETRO_ERROR_MESSAGES_01				pSelLangStr[130]
 #define RETRO_ERROR_MESSAGES_02				pSelLangStr[131]
 #define RETRO_ERROR_MESSAGES_03				pSelLangStr[132]

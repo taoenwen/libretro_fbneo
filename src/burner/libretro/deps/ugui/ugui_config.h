@@ -25,7 +25,7 @@
 #define UGUI_USE_UTF8
 
 /* Enable needed fonts */
-#define UGUI_USE_FONT_SourceHanSansCN_Medium_13X16
+#define UGUI_USE_FONT_SourceHanSansCN_Medium_13X17
 #define UGUI_USE_FONT_8X8
 /*
 #define UGUI_USE_FONT_4X16

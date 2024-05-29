@@ -580,7 +580,7 @@ SOURCES_CXX += $(LIBRETRO_DIR)/libretro.cpp \
 SOURCES_C += $(UGUI_DIR)/ugui.c \
 	$(UGUI_DIR)/ugui_textbox.c \
 	$(UGUI_DIR)/font_8x8.c \
-	$(UGUI_DIR)/SourceHanSansCN_Medium_13X16.c \
+	$(UGUI_DIR)/SourceHanSansCN_Medium_13X17.c \
 	$(LIBRETRO_DIR)/ugui_tools.c
 
 # GIT HASH

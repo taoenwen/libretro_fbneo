@@ -2,7 +2,7 @@
 
 #define MAX_LANGUAGES	3
 
-const char* pSelLangStr[NUM_STRING] = { NULL };
+const char *pSelLangStr[NUM_STRING];
 
 static const char* multi_language_strings[MAX_LANGUAGES][NUM_STRING] = {
 	{
@@ -65,7 +65,7 @@ static const char* multi_language_strings[MAX_LANGUAGES][NUM_STRING] = {
 		"Use at your own risk, it could improve performance on some emulated systems for low-end devices, but there are known side effects : savestates won't be compatible with normal interpreter, and some systems won't work",
 		"Neo-Geo mode",
 		"Load appropriate bios depending on your choice, under the condition such a bios is compatible with the running game",
-		"FBNeo Error",
+		"\nNone of those archives was found in your paths",
 		"Use bios set in BIOS dipswitch",
 		"Memory card mode",
 		"Change the behavior for the memory card",
@@ -208,7 +208,7 @@ static const char* multi_language_strings[MAX_LANGUAGES][NUM_STRING] = {
 		"\u4f7f\u7528\u98ce\u9669\u81ea\u8d1f, \u53ef\u4ee5\u63d0\u9ad8\u67d0\u4e9b\u4f4e\u7aef\u8bbe\u5907\u4eff\u771f\u7cfb\u7edf\u7684\u6027\u80fd, \u4f46\u4e5f\u6709\u5df2\u77e5\u7684\u526f\u4f5c\u7528: \u4fdd\u5b58\u72b6\u6001\u4e0e\u6b63\u5e38\u89e3\u91ca\u5668\u4e0d\u517c\u5bb9, \u67d0\u4e9b\u7cfb\u7edf\u65e0\u6cd5\u5de5\u4f5c",
 		"Neo-Geo \u6a21\u5f0f",
 		"\u5728\u4e0e\u8fd0\u884c\u4e2d\u7684\u6e38\u620f\u517c\u5bb9\u7684\u60c5\u51b5\u4e0b, \u6839\u636e\u60a8\u7684\u9009\u62e9\u52a0\u8f7d\u9002\u5f53\u7684 BIOS",
-		"FBNeo \u9519\u8bef",
+		"\n\u6307\u5b9a\u7684\u8def\u5f84\u4e2d\u6ca1\u6709\u627e\u5230\u8fd9\u4e9b\u6863\u6848",
 		"\u4f7f\u7528\u8df3\u7ebf\u5f00\u5173\u4e2d\u7684 BIOS \u8bbe\u7f6e",
 		"\u8bb0\u5fc6\u5361\u6a21\u5f0f",
 		"\u66f4\u6539\u8bb0\u5fc6\u5361",
@@ -351,7 +351,7 @@ static const char* multi_language_strings[MAX_LANGUAGES][NUM_STRING] = {
 		"\u4f7f\u7528\u98a8\u96aa\u81ea\u8ca0, \u53ef\u4ee5\u63d0\u9ad8\u67d0\u4e9b\u4f4e\u7aef\u8a2d\u5099\u4eff\u771f\u7cfb\u7d71\u7684\u6027\u80fd, \u4f46\u4e5f\u6709\u5df2\u77e5\u7684\u526f\u4f5c\u7528: \u4fdd\u5b58\u72c0\u614b\u8207\u6b63\u5e38\u89e3\u91cb\u5668\u4e0d\u517c\u5bb9, \u67d0\u4e9b\u7cfb\u7d71\u7121\u6cd5\u5de5\u4f5c",
 		"Neo-Geo \u6a21\u5f0f",
 		"\u5728\u8207\u904b\u884c\u4e2d\u7684\u904a\u6232\u517c\u5bb9\u7684\u60c5\u6cc1\u4e0b, \u6839\u64da\u60a8\u7684\u9078\u64c7\u52a0\u8f09\u9069\u7576\u7684 BIOS",
-		"FBNeo \u932f\u8aa4",
+		"\n\u6307\u5b9a\u7684\u8def\u5f91\u4e2d\u6c92\u6709\u627e\u5230\u9019\u4e9b\u6a94\u6848",
 		"\u4f7f\u7528\u8df3\u7dda\u958b\u95dc\u4e2d\u7684 BIOS \u8a2d\u7f6e",
 		"\u8a18\u61b6\u5361\u6a21\u5f0f",
 		"\u66f4\u6539\u8a18\u61b6\u5361",
@@ -438,8 +438,8 @@ static const char* multi_language_strings[MAX_LANGUAGES][NUM_STRING] = {
 
 void set_multi_language_strings()
 {
-	INT32 nLangcode = 0;
-	environ_cb(RETRO_ENVIRONMENT_GET_LANGUAGE, &nLangcode);
+	UINT32 nLangcode = 0;
+	environ_cb(RETRO_ENVIRONMENT_GET_LANGUAGE, &nLangcode)
 
 	switch (nLangcode)
 	{
@@ -467,11 +467,11 @@ void set_multi_language_strings()
 		case RETRO_LANGUAGE_HUNGARIAN:
 			nLangcode = 11; break;
 #endif // 0
-	default:
-		break;
+		default:
+			nLangcode = 0; break;
 	}
 
-	for (INT32 i = 0; i < NUM_STRING; i++)
+	for (UINT32 i = 0; i < NUM_STRING; i++)
 		pSelLangStr[i] = multi_language_strings[nLangcode][i];
 }
 

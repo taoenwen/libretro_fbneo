@@ -145,6 +145,7 @@ static INT32 GetLanguageCode()
 		case RETRO_LANGUAGE_HUNGARIAN:
 			nLangcode = 11; break;
 		default:
+			nLangcode =  0; break;
 			break;
 	}
 

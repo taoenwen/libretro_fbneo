@@ -11,8 +11,8 @@
   https://en.wikipedia.org/wiki/Code_page_850
 */
 
-#ifdef UGUI_USE_FONT_SourceHanSansCN_Medium_13X16
-extern const  UG_FONT FONT_SourceHanSansCN_Medium_13X16[];
+#ifdef UGUI_USE_FONT_SourceHanSansCN_Medium_13X17
+extern const  UG_FONT FONT_SourceHanSansCN_Medium_13X17[];
 #endif
 
 #ifdef UGUI_USE_FONT_8X8
