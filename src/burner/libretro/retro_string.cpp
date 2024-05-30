@@ -439,7 +439,7 @@ static const char* multi_language_strings[MAX_LANGUAGES][NUM_STRING] = {
 void set_multi_language_strings()
 {
 	UINT32 nLangcode = 0;
-	environ_cb(RETRO_ENVIRONMENT_GET_LANGUAGE, &nLangcode)
+	environ_cb(RETRO_ENVIRONMENT_GET_LANGUAGE, &nLangcode);
 
 	switch (nLangcode)
 	{
