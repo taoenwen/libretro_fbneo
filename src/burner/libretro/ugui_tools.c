@@ -48,13 +48,13 @@ void gui_init(int w, int h, int bpp)
 
    /* init uGUI */
    UG_Init(&gui, &Fbneodevice);
-   UG_FontSelect(&FONT_SourceHanSansCN_Medium_13X17);
+   UG_FontSelect(FONT_SourceHanSansCN_Medium_13X17);
 
    /* create a single window with no buttons */
    UG_WindowCreate(&gui_window, gui_objbuf_wnd, UGUI_MAX_OBJECTS, gui_window_callback);
    UG_WindowSetStyle(&gui_window, WND_STYLE_SHOW_TITLE);
    UG_WindowSetForeColor(&gui_window, C_BLACK);
-   UG_WindowSetTitleTextFont(&gui_window, &FONT_8X8);
+   UG_WindowSetTitleTextFont(&gui_window, FONT_8X8);
 
    UG_WindowSetXStart(&gui_window, 0);
    UG_WindowSetYStart(&gui_window, 0);
