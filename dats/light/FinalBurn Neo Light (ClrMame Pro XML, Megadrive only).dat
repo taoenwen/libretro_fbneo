@@ -65,7 +65,7 @@
 		<description>16-Bit Rhythm Land (HB)</description>
 		<year>2018</year>
 		<manufacturer>Columbus Circle</manufacturer>
-		<rom name="16-Bit Rhythm Land (HB).bin" size="3145728" crc="67271302"/>
+		<rom name="16-Bit Rhythm Land (2018)(Columbus Circle).bin" size="3145728" crc="67271302"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -857,7 +857,7 @@
 		<description>AlterEgo Remastered (HB)</description>
 		<year>2020</year>
 		<manufacturer>RetroSouls</manufacturer>
-		<rom name="AlterEgo Remastered (HB, 2020).bin" size="786432" crc="3be95745"/>
+		<rom name="AlterEgo Remastered (2020)(RetroSouls).bin" size="786432" crc="3be95745"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1143,7 +1143,7 @@
 		<description>ASAP Plz (HB)</description>
 		<year>2020</year>
 		<manufacturer>YRS Truly</manufacturer>
-		<rom name="asap plz (yrs truly)(2020).bin" size="524288" crc="6f65bbf5"/>
+		<rom name="ASAP Plz (2020)(YRS Truly).bin" size="524288" crc="6f65bbf5"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1520,7 +1520,7 @@
 		<description>Bad Apple (HB, Tech-Demo)</description>
 		<year>2012</year>
 		<manufacturer>Stef_D</manufacturer>
-		<rom name="bad apple (full).bin" size="8202512" crc="37f676e2"/>
+		<rom name="Bad Apple (full).bin" size="8202512" crc="37f676e2"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1596,7 +1596,7 @@
 		<description>Barbarian Remake (HB)</description>
 		<year>2019</year>
 		<manufacturer>Z-Team</manufacturer>
-		<rom name="Barbarian remake (2019)(Z-Team).bin" size="2621440" crc="a887d287"/>
+		<rom name="Barbarian Remake (2019)(Z-Team).bin" size="2621440" crc="a887d287"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1605,7 +1605,7 @@
 		<description>Barbarian the Ultimate Warrior - Amiga (HB)</description>
 		<year>2017</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="barbarianAMIGA.bin" size="1031574" crc="4fc515f5"/>
+		<rom name="Barbarian AMIGA (2017)(F.L).bin" size="1031574" crc="4fc515f5"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1614,7 +1614,7 @@
 		<description>Barbarian the Ultimate Warrior - Amstrad CPC (HB)</description>
 		<year>2014</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="barbarianCPC.bin" size="2296122" crc="d63f8446"/>
+		<rom name="Barbarian Amstrad CPC (2014)(F.L).bin" size="2296122" crc="d63f8446"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1623,7 +1623,7 @@
 		<description>Barbarian the Ultimate Warrior - Atari ST (HB)</description>
 		<year>2014</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="barbarianATARIST.bin" size="2487416" crc="fec97705"/>
+		<rom name="Barbarian Atari ST (2014)(F.L).bin" size="2487416" crc="fec97705"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1632,7 +1632,7 @@
 		<description>Barbarian the Ultimate Warrior - C64 (HB)</description>
 		<year>2014</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="barbarianC64.bin" size="3028428" crc="d37f9af0"/>
+		<rom name="Barbarian C64 (2014)(F.L).bin" size="3028428" crc="d37f9af0"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -1641,7 +1641,7 @@
 		<description>Barbarian the Ultimate Warrior - ZX Spectrum (HB)</description>
 		<year>2015</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="barbarianSPECTRUM.bin" size="1432448" crc="5360129d"/>
+		<rom name="Barbarian ZX Spectrum (2015)(F.L).bin" size="1432448" crc="5360129d"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -2354,7 +2354,7 @@
 		<description>Big's Fishing Derby (HB)</description>
 		<year>2014</year>
 		<manufacturer>Flamewing</manufacturer>
-		<rom name="bigfd.bin" size="1048576" crc="e1448457"/>
+		<rom name="Big's Fishing Derby (2014)(Flamewing).bin" size="1048576" crc="e1448457"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -2602,7 +2602,7 @@
 		<description>Bomb on Basic City (HB, v2.06)</description>
 		<year>2016</year>
 		<manufacturer>Studio Vetea</manufacturer>
-		<rom name="BasicCity206.bin" size="1138854" crc="8f4ac700"/>
+		<rom name="Bomb on Basic City v2.06 (2016)(Studio Vetea).bin" size="1138854" crc="8f4ac700"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -2986,8 +2986,8 @@
 		<comment>Homebrew</comment>
 		<description>Bug Hunt (HB)</description>
 		<year>2015</year>
-		<manufacturer>The Afromonkeys</manufacturer>
-		<rom name="bug hunt (2015)(afromonkeys, the).bin" size="393216" crc="20175de8"/>
+		<manufacturer>The AfroMonkeys</manufacturer>
+		<rom name="Bug Hunt (2015)(The AfroMonkeys).bin" size="393216" crc="20175de8"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -3161,7 +3161,7 @@
 		<description>Canon - Legend of the New Gods (HB)</description>
 		<year>2015</year>
 		<manufacturer>Piko Interactive</manufacturer>
-		<rom name="Canon - Legend of the New Gods (HB).bin" size="2097152" crc="f85dd66d"/>
+		<rom name="Canon - Legend of the New Gods (2015)(Piko Interactive).bin" size="2097152" crc="f85dd66d"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -3170,7 +3170,7 @@
 		<description>Capoeira Boy (HB)</description>
 		<year>2020</year>
 		<manufacturer>Manganga Team</manufacturer>
-		<rom name="capoeira boy (manganga team)(2020).bin" size="655360" crc="2ac1f6ba"/>
+		<rom name="Capoeira Boy (2020)(Manganga Team).bin" size="655360" crc="2ac1f6ba"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -3254,7 +3254,7 @@
 		<description>Cascade (HB) (Unl)</description>
 		<year>2015</year>
 		<manufacturer>Super Fighter Team</manufacturer>
-		<rom name="cascade (world) (unl).md" size="524288" crc="e7b287fe"/>
+		<rom name="Cascade (Unl)(2015)(Super Fighter Team).md" size="524288" crc="e7b287fe"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -5138,7 +5138,7 @@
 		<description>Death Sword - Apple II (HB)</description>
 		<year>2014</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="deathswordAPPLEII.bin" size="425616" crc="12a01f70"/>
+		<rom name="Death Sword Apple II (2014)(F.L).bin" size="425616" crc="12a01f70"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -5147,7 +5147,7 @@
 		<description>Death Sword - PC CGA (HB)</description>
 		<year>2014</year>
 		<manufacturer>F.L</manufacturer>
-		<rom name="deathswordPC.bin" size="446380" crc="aaeaeb87"/>
+		<rom name="Death Sword PC CGA (2014)(F.L).bin" size="446380" crc="aaeaeb87"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -10371,7 +10371,7 @@
 		<description>Kolobok ~ Pyramid (Russia) (Unl)</description>
 		<year>201?</year>
 		<manufacturer>Kudos</manufacturer>
-		<rom name="kolobok.bin" size="131072" crc="c4c55bab"/>
+		<rom name="Kolobok - Pyramid ((201x)(Kudos).bin" size="131072" crc="c4c55bab"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -10934,7 +10934,7 @@
 		<description>Little Medusa (HB)</description>
 		<year>2018</year>
 		<manufacturer>Mega Cat Studios</manufacturer>
-		<rom name="Little Medusa (HB).bin" size="2097152" crc="931dd919"/>
+		<rom name="Little Medusa (2018)(Mega Cat Studios).bin" size="2097152" crc="931dd919"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11063,6 +11063,15 @@
 		<year>1992</year>
 		<manufacturer>Electronic Arts</manufacturer>
 		<rom name="lotus_turbo_lot03.u1" size="1048576" crc="b83ccb7a"/>
+		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="lylecs" sourcefile="megadrive/d_megadrive.cpp">
+		<comment>Homebrew</comment>
+		<description>Lyle in Cube Sector (HB, v1.01)</description>
+		<year>2024</year>
+		<manufacturer>Moftsoft</manufacturer>
+		<rom name="Lyle in Cube Sector v1.01 (2024)(Moftsoft).bin" size="2097152" crc="c1c50812"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11211,7 +11220,7 @@
 		<description>Magic Pockets (HB)</description>
 		<year>2018</year>
 		<manufacturer>The Bitmap Brothers</manufacturer>
-		<rom name="Magic Pockets (HB).bin" size="3407872" crc="cdfc764f"/>
+		<rom name="Magic Pockets (2018)(The Bitmap Brothers).bin" size="3407872" crc="cdfc764f"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11444,7 +11453,7 @@
 		<description>Masiaka (HB, Tech-Demo)</description>
 		<year>2017</year>
 		<manufacturer>Resistance</manufacturer>
-		<rom name="Masiaka-by-Resistance-2017.bin" size="3145728" crc="d237b970"/>
+		<rom name="Masiaka Tech-Demo (2017)(Resistance).bin" size="3145728" crc="d237b970"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11627,7 +11636,7 @@
 		<description>Mega Casanova (HB, v1.3)</description>
 		<year>2016</year>
 		<manufacturer>TLT, Tomahomae</manufacturer>
-		<rom name="Mega Casanova (W)(REV02)[!].bin" size="1890898" crc="c03fd6a1"/>
+		<rom name="Mega Casanova (W)(REV02)(2016)(TLT - Tomahomae).bin" size="1890898" crc="c03fd6a1"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11636,7 +11645,7 @@
 		<description>Mega Casanova 2 (HB, v1.0)</description>
 		<year>2021</year>
 		<manufacturer>TLT, Tomahomae</manufacturer>
-		<rom name="Mega Casanova 2 (W)(REV01)[!].bin" size="1788570" crc="6e570d41"/>
+		<rom name="Mega Casanova 2 (W)(REV01)(2021)(TLT - Tomahomae).bin" size="1788570" crc="6e570d41"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11645,7 +11654,7 @@
 		<description>Mega Casanova 3 (HB, v1.0)</description>
 		<year>2022</year>
 		<manufacturer>TLT, Tomahomae</manufacturer>
-		<rom name="Mega Casanova 3 (W)(REV00)[!].bin" size="1341556" crc="b1bfedf9"/>
+		<rom name="Mega Casanova 3 (W)(REV00)(2022)(TLT - Tomahomae).bin" size="1341556" crc="b1bfedf9"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11654,7 +11663,7 @@
 		<description>Mega Cheril Perils (HB)</description>
 		<year>2016</year>
 		<manufacturer>The Mojon Twins</manufacturer>
-		<rom name="mojon-twins--mega-cheril-perils.bin" size="2088832" crc="77afa0b1"/>
+		<rom name="Mega Cheril Perils (2016)(The Mojon Twins).bin" size="2088832" crc="77afa0b1"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11797,7 +11806,7 @@
 		<description>Mega Q-Bert (HB, v1.2)</description>
 		<year>2016</year>
 		<manufacturer>Jaklub</manufacturer>
-		<rom name="Mega Qbert.bin" size="524288" crc="8e48002d"/>
+		<rom name="Mega Qbert v1.2 (2016)(Jaklub).bin" size="524288" crc="8e48002d"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11806,7 +11815,16 @@
 		<description>Mega Queen Journey, The (HB)</description>
 		<year>2019</year>
 		<manufacturer>DnWn</manufacturer>
-		<rom name="Mega Queen Journey, The.bin" size="4170516" crc="3c8f21e3"/>
+		<rom name="Mega Queen Journey, The (2019)(DnWn).bin" size="4170516" crc="3c8f21e3"/>
+		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
+		<driver status="good"/>
+	</game>
+	<game name="megasmole" sourcefile="megadrive/d_megadrive.cpp">
+		<comment>Homebrew</comment>
+		<description>Mega Slow Mole (HB, v0.8)</description>
+		<year>2024</year>
+		<manufacturer>Slow Mole Studio</manufacturer>
+		<rom name="Mega Slow Mole v0.8 (2024)(Slow Mole Studio).bin" size="2621440" crc="0c53cda2"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -11999,7 +12017,7 @@
 		<description>Metal Blast 2277 (HB)</description>
 		<year>2019</year>
 		<manufacturer>T-Arts Studio</manufacturer>
-		<rom name="metal blast 2277 (rev01-2019)(t-arts studio).bin" size="2647322" crc="dfd4fe49"/>
+		<rom name="Metal Blast 2277 (rev01-2019)(T-Arts Studio).bin" size="2647322" crc="dfd4fe49"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -12558,7 +12576,7 @@
 		<description>Misplaced (HB, English)</description>
 		<year>2019</year>
 		<manufacturer>RetroSouls</manufacturer>
-		<rom name="Misplaced-EN.bin" size="917504" crc="d79fd3ec"/>
+		<rom name="Misplaced EN (2019)(RetroSouls).bin" size="917504" crc="d79fd3ec"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -12567,7 +12585,7 @@
 		<description>Misplaced (HB, Russian)</description>
 		<year>2019</year>
 		<manufacturer>RetroSouls</manufacturer>
-		<rom name="Misplaced-RU.bin" size="917504" crc="1997b949"/>
+		<rom name="Misplaced RU (2019)(RetroSouls).bin" size="917504" crc="1997b949"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -14241,7 +14259,7 @@
 		<description>Oh Mummy (HB)</description>
 		<year>2013</year>
 		<manufacturer>1985 Alternativo</manufacturer>
-		<rom name="Oh Mummy Genesis.bin" size="1048576" crc="b7f68b29"/>
+		<rom name="Oh Mummy (2013)(1985 Alternativo).bin" size="1048576" crc="b7f68b29"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -14250,7 +14268,7 @@
 		<description>Old Towers (HB, v1.2)</description>
 		<year>2019</year>
 		<manufacturer>RetroSouls</manufacturer>
-		<rom name="ot12.bin" size="786432" crc="d875e97d"/>
+		<rom name="Old Towers v1.2 (2019)(RetroSouls).bin" size="786432" crc="d875e97d"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -14299,7 +14317,7 @@
 		<description>Omega Blast (HB, v0.9)</description>
 		<year>2018</year>
 		<manufacturer>Nendo</manufacturer>
-		<rom name="omega blast (v0.9).bin" size="524288" crc="62cbb56c"/>
+		<rom name="Omega Blast v0.9 (2018)(Nendo).bin" size="524288" crc="62cbb56c"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -14780,7 +14798,7 @@
 		<description>Papi Commando MD (HB)</description>
 		<year>2015</year>
 		<manufacturer>Studio Vetea</manufacturer>
-		<rom name="PapiCommandoMD.bin" size="3466596" crc="ec16d540"/>
+		<rom name="Papi Commando MD (2015)(Studio Vetea).bin" size="3466596" crc="ec16d540"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -14789,7 +14807,7 @@
 		<description>Papi Commando Remix MD (HB)</description>
 		<year>2018</year>
 		<manufacturer>Studio Vetea</manufacturer>
-		<rom name="papi commando remix md (2018)(studio vetea).bin" size="3698576" crc="d15c6391"/>
+		<rom name="Papi Commando Remix MD (2018)(Studio Vetea).bin" size="3698576" crc="d15c6391"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -15696,7 +15714,7 @@
 		<description>Pringles the Game (HB)</description>
 		<year>2009</year>
 		<manufacturer>Future Drive</manufacturer>
-		<rom name="pringles the game (2009)(future drive).bin" size="457064" crc="a397bc66"/>
+		<rom name="Pringles the Game (2009)(Future Drive).bin" size="457064" crc="a397bc66"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -15977,8 +15995,8 @@
 		<comment>Homebrew</comment>
 		<description>Puzzli (HB, v1.1)</description>
 		<year>2020</year>
-		<manufacturer>PortableDev</manufacturer>
-		<rom name="puzzli (v1.1).bin" size="1179648" crc="53eca258"/>
+		<manufacturer>PortableDev - Alekmaul</manufacturer>
+		<rom name="Puzzli v1.1 (2020)(PortableDev).bin" size="1179648" crc="53eca258"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -16505,7 +16523,7 @@
 		<description>Rick Dangerous (HB, Russia)</description>
 		<year>2011</year>
 		<manufacturer>Foxy and Pascal</manufacturer>
-		<rom name="rick dangerous (unl).bin" size="4063232" crc="545cbbe4"/>
+		<rom name="Rick Dangerous (Unl)(2011)(Foxy and Pascal).bin" size="4063232" crc="545cbbe4"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -16513,8 +16531,8 @@
 		<comment>Homebrew</comment>
 		<description>Rick Dangerous 2 (HB, v1.1)</description>
 		<year>2018</year>
-		<manufacturer>PortableDev</manufacturer>
-		<rom name="Rick Dangerous 2 v1.1 FrameCounterFix.bin" size="1310720" crc="cc8de65e"/>
+		<manufacturer>PortableDev - Alekmaul</manufacturer>
+		<rom name="Rick Dangerous 2 v1.1 - FrameCounterFix (2018)(PortableDev).bin" size="1310720" crc="cc8de65e"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -18217,7 +18235,7 @@
 		<description>Smart Mouse (HB)</description>
 		<year>2017</year>
 		<manufacturer>Piko Interactive</manufacturer>
-		<rom name="Smart Mouse (HB).bin" size="524288" crc="fb01c832"/>
+		<rom name="Smart Mouse (2017)(Piko Interactive).bin" size="524288" crc="fb01c832"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -19513,7 +19531,7 @@
 		<description>Star Chaser (HB)</description>
 		<year>2014</year>
 		<manufacturer>Sik</manufacturer>
-		<rom name="starchaser-20140705.bin" size="45632" crc="fadd25a3"/>
+		<rom name="Star Chaser (2014-07-05)(Sik).bin" size="45632" crc="fadd25a3"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -21217,7 +21235,7 @@
 		<description>Switch Blade MD (HB)</description>
 		<year>2018</year>
 		<manufacturer>Piko Interactive</manufacturer>
-		<rom name="Switch Blade MD (HB).bin" size="1048576" crc="53dd2706"/>
+		<rom name="Switch Blade MD (2018)(Piko Interactive).bin" size="1048576" crc="53dd2706"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -21308,8 +21326,8 @@
 		<comment>Homebrew</comment>
 		<description>T*GUN II (HB)</description>
 		<year>2015</year>
-		<manufacturer>TooManyGames </manufacturer>
-		<rom name="TGUNII05302015_FINALDRAFT002.bin" size="786432" crc="c842b4d4"/>
+		<manufacturer>TooManyGames</manufacturer>
+		<rom name="TGUN II (2015-05-30 FINALDRAFT002)(2015)(TooManyGames).bin" size="786432" crc="c842b4d4"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -21455,7 +21473,7 @@
 		<description>Tanglewood (HB, Demo)</description>
 		<year>2018</year>
 		<manufacturer>Big Evil Corp.</manufacturer>
-		<rom name="twood_demo.md" size="2097152" crc="9cc94381"/>
+		<rom name="TangleWood Demo (2018)(Big Evil Corp.).md" size="2097152" crc="9cc94381"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -21464,7 +21482,7 @@
 		<description>Tanglewood (HB, v1.0)</description>
 		<year>2018</year>
 		<manufacturer>Big Evil Corp.</manufacturer>
-		<rom name="twood_v1.0.md" size="4194304" crc="1a91c419"/>
+		<rom name="TangleWood v1.0 (2018)(Big Evil Corp.).md" size="4194304" crc="1a91c419"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -21481,7 +21499,7 @@
 		<description>Tanzer (HB)</description>
 		<year>2019</year>
 		<manufacturer>Mega Cat Studios</manufacturer>
-		<rom name="Tanzer (HB).bin" size="4063232" crc="33e80d0d"/>
+		<rom name="Tanzer (2019)(Mega Cat Studios).bin" size="4063232" crc="33e80d0d"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -22636,8 +22654,8 @@
 		<comment>Homebrew</comment>
 		<description>Tro-Now (HB)</description>
 		<year>2015</year>
-		<manufacturer>1985 - bitbitJAM</manufacturer>
-		<rom name="tronow.bin" size="327680" crc="f484fa21"/>
+		<manufacturer>1985 Alternativo - bitbitJAM</manufacturer>
+		<rom name="Tro-Now (2015)(1985 Alternativo).bin" size="327680" crc="f484fa21"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -23055,7 +23073,7 @@
 		<description>Ultracore (HB, USA)</description>
 		<year>2019</year>
 		<manufacturer>Digital Illusions</manufacturer>
-		<rom name="Ultracore.bin" size="2097152" crc="97ed4b2a"/>
+		<rom name="Ultracore (2019)(Digital Illusions).bin" size="2097152" crc="97ed4b2a"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -23162,8 +23180,8 @@
 		<comment>Homebrew</comment>
 		<description>UWOL Quest for Money (HB)</description>
 		<year>2010</year>
-		<manufacturer>Mojon Twins</manufacturer>
-		<rom name="uwol.bin" size="65536" crc="6fa88172"/>
+		<manufacturer>The Mojon Twins</manufacturer>
+		<rom name="Uwol Quest for Money (2010)(The Mojon Twins).bin" size="65536" crc="6fa88172"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -23709,7 +23727,7 @@
 		<description>Water Margin - A Tale of Clouds and Wind (USA) (HB)</description>
 		<year>2015</year>
 		<manufacturer>Piko Interactive</manufacturer>
-		<rom name="Water Margin - A Tale of Clouds and Wind (USA).bin" size="2097152" crc="7f93b916"/>
+		<rom name="Water Margin - A Tale of Clouds and Wind (U)(2015)(Piko Interactive).bin" size="2097152" crc="7f93b916"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -23992,7 +24010,7 @@
 		<description>Wolfenstein 3D (HB, fv11 fix)</description>
 		<year>2015</year>
 		<manufacturer>gasega68k</manufacturer>
-		<rom name="Wolfenstein 3D [fv11 fix].bin" size="1638590" crc="3bad2015"/>
+		<rom name="Wolfenstein 3D (fv11 fix)(2015)(gasega68k).bin" size="1638590" crc="3bad2015"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -25242,7 +25260,7 @@
 		<description>Xeno Crisis (HB, World)</description>
 		<year>2019</year>
 		<manufacturer>Bitmap Bureau</manufacturer>
-		<rom name="Xeno Crisis.bin" size="4194304" crc="ac5f4cca"/>
+		<rom name="Xeno Crisis (2019)(Bitmap Bureau).bin" size="4194304" crc="ac5f4cca"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -25310,7 +25328,7 @@
 		<description>Xump 2 (HB, rev2017)</description>
 		<year>2017</year>
 		<manufacturer>Retroguru</manufacturer>
-		<rom name="xump2 (retroguru)(rev2017).bin" size="655360" crc="f61d26e1"/>
+		<rom name="Xump 2 rev2017 (2017)(Retroguru).bin" size="655360" crc="f61d26e1"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -25344,7 +25362,7 @@
 		<description>Yazzie (HB)</description>
 		<year>2020</year>
 		<manufacturer>RetroSouls</manufacturer>
-		<rom name="Yazzie.bin" size="655360" crc="93d5ad8a"/>
+		<rom name="Yazzie (2020)(RetroSouls).bin" size="655360" crc="93d5ad8a"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -25352,8 +25370,8 @@
 		<comment>Homebrew</comment>
 		<description>Yie Ar Kung-Fu (HB) (Unl)</description>
 		<year>2007</year>
-		<manufacturer>Evgeny and Shiru</manufacturer>
-		<rom name="yie ar kung-fu smdport (2007)(evgeny, shiru).bin" size="206368" crc="f4ec4cc3"/>
+		<manufacturer>Evgeny &amp; Shiru</manufacturer>
+		<rom name="Yie Ar Kung-Fu SMD-Port (2007)(Evgeny, Shiru).bin" size="206368" crc="f4ec4cc3"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>
@@ -25620,8 +25638,8 @@
 		<comment>Homebrew</comment>
 		<description>Zooming Secretary (HB)</description>
 		<year>2017</year>
-		<manufacturer>AfroMonkeys</manufacturer>
-		<rom name="zooming secretary MD.bin" size="655360" crc="8243dce5"/>
+		<manufacturer>The AfroMonkeys</manufacturer>
+		<rom name="Zooming Secretary MD (2017)(The AfroMonkeys).bin" size="655360" crc="8243dce5"/>
 		<video type="raster" orientation="horizontal" width="320" height="224" aspectx="4" aspecty="3"/>
 		<driver status="good"/>
 	</game>

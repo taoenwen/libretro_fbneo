@@ -23870,19 +23870,19 @@
 	</game>
 	<game name="kof94te" cloneof="kof94" romof="kof94" sourcefile="neogeo/d_neogeo.cpp">
 		<comment>Hack</comment>
-		<description>The King of Fighters '94 (Team Edit Edition v1.1.9, Hack)</description>
+		<description>The King of Fighters '94 (Team Edit Edition v1.2.2, Hack)</description>
 		<year>2024</year>
 		<manufacturer>hack (Matt Greer)</manufacturer>
-		<rom name="055-p1te.p1" size="2097152" crc="c7733b52"/>
+		<rom name="055-p1te.p1" size="2097152" crc="0d948efa"/>
 		<rom name="055-s1te.s1" size="131072" crc="dcd024d2"/>
-		<rom name="055-c1te.c1" size="2097152" crc="ffd97c22"/>
-		<rom name="055-c2te.c2" size="2097152" crc="c6f5fc9e"/>
+		<rom name="055-c1te.c1" size="2097152" crc="9fc6044e"/>
+		<rom name="055-c2te.c2" size="2097152" crc="c5e4a59e"/>
 		<rom name="055-c3.c3" merge="055-c3.c3" size="2097152" crc="54f66254"/>
 		<rom name="055-c4.c4" merge="055-c4.c4" size="2097152" crc="0b01765f"/>
 		<rom name="055-c5.c5" merge="055-c5.c5" size="2097152" crc="ee759363"/>
 		<rom name="055-c6.c6" merge="055-c6.c6" size="2097152" crc="498da52c"/>
-		<rom name="055-c7te.c7" size="2097152" crc="eacb38a8"/>
-		<rom name="055-c8te.c8" size="2097152" crc="698d0d92"/>
+		<rom name="055-c7te.c7" size="2097152" crc="b3d868d0"/>
+		<rom name="055-c8te.c8" size="2097152" crc="b296127c"/>
 		<rom name="055-m1.m1" merge="055-m1.m1" size="131072" crc="f6e77cf5"/>
 		<rom name="055-v1.v1" merge="055-v1.v1" size="2097152" crc="8889596d"/>
 		<rom name="055-v2.v2" merge="055-v2.v2" size="2097152" crc="25022b27"/>

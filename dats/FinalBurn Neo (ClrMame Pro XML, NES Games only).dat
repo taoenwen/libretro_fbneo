@@ -49,7 +49,7 @@
 		<description>1991 Du Ma Racing (Unl)</description>
 		<year>1991</year>
 		<manufacturer>Idea-tek</manufacturer>
-		<rom name="1991 Du Ma Racing (Unl).nes" size="65552" crc="8cd7f9b1"/>
+		<rom name="1991 Du Ma Racing (Unl)(1991)(Idea-tek).nes" size="65552" crc="8cd7f9b1"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -273,7 +273,7 @@
 		<description>Adam &amp; Eve (Unl)</description>
 		<year>1991</year>
 		<manufacturer>Mega Soft</manufacturer>
-		<rom name="Adam &amp; Eve (1991)(Mega Soft)(Unl).nes" size="49168" crc="9e2d9a66"/>
+		<rom name="Adam &amp; Eve (Unl)(1991)(Mega Soft).nes" size="49168" crc="9e2d9a66"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -604,7 +604,7 @@
 		<driver status="good"/>
 	</game>
 	<game name="airball" sourcefile="nes/d_nes.cpp">
-		<description>Airball</description>
+		<description>Airball (World)</description>
 		<year>2007</year>
 		<manufacturer>Retrozone - Tengen</manufacturer>
 		<rom name="Airball (2007)(Retrozone).nes" size="131088" crc="9a535a93"/>
@@ -750,7 +750,7 @@
 		<description>Aladdin 4 (Unl)</description>
 		<year>1996</year>
 		<manufacturer>J.Y. Company</manufacturer>
-		<rom name="Aladdin 4 (Unl).nes" size="524304" crc="dda79434"/>
+		<rom name="Aladdin 4 (Unl)(1996)(J.Y. Company).nes" size="524304" crc="dda79434"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -939,7 +939,7 @@
 		<description>Animal Blockes (Unl)</description>
 		<year>200?</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Animal Blockes (200X)(Unknown).nes" size="49168" crc="fc2b860c"/>
+		<rom name="Animal Blockes (200x)(Unknown).nes" size="49168" crc="fc2b860c"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -2930,12 +2930,21 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
-	<game name="cavedrill" sourcefile="nes/d_nes.cpp">
+	<game name="cavedrill" cloneof="cavedrillv3" romof="cavedrillv3" sourcefile="nes/d_nes.cpp">
 		<comment>Homebrew</comment>
 		<description>Cave Driller (HB, v2.2)</description>
 		<year>2021</year>
-		<manufacturer>Mazin</manufacturer>
-		<rom name="Cave Driller v2.2 (2021)(Mazin).nes" size="40976" crc="f11b4a70"/>
+		<manufacturer>Mazionach</manufacturer>
+		<rom name="Cave Driller v2.2 (2021)(Mazionach).nes" size="40976" crc="f11b4a70"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
+	<game name="cavedrillv3" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>Cave Driller (HB, v3.0)</description>
+		<year>2023</year>
+		<manufacturer>Mazionach</manufacturer>
+		<rom name="Cave Driller v3.0 (2023)(Mazionach).nes" size="40976" crc="084d86c8"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -3762,7 +3771,7 @@
 		<description>Creatom (Unl)</description>
 		<year>1991</year>
 		<manufacturer>Micro Genius</manufacturer>
-		<rom name="Creatom (1991)(Micro Genius)(Unl).nes" size="98320" crc="1a1328bc"/>
+		<rom name="Creatom (Unl)(1991)(Micro Genius).nes" size="98320" crc="1a1328bc"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -3975,7 +3984,7 @@
 		<description>Danger Bridge (Unl)</description>
 		<year>200?</year>
 		<manufacturer>Power Joy</manufacturer>
-		<rom name="Danger Bridge (200X)(Power Joy).nes" size="49168" crc="5e59a8b1"/>
+		<rom name="Danger Bridge (200x)(Power Joy).nes" size="49168" crc="5e59a8b1"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -3991,7 +4000,7 @@
 		<description>Dao Shuai (Asia) (Unl)</description>
 		<year>1989</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Dao Shuai (Asia) (Unl).nes" size="65552" crc="00951874"/>
+		<rom name="Dao Shuai (Asia)(Unl)(1989).nes" size="65552" crc="00951874"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -4059,6 +4068,15 @@
 		<year>1990</year>
 		<manufacturer>Visco</manufacturer>
 		<rom name="Dash Yarou (Japan).nes" size="131088" crc="2ddd5f68"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
+	<game name="dataman" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>DataMan (HB)</description>
+		<year>2024</year>
+		<manufacturer>Darkbits - Broke Studio</manufacturer>
+		<rom name="DataMan (2024)(Darkbits, Broke Studio).nes" size="131088" crc="efde1705"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -4484,7 +4502,7 @@
 		<description>Dive Man (Unl)</description>
 		<year>199?</year>
 		<manufacturer>Power Joy</manufacturer>
-		<rom name="Dive Man (Unl).nes" size="262160" crc="b12bfcc2"/>
+		<rom name="Dive Man (Unl)(199x)(Power Joy).nes" size="262160" crc="b12bfcc2"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -5276,7 +5294,7 @@
 		<description>Dringle (Unl)</description>
 		<year>2005</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Dringle (Unl).nes" size="40976" crc="05c38615"/>
+		<rom name="Dringle (Unl)(2005).nes" size="40976" crc="05c38615"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -5575,7 +5593,7 @@
 		<description>Elfland (Unl)</description>
 		<year>1992</year>
 		<manufacturer>TipTop</manufacturer>
-		<rom name="Elfland (1992)(TipTop).nes" size="65552" crc="93c86e5d"/>
+		<rom name="Elfland (Unl)(1992)(TipTop).nes" size="65552" crc="93c86e5d"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -6396,7 +6414,7 @@
 		<description>Fire Dragon (Asia) (Unl)</description>
 		<year>199?</year>
 		<manufacturer>Gamtec</manufacturer>
-		<rom name="Fire Dragon (Asia).nes" size="40976" crc="8ac54f30"/>
+		<rom name="Fire Dragon (Asia)(Unl)(199x)(GamTec).nes" size="40976" crc="8ac54f30"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -6472,7 +6490,7 @@
 		<description>Fish Story (Unl)</description>
 		<year>200?</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Fish Story (Unl).nes" size="49168" crc="afe5a331"/>
+		<rom name="Fish Story (Unl)(200x).nes" size="49168" crc="afe5a331"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -6488,7 +6506,7 @@
 		<description>Five Days (Unl)</description>
 		<year>2005</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Five Days (Unl).nes" size="24592" crc="4d8858e4"/>
+		<rom name="Five Days (Unl)(2005).nes" size="24592" crc="4d8858e4"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -7011,7 +7029,7 @@
 		<description>Garden War (Unl)</description>
 		<year>200?</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Garden War (Unl).nes" size="65552" crc="588a838e"/>
+		<rom name="Garden War (Unl)(200x).nes" size="65552" crc="588a838e"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -8442,7 +8460,7 @@
 		<description>Hoppin' Mad (Prototype)</description>
 		<year>1989</year>
 		<manufacturer>Nowhere Productions</manufacturer>
-		<rom name="Hoppin' Mad (Proto) (1989)(Nowhere Prod.).nes" size="40976" crc="ac45ada9"/>
+		<rom name="Hoppin' Mad (Proto)(1989)(Nowhere Prod.).nes" size="40976" crc="ac45ada9"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -8474,7 +8492,7 @@
 		<description>Huang Di (Asia) (Unl)</description>
 		<year>1994</year>
 		<manufacturer>Asder</manufacturer>
-		<rom name="Huang Di (Asia) (Unl).nes" size="393232" crc="dfdec378"/>
+		<rom name="Huang Di (Asia)(Unl)(1994)(Asder).nes" size="393232" crc="dfdec378"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -8490,7 +8508,7 @@
 		<description>Huge Insect (Asia) (Unl)</description>
 		<year>1993</year>
 		<manufacturer>Thin Chen</manufacturer>
-		<rom name="Huge Insect (Asia) (Unl).nes" size="65552" crc="552a903a"/>
+		<rom name="Huge Insect (Asia)(Unl)(1993)(Thin Chen).nes" size="65552" crc="552a903a"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -8751,6 +8769,15 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
+	<game name="inversion" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>Inversion (HB, v1.4)</description>
+		<year>2013</year>
+		<manufacturer>Red Moon Games</manufacturer>
+		<rom name="Inversion v1.4 (2013)(Red Moon Games).nes" size="40976" crc="d61c6b3b"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
 	<game name="irontan" sourcefile="nes/d_nes.cpp">
 		<description>Iron Tank - The Invasion of Normandy (USA)</description>
 		<year>1988</year>
@@ -8939,6 +8966,15 @@
 		<year>2020</year>
 		<manufacturer>Interabang Entertainment</manufacturer>
 		<rom name="Jay and Silent Bob Mall Brawl (2020)(Interabang Entertainment).nes" size="393232" crc="f167590d"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
+	<game name="jester" sourcefile="nes/d_nes.cpp">
+		<comment>Homebrew</comment>
+		<description>Jester (HB)</description>
+		<year>2020</year>
+		<manufacturer>Acclaim - CollectorVision</manufacturer>
+		<rom name="Jester (2020)(Acclaim - CollectorVision).nes" size="40976" crc="60f4d45c"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -9144,7 +9180,7 @@
 		<description>Jump-Jump (Unl)</description>
 		<year>200?</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Jump-Jump (Unl).nes" size="40976" crc="3fe43784"/>
+		<rom name="Jump-Jump (Unl)(200x).nes" size="40976" crc="3fe43784"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -9297,7 +9333,7 @@
 		<description>JY 45-in-1 (Unl)</description>
 		<year>1998</year>
 		<manufacturer>J.Y. Company</manufacturer>
-		<rom name="JY 45-in-1 (Unl).nes" size="4194320" crc="2a798367"/>
+		<rom name="JY 45-in-1 (Unl)(1998)(J.Y. Company).nes" size="4194320" crc="2a798367"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -9529,7 +9565,7 @@
 		<description>Kart Fighter (Unl)</description>
 		<year>1994</year>
 		<manufacturer>Ge De Industry Co.</manufacturer>
-		<rom name="Kart Fighter (Unl).nes" size="393232" crc="7318bed4"/>
+		<rom name="Kart Fighter (Unl)(1994)(Ge De Industry Co.).nes" size="393232" crc="7318bed4"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -10952,7 +10988,7 @@
 		<description>Mahjong Block (Unl)</description>
 		<year>1991</year>
 		<manufacturer>Idea-tek</manufacturer>
-		<rom name="Mahjong Block (Idea-tek) (Unl).nes" size="65552" crc="30820b60"/>
+		<rom name="Mahjong Block (Unl)(1991)(Idea-tek).nes" size="65552" crc="30820b60"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -11245,7 +11281,7 @@
 		<description>Master Shooter (Unl)</description>
 		<year>1993</year>
 		<manufacturer>NTDEC</manufacturer>
-		<rom name="Master Shooter (Unl).nes" size="65552" crc="d2dcae89"/>
+		<rom name="Master Shooter (Unl)(1993)(NTDEC).nes" size="65552" crc="d2dcae89"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -11654,7 +11690,7 @@
 		<description>Mice Mission (Unl)</description>
 		<year>200?</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Mice Mission (Unl).nes" size="40976" crc="78820fd8"/>
+		<rom name="Mice Mission (Unl)(200x).nes" size="40976" crc="78820fd8"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -13307,7 +13343,7 @@
 		<description>Panda Baby (Unl)</description>
 		<year>1997</year>
 		<manufacturer>Dragon Co.</manufacturer>
-		<rom name="Panda Baby (Unl).nes" size="524304" crc="042f5b25"/>
+		<rom name="Panda Baby (Unl)(1997)(Dragon Co.).nes" size="524304" crc="042f5b25"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -13315,7 +13351,7 @@
 		<description>Panda World (Unl)</description>
 		<year>20??</year>
 		<manufacturer>&lt;unknown&gt;</manufacturer>
-		<rom name="Panda World (Unl)(20XX).nes" size="262160" crc="dff2fe93"/>
+		<rom name="Panda World (Unl)(20xx).nes" size="262160" crc="dff2fe93"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -13722,6 +13758,15 @@
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
+	<game name="pocahontas" sourcefile="nes/d_nes.cpp">
+		<comment>Hack</comment>
+		<description>Pocahontas (Hack)</description>
+		<year>2024</year>
+		<manufacturer>lancuster</manufacturer>
+		<rom name="Pocahontas (2024)(lancuster).nes" size="524304" crc="5e247c68"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="good"/>
+	</game>
 	<game name="pockezau" sourcefile="nes/d_nes.cpp">
 		<description>Pocket Zaurus - Juu Ouken no Nazo (Japan)</description>
 		<year>1987</year>
@@ -13729,6 +13774,14 @@
 		<rom name="Pocket Zaurus - Juu Ouken no Nazo (Japan).nes" size="262160" crc="568be3b8"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
+	</game>
+	<game name="pocohontos" cloneof="pocahontas" romof="pocahontas" sourcefile="nes/d_nes.cpp">
+		<description>Pocohontos (China) (Unl)</description>
+		<year>1997</year>
+		<manufacturer>Hosenkan Electronics</manufacturer>
+		<rom name="Pocohontos (Unl)(China)(1997)(Hosenkan Electronics).nes" size="524304" crc="b57153d5"/>
+		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
+		<driver status="preliminary"/>
 	</game>
 	<game name="pogocats" sourcefile="nes/d_nes.cpp">
 		<comment>Homebrew</comment>
@@ -13984,7 +14037,7 @@
 		<description>Pulveration (Unl)</description>
 		<year>200?</year>
 		<manufacturer>Nice Code Software</manufacturer>
-		<rom name="Pulveration (Unl).nes" size="40976" crc="27de9c6e"/>
+		<rom name="Pulveration (Unl)(200x)(Nice Code Software).nes" size="40976" crc="27de9c6e"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -14837,7 +14890,7 @@
 		<description>Rocketman (Unl)</description>
 		<year>2007</year>
 		<manufacturer>Nice Code Software</manufacturer>
-		<rom name="Rocketman (Unl).nes" size="40976" crc="c18196f2"/>
+		<rom name="Rocketman (Unl)(2007)(Nide Code Software).nes" size="40976" crc="c18196f2"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -15216,7 +15269,7 @@
 		<description>Samurai Spirits (Unl)</description>
 		<year>199?</year>
 		<manufacturer>Rex Soft</manufacturer>
-		<rom name="Samurai Spirits (Unl).nes" size="786448" crc="9b7305f7"/>
+		<rom name="Samurai Spirits (Unl)(199x)(Rex Soft).nes" size="786448" crc="9b7305f7"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
@@ -16911,7 +16964,7 @@
 		<description>Super Kart Fighter (Hack)</description>
 		<year>2022</year>
 		<manufacturer>Mr. Streetwize</manufacturer>
-		<rom name="Super Kart Fighter Hack (2022) (Streetwize).nes" size="393232" crc="ce36e36d"/>
+		<rom name="Super Kart Fighter Hack (2022)(Mr. Streetwize).nes" size="393232" crc="ce36e36d"/>
 		<video type="raster" orientation="horizontal" width="256" height="224" aspectx="256" aspecty="224"/>
 		<driver status="good"/>
 	</game>
