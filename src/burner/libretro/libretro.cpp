@@ -474,7 +474,7 @@ void retro_set_environment(retro_environment_t cb)
 
 	// Subsystem (needs to be called now, or it won't work on command line)
 	static const struct retro_subsystem_rom_info subsystem_rom[] = {
-		{ "Rom", "zip|7z|dat", true, true, true, NULL, 0 },
+		{ "Rom", "zip|7z", true, true, true, NULL, 0 },
 	};
 	static const struct retro_subsystem_rom_info subsystem_iso[] = {
 		{ "Iso", "ccd|cue",    true, true, true, NULL, 0 },
@@ -517,7 +517,7 @@ void retro_get_system_info(struct retro_system_info *info)
 	info->library_version = strdup(library_version);
 	info->need_fullpath = true;
 	info->block_extract = true;
-	info->valid_extensions = "zip|7z|cue|ccd|dat";
+	info->valid_extensions = "zip|7z|cue|ccd";
 
 	free(library_version);
 }
