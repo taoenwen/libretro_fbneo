@@ -89,6 +89,9 @@ Refer to a [clrmamepro tutorial](https://docs.libretro.com/guides/arcade-getting
 | Camera            | ✕         |
 | Location          | ✕         |
 | Subsystem         | ✔         |
+| IPS Patch         | ✔         |
+| RomData           | ✔         |
+| Multi-language    | ✔         |
 
 ## Mapping
 
@@ -260,7 +263,28 @@ This core supports the RetroArch cheat feature with the `.cht` files. However it
 
 * Download the pack of cheats from [here](https://github.com/finalburnneo/FBNeo-cheats/archive/master.zip)
 * Uncompress **all of them** into the `SYSTEM_DIRECTORY/fbneo/cheats/` folder (which is **NOT** the same folder as the RetroArch feature with the `.cht` files)
-* Cheats will become available through core options (`Quick Menu > Options`, **NOT** `Quick Menu > Cheats`) afterward.
+* Cheats will become available through core options (`Quick Menu > Core Options`, **NOT** `Quick Menu > Cheats`) afterward.
+
+## IPS Patch
+
+This core supports the IPS Patch feature.
+
+* Put all IPS patch files (including: driver name directory/**.dat|**.ips) into the `SYSTEM_DIRECTORY/fbneo/ips/` folder
+* IPS Patch will become available through core options (`Quick Menu > Core Options`) afterward.
+
+## RomData
+
+This core supports the RomData feature.
+
+* Put all RomData files (including: driver name directory/**.dat) into the `SYSTEM_DIRECTORY/fbneo/romdata/` folder
+* RomData will become available through core options (`Quick Menu > Core Options`) afterward.
+
+## Multi-language
+
+This core supports multi-language feature.
+
+* Multi-language is based on the front-end User UI language switching
+* Simplified Chinese and Traditional Chinese have been added.
 
 ## Frequently asked questions
 
