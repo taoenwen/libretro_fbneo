@@ -359,6 +359,11 @@ INT32 reset_ipses_from_variables()
 
 INT32 apply_ipses_from_variables()
 {
+	if (!bPatchedRomsetsEnabled) {
+		reset_ipses_from_variables(); 
+		return -2;
+	}
+
 	IpsPatchExit();
 
 	struct retro_variable var = { 0 };

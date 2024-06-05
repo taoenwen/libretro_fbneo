@@ -535,6 +535,11 @@ INT32 reset_romdatas_from_variables()
 
 INT32 apply_romdatas_from_variables()
 {
+	if (!bPatchedRomsetsEnabled) {
+		reset_romdatas_from_variables();
+		return -2;
+	}
+
 	INT32 nIndex = 0, nCount = 0;
 	struct retro_variable var = { 0 };
 
