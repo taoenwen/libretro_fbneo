@@ -2235,6 +2235,12 @@ static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRo
 	INT32 nRet = 0;	// 1: romdata; 2: ips;
 	char szDatDir[MAX_PATH] = { 0 }, szRomset[128] = { 0 }, * pszTmp = NULL;
 
+	if (NULL == strrchr(info->path, '.'))
+	{
+		strcpy(pszRomsetPath, info->path);
+		return nRet;
+	}
+
 	if (0 == strcmp(strrchr(info->path, '.'), ".dat"))
 	{
 		memset(szRomdataName, 0, MAX_PATH);
