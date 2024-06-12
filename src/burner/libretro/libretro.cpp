@@ -2230,18 +2230,15 @@ end:
 	return true;
 }
 
-static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRomsetPath)
+static int retro_dat_romset_path(const struct retro_game_info* info)
 {
-	INT32 nRet = 0;	// 1: romdata; 2: ips;
-	char szDatDir[MAX_PATH] = { 0 }, szRomset[128] = { 0 }, * pszTmp = NULL;
+	INT32 nDat = -1, nRet = 0;	// 1: romdata; 2: ips;
+	char szDatDir[MAX_PATH] = { 0 }, szRomset[128] = { 0 }, * pszTmp = strrchr(info->path, '.');
 
-	if (NULL == strrchr(info->path, '.'))
-	{
-		strcpy(pszRomsetPath, info->path);
-		return nRet;
-	}
+	if (NULL != pszTmp)
+		nDat = strcmp(string_to_lower(pszTmp), ".dat");	// 0: *.dat
 
-	if (0 == strcmp(strrchr(info->path, '.'), ".dat"))
+	if (0 == nDat)
 	{
 		memset(szRomdataName, 0, MAX_PATH);
 		strcpy(szRomdataName, info->path);				// romdata_dir/romdata.dat
@@ -2272,11 +2269,11 @@ static int retro_dat_romset_path(const struct retro_game_info* info, char* pszRo
 				strcpy(szRomset, ++pszTmp);				// romset of ips
 		}
 
-		_stprintf(pszRomsetPath, _T("%s%c%s"), szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
+		_stprintf(szRomsetPath, _T("%s%c%s"), szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
 	}
 	else
 	{
-		strcpy(pszRomsetPath, info->path);
+		strcpy(szRomsetPath, info->path);
 		extract_basename(szRomset, info->path, sizeof(szRomset), "");
 
 		// Not found in the list of games
@@ -2315,7 +2312,7 @@ bool retro_load_game(const struct retro_game_info *info)
 	if (!info)
 		return false;
 
-	INT32 nMode = retro_dat_romset_path(info, szRomsetPath);
+	INT32 nMode = retro_dat_romset_path(info);
 
 	switch (nMode)
 	{
