@@ -60,13 +60,16 @@ INT32 CoreIpsPathsLoad()
 
 	_tcscpy(CoreIpsPaths[0], szAppIpsesPath);						// CoreIpsPaths[0] = g_system_dir/fbneo/ips
 
-	_stprintf(szConfig, _T("%sips_path.opt"), szAppPathDefPath);	// g_system_dir/fbneo/path/ips_path.opt
+	snprintf(
+		szConfig, MAX_PATH - 1, "%sips_path.opt",
+		szAppPathDefPath
+	);																// g_system_dir/fbneo/path/ips_path.opt
 
 	if (NULL == (h = _tfopen(szConfig, _T("rt"))))
 	{
 		memset(szConfig, 0, MAX_PATH * sizeof(TCHAR));
-		_stprintf(
-			szConfig, _T("%s%cips_path.opt"),
+		snprintf(
+			szConfig, MAX_PATH - 1, "%s%cips_path.opt",
 			g_rom_dir, PATH_DEFAULT_SLASH_C()
 		);															// g_rom_dir/ips_path.opt
 
@@ -247,14 +250,14 @@ INT32 create_variables_from_ipses()
 		char* p = find_last_slash(CoreIpsPaths[i]);
 		if ((NULL != p) && ('\0' == p[1])) p[0] = '\0';
 
-		TCHAR szFilePathSearch[MAX_PATH] = { 0 }, szPatchPaths[MAX_PATH] = { 0 };
-		_stprintf(
-			szFilePathSearch, _T("%s%c%s%c"),
+		char szFilePathSearch[MAX_PATH] = { 0 }, szPatchPaths[MAX_PATH] = { 0 };
+		snprintf(
+			szFilePathSearch, MAX_PATH - 1, "%s%c%s%c",
 			CoreIpsPaths[i], PATH_DEFAULT_SLASH_C(), pszDrvName, PATH_DEFAULT_SLASH_C()
 		);
 
 		// ips_dirs/drvname_dir/
-		_tcscpy(szPatchPaths, szFilePathSearch);
+		strcpy(szPatchPaths, szFilePathSearch);
 
 		struct RDIR* entry = retro_opendir_include_hidden(szFilePathSearch, true);
 
@@ -277,13 +280,13 @@ INT32 create_variables_from_ipses()
 			memset(szFilePathSearch, 0, MAX_PATH * sizeof(TCHAR));
 
 			// ips_dirs/drvname_dir/xx.dat
-			_stprintf(
-				szFilePathSearch, _T("%s%s"),
+			snprintf(
+				szFilePathSearch, MAX_PATH - 1, "%s%s",
 				szPatchPaths, name
 			);
 
-			if (NULL == (fp = _tfopen(szFilePathSearch, _T("r")))) continue;
-			_tcscpy(szAltFile, szFilePathSearch);
+			if (NULL == (fp = fopen(szFilePathSearch, "r"))) continue;
+			strcpy(szAltFile, szFilePathSearch);
 
 			TCHAR* pszPatchDesc = GetPatchDescByLangcode(fp, nLangcode);
 			// If not available - try English first
@@ -297,7 +300,7 @@ INT32 create_variables_from_ipses()
 				_tcscpy(pszPatchDesc, name);
 			}
 
-			char* p = NULL;
+			p = NULL;
 
 			for (UINT32 x = 0; x < _tcslen(pszPatchDesc); x++) {
 				if ((pszPatchDesc[x] == '\r') || (pszPatchDesc[x] == '\n')) break;

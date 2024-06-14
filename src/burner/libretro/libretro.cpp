@@ -216,13 +216,13 @@ INT32 CoreRomPathsLoad()
 	for (INT32 i = 0; i < DIRS_MAX; i++)
 		memset(CoreRomPaths[i], 0, MAX_PATH * sizeof(TCHAR));
 
-	_stprintf(szConfig, "%srom_path.opt", szAppPathDefPath);
+	snprintf(szConfig, MAX_PATH - 1, "%srom_path.opt", szAppPathDefPath);
 
-	if (NULL == (h = _tfopen(szConfig, _T("rt")))) {
+	if (NULL == (h = fopen(szConfig, "rt"))) {
 		memset(szConfig, 0, MAX_PATH * sizeof(TCHAR));
-		_stprintf(szConfig, "%s%crom_path.opt", g_rom_dir, PATH_DEFAULT_SLASH_C());
+		snprintf(szConfig, MAX_PATH - 1, "%s%crom_path.opt", g_rom_dir, PATH_DEFAULT_SLASH_C());
 
-		if (NULL == (h = _tfopen(szConfig, _T("rt"))))
+		if (NULL == (h = fopen(szConfig, "rt")))
 			return 1;
 	}
 
@@ -955,7 +955,7 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 		for (INT32 nType = 0; nType < TYPES_MAX; nType++)
 		{
 			memset(path, 0, sizeof(path));
-			_stprintf(path, "%s%c%s%c%s", g_rom_dir, PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName);
+			snprintf(path, MAX_PATH - 1, "%s%c%s%c%s", g_rom_dir, PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName);
 			if (ZipOpen(path) == 0)
 			{
 				g_find_list_path.push_back(located_archive());
@@ -991,7 +991,7 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 		for (INT32 nType = 0; nType < TYPES_MAX; nType++)
 		{
 			memset(path, 0, sizeof(path));
-			_stprintf(path, "%s%cfbneo%c%s%c%s", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName);
+			snprintf(path, MAX_PATH, "%s%cfbneo%c%s%c%s", g_system_dir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName);
 			if (ZipOpen(path) == 0)
 			{
 				g_find_list_path.push_back(located_archive());
@@ -1032,7 +1032,7 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 
 			// custom_dir/romName
 			memset(path, 0, sizeof(path));
-			_stprintf(path, "%s%c%s", CoreRomPaths[i], PATH_DEFAULT_SLASH_C(), romName);
+			snprintf(path, MAX_PATH-1,"%s%c%s", CoreRomPaths[i], PATH_DEFAULT_SLASH_C(), romName);
 			if (ZipOpen(path) == 0)
 			{
 				g_find_list_path.push_back(located_archive());
@@ -1051,7 +1051,7 @@ static void locate_archive(std::vector<located_archive>& pathList, const char* c
 			for (INT32 nType = 0; nType < TYPES_MAX; nType++)
 			{
 				memset(path, 0, sizeof(path));
-				_stprintf(path, "%s%c%s%c%s", CoreRomPaths[i], PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName);
+				snprintf(path, MAX_PATH - 1, "%s%c%s%c%s", CoreRomPaths[i], PATH_DEFAULT_SLASH_C(), szTypeEnum[0][nType], PATH_DEFAULT_SLASH_C(), romName);
 				if (ZipOpen(path) == 0)
 				{
 					g_find_list_path.push_back(located_archive());
@@ -2279,7 +2279,7 @@ static int retro_dat_romset_path(const struct retro_game_info* info)
 				strcpy(szRomset, ++pszTmp);					// romset of ips
 		}
 
-		_stprintf(szRomsetPath, _T("%s%c%s"), szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
+		snprintf(szRomsetPath, MAX_PATH - 1, "%s%c%s", szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
 	}
 	else
 	{
@@ -2295,7 +2295,7 @@ static int retro_dat_romset_path(const struct retro_game_info* info)
 
 			extract_directory(szDatDir, info->path, sizeof(szDatDir));
 			memset(szRomdataName, 0, MAX_PATH);
-			_stprintf(szRomdataName, _T("%s%c%s.dat"), szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
+			snprintf(szRomdataName, MAX_PATH - 1, "%s%c%s.dat", szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
 
 			if (NULL != (pszTmp = RomdataGetDrvName()))
 				nRet = 1;
@@ -2305,7 +2305,7 @@ static int retro_dat_romset_path(const struct retro_game_info* info)
 				{
 					memcpy(szSysDir, dir, sizeof(szSysDir));
 					memset(szRomdataName, 0, MAX_PATH);
-					_stprintf(szRomdataName, _T("%s%cfbneo%cromdata%c%s.dat"), szSysDir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szRomset);
+					snprintf(szRomdataName, MAX_PATH - 1, "%s%cfbneo%cromdata%c%s.dat", szSysDir, PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), PATH_DEFAULT_SLASH_C(), szRomset);
 
 					if (NULL != (pszTmp = RomdataGetDrvName()))
 						nRet = 1;
