@@ -2233,29 +2233,39 @@ end:
 static int retro_dat_romset_path(const struct retro_game_info* info)
 {
 	INT32 nDat = -1, nRet = 0;	// 1: romdata; 2: ips;
-	char szDatDir[MAX_PATH] = { 0 }, szRomset[128] = { 0 }, * pszTmp = strrchr(info->path, '.');
+	char szDatDir[MAX_PATH] = { 0 }, szRomset[128] = { 0 }, * pszTmp = NULL;
+	const char* pszExt = strrchr(info->path, '.');
 
-	if (NULL != pszTmp)
-		nDat = strcmp(string_to_lower(pszTmp), ".dat");	// 0: *.dat
+	if (NULL != pszExt)
+	{
+		pszTmp = (char*)malloc(strlen(pszExt) + 1);
+		if (NULL != pszTmp)
+		{
+			strcpy(pszTmp, pszExt);
+			nDat = strcmp(string_to_lower(pszTmp), ".dat");	// 0: *.dat
+			free(pszTmp);
+			pszTmp = NULL;
+		}
+	}
 
 	if (0 == nDat)
 	{
 		memset(szRomdataName, 0, MAX_PATH);
-		strcpy(szRomdataName, info->path);				// romdata_dir/romdata.dat
+		strcpy(szRomdataName, info->path);					// romdata_dir/romdata.dat
 
 		strcpy(szDatDir, info->path);
 
-		if (NULL != (pszTmp = RomdataGetDrvName()))		// romdata
+		if (NULL != (pszTmp = RomdataGetDrvName()))			// romdata
 		{
 			nRet = 1;
-			strcpy(szRomset, pszTmp);					// romset of romdata
+			strcpy(szRomset, pszTmp);						// romset of romdata
 		}
-		else											// ips
+		else												// ips
 		{
 			nRet = 2;
 			memset(szRomdataName, 0, sizeof(szRomdataName));
 			memset(szAppIpsPath,  0, sizeof(szAppIpsPath));
-			strcpy(szAppIpsPath,  info->path);			// ips_dir/drvname_dir/ips.dat
+			strcpy(szAppIpsPath,  info->path);				// ips_dir/drvname_dir/ips.dat
 		}
 
 		for (INT32 i = 0; i < nRet; i++)
@@ -2263,10 +2273,10 @@ static int retro_dat_romset_path(const struct retro_game_info* info)
 			pszTmp = find_last_slash(szDatDir);
 
 			if (NULL != pszTmp)
-				pszTmp[0] = '\0';						// romdata_dir || ips_dir
+				pszTmp[0] = '\0';							// romdata_dir || ips_dir
 
 			if (1 == i)
-				strcpy(szRomset, ++pszTmp);				// romset of ips
+				strcpy(szRomset, ++pszTmp);					// romset of ips
 		}
 
 		_stprintf(szRomsetPath, _T("%s%c%s"), szDatDir, PATH_DEFAULT_SLASH_C(), szRomset);
