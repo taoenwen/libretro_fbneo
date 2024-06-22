@@ -271,6 +271,8 @@ This core supports the IPS Patch feature.
 
 * Put all IPS patch files (including: driver name directory/**.dat|**.ips) into the `SYSTEM_DIRECTORY/fbneo/ips/` folder
 * IPS Patch will become available through core options (`Quick Menu > Core Options`) afterward.
+* Note : To ensure fairness in Achievement Mode, IPS Patch execution follows the 'Allow patched romsets' switch item.
+* Note : To avoid competing with loaded games for startup privileges, IPS Patches is initially disabled by default.
 
 ## RomData
 
@@ -278,6 +280,7 @@ This core supports the RomData feature.
 
 * Put all RomData files (including: driver name directory/**.dat) into the `SYSTEM_DIRECTORY/fbneo/romdata/` folder
 * RomData will become available through core options (`Quick Menu > Core Options`) afterward.
+* Note : To ensure fairness in Achievement Mode, RomData execution follows the 'Allow patched romsets' switch item.
 
 ## Multi-language
 
