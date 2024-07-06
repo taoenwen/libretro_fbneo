@@ -160,7 +160,11 @@ int KailleraGetInput()
 		if (nSyncFrame) {
 			nSyncFrame--;
 			nKailleraFrameNum = 0;
+<<<<<<< HEAD
 			return 0;
+=======
+			return 1;
+>>>>>>> upstream/master
 		}
 	}
 
